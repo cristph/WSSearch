@@ -18,7 +18,7 @@
 
     <title>文书搜索结果</title>
 
-    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/homepage.css" rel="stylesheet">
     <link href="css/reset.css" rel="stylesheet">
     <link href="css/zTreeStyle.css" rel="stylesheet">
@@ -112,8 +112,8 @@
 
 
 
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/homepage.js"></script>
 <script src="js/jquery.ztree.all.min.js"></script>
 <script>

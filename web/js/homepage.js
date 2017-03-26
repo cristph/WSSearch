@@ -24,4 +24,15 @@ function btnBlur(){
 $('#searchBtn').click(function(){
     var input=$('#searchInput').val();
     alert(input);
+    $.post(
+        "/searchByAh",
+        {
+            "Ah": "30"
+        },
+        function(data){
+            alert(data);
+            //var set= $.parseJSON(data);
+            //alert(set);
+        }
+    );
 });
