@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: cristph
@@ -19,9 +20,10 @@
     <title>文书搜索结果</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/homepage.css" rel="stylesheet">
     <link href="css/reset.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
     <link href="css/zTreeStyle.css" rel="stylesheet">
+    <link href="css/search.css" rel="stylesheet">
     <%--<link href="css/buttons.css" rel="stylesheet">--%>
 </head>
 
@@ -45,7 +47,7 @@
                 <h2>文书搜索</h2>
 
                 <div class="input-group">
-                    <input type="text" class="form-control input-lg" placeholder="输入案由、关键词、法院、当事人、律师">
+                    <input type="text" class="form-control input-lg" placeholder="输入案由、关键词、法院、当事人、律师" id="searchInput">
                     <span class="input-group-addon btn-lg join-btn" style="font-size: large;font-weight: bolder" id="searchBtn">搜索</span>
                 </div>
                 <p style="height: 100px"></p>
@@ -63,12 +65,17 @@
                     <span class="button button-primary button-small">审判程序</span>
                 </div>
                 <div>
-                    <div class="well">
-                        刘汉望与刘汉桂民间借贷纠纷一审民事判决书
-                        武穴市人民法院    （2016）鄂1182民初2661号    2017-03-24
-                        【裁判理由】
-                        本院认为:一、被告刘汉桂欠原告刘汉望借款12万元,有被告刘汉桂出具的借条作为证据进行证实,应予认定,对原告刘汉望要求被告刘汉桂偿还借款12万元的诉讼请求,予以支持;二、原告刘汉望和被告刘汉桂在借条中约定按照月利率20‰承担利息,在法律规定的范围之内,对原告刘汉...
-                    </div>
+                    <c:forEach items="${list}" var="item">
+                        <div class="well AJ">
+                            <div class="row AJBiaoTi" onclick="showAj('${item.ah}')">
+                                    ${item.spcx} ${item.wsmc}
+                            </div>
+                            <div class="row AJCiBiaoTi">
+                                    ${item.jbfy} &nbsp;&nbsp;&nbsp;&nbsp; ${item.ah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.pjsj}
+                            </div>
+                            <input type="hidden" value="${item.ah}">
+                        </div>
+                    </c:forEach>
 
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
@@ -114,7 +121,7 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/homepage.js"></script>
+<script src="js/search.js"></script>
 <script src="js/jquery.ztree.all.min.js"></script>
 <script>
     var setting = {

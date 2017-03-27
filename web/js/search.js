@@ -21,18 +21,18 @@ function btnBlur(){
     this.style.backgroundColor='transparent';
 }
 
+function addURLParam(url, name, value){
+    url+=( url.indexOf("?") == -1 ? "?" : "&" );
+    url+=encodeURIComponent(name) + "=" + encodeURIComponent(value);
+    return url;
+}
+
 $('#searchBtn').click(function(){
     var input=$('#searchInput').val();
-    alert(input);
-    $.post(
-        "/searchByAh",
-        {
-            "Ah": "30"
-        },
-        function(data){
-            alert(data);
-            //var set= $.parseJSON(data);
-            //alert(set);
-        }
-    );
+    location.href=addURLParam("/searchByAh","Ah",input);
 });
+
+function showAj(Ah){
+    alert(Ah);
+
+}

@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,31 +23,39 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-    @Resource
-    TestService testService;
+//    @Resource
+//    TestService testService;
 
     @Resource
     AJJBXXService ajjbxxService;
 
-    @RequestMapping("/home")
-    public String home(Model model){
-        return "/home";
-    }
 
-    @RequestMapping("/search")
+    @RequestMapping("/se")
     public String search(){
         return "/search";
     }
 
-    @ResponseBody
-    @RequestMapping(value="/searchByAh",produces = "text/plain;charset=cp936")
+//    @ResponseBody
+//    @RequestMapping(value="/searchByAh",produces = "text/plain;charset=cp936")
+//    public String searchByAh(@RequestParam("Ah")String Ah,
+//                             Model model){
+//        WsAjxxb wsAjxxb=ajjbxxService.searchByAh(Ah);
+//        model.addAttribute("wsAjxxb",wsAjxxb);
+//        System.out.println(wsAjxxb.toString());
+////        response.setContentType("application/json;charset=UTF-8");
+////        return JSON.toJSONString(wsAjxxb);
+//        return wsAjxxb.toString();
+//    }
+
+
+    @RequestMapping(value="/searchByAh")
     public String searchByAh(@RequestParam("Ah")String Ah,
                              Model model){
         WsAjxxb wsAjxxb=ajjbxxService.searchByAh(Ah);
-        model.addAttribute("wsAjxxb",wsAjxxb);
-        System.out.println(wsAjxxb.toString());
-//        response.setContentType("application/json;charset=UTF-8");
-//        return JSON.toJSONString(wsAjxxb);
-        return wsAjxxb.toString();
+        List<WsAjxxb> wsAjxxbList=new ArrayList<>();
+        wsAjxxbList.add(wsAjxxb);
+        model.addAttribute("list",wsAjxxbList);
+//        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
+        return "/search";
     }
 }

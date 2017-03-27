@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: cristph
-  Date: 2016/2/17
-  Time: 10:35
+  Date: 2017/3/27
+  Time: 17:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,11 +16,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>文书搜索</title>
+    <title>文书搜索结果</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/homepage.css" rel="stylesheet">
     <link href="css/reset.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <%--<link href="css/buttons.css" rel="stylesheet">--%>
 </head>
 
 
@@ -39,8 +40,8 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
-                <h1>文书搜索</h1>
-                <h2>文书搜索</h2>
+                <h1>大标题</h1>
+                <h2>次标题</h2>
 
                 <div class="input-group">
                     <input type="text" class="form-control input-lg" placeholder="输入案由、关键词、法院、当事人、律师" id="searchInput">
@@ -71,7 +72,5 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/homepage.js"></script>
 
 </body>
-</html>
