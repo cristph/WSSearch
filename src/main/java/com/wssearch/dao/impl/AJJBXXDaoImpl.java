@@ -21,16 +21,42 @@ public class AJJBXXDaoImpl implements AJJBXXDao {
     protected SessionFactory sessionFactory;
 
     @Override
-    public WsAjxxb searchByAh(String Ah) {
+    public List<WsAjxxb> searchByAh(String Ah) {
         Session session=sessionFactory.openSession();
-        String hql="from WsAjxxb where ajxh=?";
+        String hql="from WsAjxxb where ah like ?";
         Query query=session.createQuery(hql);
-        query.setInteger(0,Integer.valueOf(Ah));
+        String condition="%"+Ah+"%";
+        query.setString(0, condition);
         List<WsAjxxb> list=query.list();
         session.close();
-        if(list.size()>0){
+        return list;
+    }
+
+    @Override
+    public WsAjxxb searchByExactAh(String Ah) {
+        Session session=sessionFactory.openSession();
+        String hql="from WsAjxxb where ah = ?";
+        Query query=session.createQuery(hql);
+        query.setString(0, Ah);
+        List<WsAjxxb> list=query.list();
+        if(list.size()==1){
             return list.get(0);
         }
+        session.close();
+        return null;
+    }
+
+    @Override
+    public WsAjxxb searchByAjxh(int Ajxh) {
+        Session session=sessionFactory.openSession();
+        String hql="from WsAjxxb where ajxh = ?";
+        Query query=session.createQuery(hql);
+        query.setInteger(0,Ajxh);
+        List<WsAjxxb> list=query.list();
+        if(list.size()==1){
+            return list.get(0);
+        }
+        session.close();
         return null;
     }
 }

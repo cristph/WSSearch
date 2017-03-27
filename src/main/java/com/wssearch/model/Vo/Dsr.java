@@ -1,16 +1,9 @@
-package com.wssearch.model;
-
-import javax.persistence.*;
-import java.io.Serializable;
+package com.wssearch.model.Vo;
 
 /**
- * Created by cristph on 2017/3/25.
+ * Created by cristph on 2017/3/27.
  */
-
-@Table(name="WS_DSRB")
-@Entity
-@IdClass(WsDsrId.class)
-public class WsDsr implements Serializable{
+public class Dsr {
 
     private Integer ajxh;//案件序号
     private Integer dsrbh;//当事人编号
@@ -43,26 +36,39 @@ public class WsDsr implements Serializable{
     private String xw;//学位
     private String zzmm;//政治面貌
 
-    @Id
-    @Column(name = "AJXH", nullable = false)
+    private Integer qkbh;//前科编号
+    private String qklb;//前科类别
+    private String cftime;//处罚时间
+    private String cfyy;//处罚原因
+    private String cfdw;//处罚单位
+    private String cfxs;//处罚形式
+    private String cfxq;//处罚刑期
+    private String xmsfsj;//刑满释放日期
+
+    private Integer qzcsbh;//强制措施编号
+    private String zl;//强制措施种类
+    private String zxsj;//强制措施执行时间
+    private String dw;//强制措施单位
+    private String yy;//强制措施原因
+    private String sfdb;//是否逮捕
+    private String dbrq;//逮捕日期
+
     public Integer getAjxh() {
-        return this.ajxh;
+        return ajxh;
     }
 
     public void setAjxh(Integer ajxh) {
         this.ajxh = ajxh;
     }
 
-    @Id
-    @Column(name = "DSRBH", nullable = false)
     public Integer getDsrbh() {
-        return this.dsrbh;
+        return dsrbh;
     }
 
     public void setDsrbh(Integer dsrbh) {
         this.dsrbh = dsrbh;
     }
-    @Column(name = "SSDW", length = 10)
+
     public String getSsdw() {
         return ssdw;
     }
@@ -70,7 +76,7 @@ public class WsDsr implements Serializable{
     public void setSsdw(String ssdw) {
         this.ssdw = ssdw;
     }
-    @Column(name = "YSSSDW", length = 10)
+
     public String getYsssdw() {
         return ysssdw;
     }
@@ -78,7 +84,7 @@ public class WsDsr implements Serializable{
     public void setYsssdw(String ysssdw) {
         this.ysssdw = ysssdw;
     }
-    @Column(name = "DSRLB", length = 10)
+
     public String getDsrlb() {
         return dsrlb;
     }
@@ -86,7 +92,7 @@ public class WsDsr implements Serializable{
     public void setDsrlb(String dsrlb) {
         this.dsrlb = dsrlb;
     }
-    @Column(name = "XM", length = 50)
+
     public String getXm() {
         return xm;
     }
@@ -94,7 +100,7 @@ public class WsDsr implements Serializable{
     public void setXm(String xm) {
         this.xm = xm;
     }
-    @Column(name = "XB", length = 10)
+
     public String getXb() {
         return xb;
     }
@@ -102,7 +108,7 @@ public class WsDsr implements Serializable{
     public void setXb(String xb) {
         this.xb = xb;
     }
-    @Column(name = "MZ", length = 10)
+
     public String getMz() {
         return mz;
     }
@@ -110,7 +116,7 @@ public class WsDsr implements Serializable{
     public void setMz(String mz) {
         this.mz = mz;
     }
-    @Column(name = "GJ", length = 50)
+
     public String getGj() {
         return gj;
     }
@@ -118,7 +124,7 @@ public class WsDsr implements Serializable{
     public void setGj(String gj) {
         this.gj = gj;
     }
-    @Column(name = "WHCD", length = 10)
+
     public String getWhcd() {
         return whcd;
     }
@@ -126,7 +132,7 @@ public class WsDsr implements Serializable{
     public void setWhcd(String whcd) {
         this.whcd = whcd;
     }
-    @Column(name = "ZJLX", length = 10)
+
     public String getZjlx() {
         return zjlx;
     }
@@ -134,7 +140,7 @@ public class WsDsr implements Serializable{
     public void setZjlx(String zjlx) {
         this.zjlx = zjlx;
     }
-    @Column(name = "ZJHM", length = 50)
+
     public String getZjhm() {
         return zjhm;
     }
@@ -142,7 +148,7 @@ public class WsDsr implements Serializable{
     public void setZjhm(String zjhm) {
         this.zjhm = zjhm;
     }
-    @Column(name = "ZW", length = 10)
+
     public String getZw() {
         return zw;
     }
@@ -150,7 +156,7 @@ public class WsDsr implements Serializable{
     public void setZw(String zw) {
         this.zw = zw;
     }
-    @Column(name = "DZ", length = 200)
+
     public String getDz() {
         return dz;
     }
@@ -158,7 +164,7 @@ public class WsDsr implements Serializable{
     public void setDz(String dz) {
         this.dz = dz;
     }
-    @Column(name = "SFZH", length = 2)
+
     public String getSfzh() {
         return sfzh;
     }
@@ -166,7 +172,7 @@ public class WsDsr implements Serializable{
     public void setSfzh(String sfzh) {
         this.sfzh = sfzh;
     }
-    @Column(name = "TSHY", length = 20)
+
     public String getTshy() {
         return tshy;
     }
@@ -174,7 +180,7 @@ public class WsDsr implements Serializable{
     public void setTshy(String tshy) {
         this.tshy = tshy;
     }
-    @Column(name = "JGDBR", length = 20)
+
     public String getJgdbr() {
         return jgdbr;
     }
@@ -182,7 +188,7 @@ public class WsDsr implements Serializable{
     public void setJgdbr(String jgdbr) {
         this.jgdbr = jgdbr;
     }
-    @Column(name = "DWXZ", length = 20)
+
     public String getDwxz() {
         return dwxz;
     }
@@ -190,7 +196,7 @@ public class WsDsr implements Serializable{
     public void setDwxz(String dwxz) {
         this.dwxz = dwxz;
     }
-    @Column(name = "XZFLGXZT", length = 20)
+
     public String getXzflgxzt() {
         return xzflgxzt;
     }
@@ -198,7 +204,7 @@ public class WsDsr implements Serializable{
     public void setXzflgxzt(String xzflgxzt) {
         this.xzflgxzt = xzflgxzt;
     }
-    @Column(name = "XZGLFW", length = 20)
+
     public String getXzglfw() {
         return xzglfw;
     }
@@ -206,7 +212,7 @@ public class WsDsr implements Serializable{
     public void setXzglfw(String xzglfw) {
         this.xzglfw = xzglfw;
     }
-    @Column(name = "BGLX", length = 20)
+
     public String getBglx() {
         return bglx;
     }
@@ -214,7 +220,7 @@ public class WsDsr implements Serializable{
     public void setBglx(String bglx) {
         this.bglx = bglx;
     }
-    @Column(name = "ZZJGDM", length = 20)
+
     public String getZzjgdm() {
         return zzjgdm;
     }
@@ -222,7 +228,7 @@ public class WsDsr implements Serializable{
     public void setZzjgdm(String zzjgdm) {
         this.zzjgdm = zzjgdm;
     }
-    @Column(name = "SFBHR", length = 2)
+
     public String getSfbhr() {
         return sfbhr;
     }
@@ -230,7 +236,7 @@ public class WsDsr implements Serializable{
     public void setSfbhr(String sfbhr) {
         this.sfbhr = sfbhr;
     }
-    @Column(name = "ZRRSF", length = 10)
+
     public String getZrrsf() {
         return zrrsf;
     }
@@ -238,7 +244,7 @@ public class WsDsr implements Serializable{
     public void setZrrsf(String zrrsf) {
         this.zrrsf = zrrsf;
     }
-    @Column(name = "HJSZD", length = 200)
+
     public String getHjszd() {
         return hjszd;
     }
@@ -246,7 +252,7 @@ public class WsDsr implements Serializable{
     public void setHjszd(String hjszd) {
         this.hjszd = hjszd;
     }
-    @Column(name = "XJYCS", length = 100)
+
     public String getXjycs() {
         return xjycs;
     }
@@ -254,7 +260,7 @@ public class WsDsr implements Serializable{
     public void setXjycs(String xjycs) {
         this.xjycs = xjycs;
     }
-    @Column(name = "XSZRNL", length = 20)
+
     public String getXszrnl() {
         return xszrnl;
     }
@@ -262,7 +268,7 @@ public class WsDsr implements Serializable{
     public void setXszrnl(String xszrnl) {
         this.xszrnl = xszrnl;
     }
-    @Column(name = "SFCT", length = 10)
+
     public String getSfct() {
         return sfct;
     }
@@ -270,7 +276,7 @@ public class WsDsr implements Serializable{
     public void setSfct(String sfct) {
         this.sfct = sfct;
     }
-    @Column(name = "XW", length = 20)
+
     public String getXw() {
         return xw;
     }
@@ -278,7 +284,7 @@ public class WsDsr implements Serializable{
     public void setXw(String xw) {
         this.xw = xw;
     }
-    @Column(name = "ZZMM", length = 50)
+
     public String getZzmm() {
         return zzmm;
     }
@@ -287,9 +293,129 @@ public class WsDsr implements Serializable{
         this.zzmm = zzmm;
     }
 
+    public Integer getQkbh() {
+        return qkbh;
+    }
+
+    public void setQkbh(Integer qkbh) {
+        this.qkbh = qkbh;
+    }
+
+    public String getQklb() {
+        return qklb;
+    }
+
+    public void setQklb(String qklb) {
+        this.qklb = qklb;
+    }
+
+    public String getCftime() {
+        return cftime;
+    }
+
+    public void setCftime(String cftime) {
+        this.cftime = cftime;
+    }
+
+    public String getCfyy() {
+        return cfyy;
+    }
+
+    public void setCfyy(String cfyy) {
+        this.cfyy = cfyy;
+    }
+
+    public String getCfdw() {
+        return cfdw;
+    }
+
+    public void setCfdw(String cfdw) {
+        this.cfdw = cfdw;
+    }
+
+    public String getCfxs() {
+        return cfxs;
+    }
+
+    public void setCfxs(String cfxs) {
+        this.cfxs = cfxs;
+    }
+
+    public String getCfxq() {
+        return cfxq;
+    }
+
+    public void setCfxq(String cfxq) {
+        this.cfxq = cfxq;
+    }
+
+    public String getXmsfsj() {
+        return xmsfsj;
+    }
+
+    public void setXmsfsj(String xmsfsj) {
+        this.xmsfsj = xmsfsj;
+    }
+
+    public Integer getQzcsbh() {
+        return qzcsbh;
+    }
+
+    public void setQzcsbh(Integer qzcsbh) {
+        this.qzcsbh = qzcsbh;
+    }
+
+    public String getZl() {
+        return zl;
+    }
+
+    public void setZl(String zl) {
+        this.zl = zl;
+    }
+
+    public String getZxsj() {
+        return zxsj;
+    }
+
+    public void setZxsj(String zxsj) {
+        this.zxsj = zxsj;
+    }
+
+    public String getDw() {
+        return dw;
+    }
+
+    public void setDw(String dw) {
+        this.dw = dw;
+    }
+
+    public String getYy() {
+        return yy;
+    }
+
+    public void setYy(String yy) {
+        this.yy = yy;
+    }
+
+    public String getSfdb() {
+        return sfdb;
+    }
+
+    public void setSfdb(String sfdb) {
+        this.sfdb = sfdb;
+    }
+
+    public String getDbrq() {
+        return dbrq;
+    }
+
+    public void setDbrq(String dbrq) {
+        this.dbrq = dbrq;
+    }
+
     @Override
     public String toString() {
-        return "WsDsr{" +
+        return "Dsr{" +
                 "ajxh=" + ajxh +
                 ", dsrbh=" + dsrbh +
                 ", ssdw='" + ssdw + '\'' +
@@ -320,6 +446,21 @@ public class WsDsr implements Serializable{
                 ", sfct='" + sfct + '\'' +
                 ", xw='" + xw + '\'' +
                 ", zzmm='" + zzmm + '\'' +
+                ", qkbh=" + qkbh +
+                ", qklb='" + qklb + '\'' +
+                ", cftime='" + cftime + '\'' +
+                ", cfyy='" + cfyy + '\'' +
+                ", cfdw='" + cfdw + '\'' +
+                ", cfxs='" + cfxs + '\'' +
+                ", cfxq='" + cfxq + '\'' +
+                ", xmsfsj='" + xmsfsj + '\'' +
+                ", qzcsbh=" + qzcsbh +
+                ", zl='" + zl + '\'' +
+                ", zxsj='" + zxsj + '\'' +
+                ", dw='" + dw + '\'' +
+                ", yy='" + yy + '\'' +
+                ", sfdb='" + sfdb + '\'' +
+                ", dbrq='" + dbrq + '\'' +
                 '}';
     }
 }

@@ -2,8 +2,10 @@ package com.wssearch.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.wssearch.model.User;
+import com.wssearch.model.Vo.Dsr;
 import com.wssearch.model.WsAjxxb;
 import com.wssearch.service.AJJBXXService;
+import com.wssearch.service.DsrService;
 import com.wssearch.service.TestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,9 @@ public class SearchController {
     @Resource
     AJJBXXService ajjbxxService;
 
+    @Resource
+    DsrService dsrService;
+
 
     @RequestMapping("/se")
     public String search(){
@@ -51,11 +56,30 @@ public class SearchController {
     @RequestMapping(value="/searchByAh")
     public String searchByAh(@RequestParam("Ah")String Ah,
                              Model model){
-        WsAjxxb wsAjxxb=ajjbxxService.searchByAh(Ah);
-        List<WsAjxxb> wsAjxxbList=new ArrayList<>();
-        wsAjxxbList.add(wsAjxxb);
+        List<WsAjxxb> wsAjxxbList=ajjbxxService.searchByAh(Ah);
         model.addAttribute("list",wsAjxxbList);
-//        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
+        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
         return "/search";
+    }
+
+
+    @RequestMapping("/wsInfo")
+    public String wsInfo(@RequestParam("Ajxh")String Ajxh,
+                         Model model){
+        WsAjxxb wsAjxxb=ajjbxxService.searchByAjxh(Ajxh);
+        model.addAttribute("item",wsAjxxb);
+        return "/wsInfo";
+    }
+
+    @ResponseBody
+    @RequestMapping("/getDsrList")
+    public String getDsrList(@RequestParam("Ajxh")String Ajxh){
+        System.out.println("in method");
+        List<Dsr> list= dsrService.getDsrList(Integer.valueOf(Ajxh));
+        for(Dsr dsr:list){
+            System.out.println(dsr.toString());
+        }
+        System.out.println("return");
+        return null;
     }
 }

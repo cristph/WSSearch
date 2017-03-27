@@ -21,6 +21,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/reset.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
+    <link href="css/wsInfo.css" rel="stylesheet">
     <%--<link href="css/buttons.css" rel="stylesheet">--%>
 </head>
 
@@ -39,14 +40,46 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
-                <h1>大标题</h1>
-                <h2>次标题</h2>
-
-                <div class="input-group">
-                    <input type="text" class="form-control input-lg" placeholder="输入案由、关键词、法院、当事人、律师" id="searchInput">
-                    <span class="input-group-addon btn-lg join-btn" style="font-size: large;font-weight: bolder" id="searchBtn">搜索</span>
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div class="text-center">
+                    <h1>大标题</h1>
+                    <h2>次标题</h2>
                 </div>
+                <div class="title-box">基本信息</div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">案件基本信息</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <input type="hidden" id="Ajxh" value="${item.ajxh}">
+                            <li class="list-group-item">案件序号<span style="color: black;font:large bolder;margin-left: 2%">${item.ajxh}</span></li>
+                            <li class="list-group-item">案号 <span style="color: black;font:large bolder;margin-left: 2%">${item.ah}</span></li>
+                            <li class="list-group-item">案件性质 <span style="color: black;font:large bolder;margin-left: 2%">${item.ajxz}</span></li>
+                            <li class="list-group-item">审判程序<span style="color: black;font:large bolder;margin-left: 2%"> ${item.spcx}</span></li>
+                            <li class="list-group-item">文书名称 <span style="color: black;font:large bolder;margin-left: 2%">${item.wsmc}</span></li>
+                            <li class="list-group-item">文书种类 <span style="color: black;font:large bolder;margin-left: 2%">${item.wszl}</span></li>
+                            <li class="list-group-item">文书制作单位 <span style="color: black;font:large bolder;margin-left: 2%">${item.wszzdw}</span></li>
+                            <li class="list-group-item">经办法院 <span style="color: black;font:large bolder;margin-left: 2%">${item.jbfy}</span></li>
+                            <li class="list-group-item">法院级别 <span style="color: black;font:large bolder;margin-left: 2%">${item.fyjb}</span></li>
+                            <li class="list-group-item">行政区划 省 <span style="color: black;font:large bolder;margin-left: 2%">${item.xzqhsh}</span></li>
+                            <li class="list-group-item">行政区划 市 <span style="color: black;font:large bolder;margin-left: 2%">${item.xzqhs}</span></li>
+                            <li class="list-group-item">立案年度 <span style="color: black;font:large bolder;margin-left: 2%">${item.land}</span></li>
+                            <li class="list-group-item">是否提出管辖权异议<span style="color: black;font:large bolder;margin-left: 2%">${item.tcgxqyy}</span></li>
+                            <li class="list-group-item">结案方式 <span style="color: black;font:large bolder;margin-left: 2%">${item.jafs}</span></li>
+                            <li class="list-group-item">判决时间 <span style="color: black;font:large bolder;margin-left: 2%">${item.pjsj}</span></li>
+                            <li class="list-group-item">结案年度 <span style="color: black;font:large bolder;margin-left: 2%">${item.jand}</span></li>
+                            <li class="list-group-item">结案月份 <span style="color: black;font:large bolder;margin-left: 2%">${item.jayf}</span></li>
+                            <li class="list-group-item">可上诉至 <span style="color: black;font:large bolder;margin-left: 2%">${item.kssz}</span></li>
+                            <li class="list-group-item">上诉期限 <span style="color: black;font:large bolder;margin-left: 2%">${item.ssqx}</span></li>
+                            <li class="list-group-item">上诉提交材料 <span style="color: black;font:large bolder;margin-left: 2%">${item.sstjcl}</span></li>
+                            <li class="list-group-item">是否发回重审 <span style="color: black;font:large bolder;margin-left: 2%">${item.sffhcs}</span></li>
+                            <li class="list-group-item">发回重审原因 <span style="color: black;font:large bolder;margin-left: 2%">${item.fhccyy}</span></li>
+                            <li class="list-group-item">结案总标的 <span style="color: black;font:large bolder;margin-left: 2%">${item.jazbd}</span></li>
+                        </ul>
+                    </div>
+                </div>
+
                 <p style="height: 100px"></p>
             </div>
         </div>
@@ -72,5 +105,6 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/wsInfo.js"></script>
 
 </body>

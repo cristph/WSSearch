@@ -67,13 +67,13 @@
                 <div>
                     <c:forEach items="${list}" var="item">
                         <div class="well AJ">
-                            <div class="row AJBiaoTi" onclick="showAj('${item.ah}')">
+                            <div class="row AJBiaoTi" onclick="showAj('${item.ajxh}')">
                                     ${item.spcx} ${item.wsmc}
                             </div>
                             <div class="row AJCiBiaoTi">
                                     ${item.jbfy} &nbsp;&nbsp;&nbsp;&nbsp; ${item.ah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.pjsj}
                             </div>
-                            <input type="hidden" value="${item.ah}">
+                            <input type="hidden" value="${item.ajxh}">
                         </div>
                     </c:forEach>
 

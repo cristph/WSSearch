@@ -32,7 +32,6 @@ $('#searchBtn').click(function(){
     location.href=addURLParam("/searchByAh","Ah",input);
 });
 
-function showAj(Ah){
-    alert(Ah);
-
+function showAj(Ajxh){
+    location.href=addURLParam("/wsInfo","Ajxh",Ajxh);
 }
