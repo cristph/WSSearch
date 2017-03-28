@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface TestDao {
     public List<User> getAll();
+
+    public String test();
 }

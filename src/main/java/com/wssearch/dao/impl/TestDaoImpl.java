@@ -29,4 +29,13 @@ public class TestDaoImpl implements TestDao{
         List<User> list=query.list();
         return list;
     }
+
+    @Override
+    public String test() {
+        Session session=sessionFactory.openSession();
+        String sql="from WsDsr w1,WsDsrQk w2,WsDsrQzcs w3";
+        Query query=session.createSQLQuery(sql);
+        query.list();
+        return null;
+    }
 }

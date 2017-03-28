@@ -4,7 +4,7 @@
 
 $(function(){
     var Ajxh=$("#Ajxh").val();
-    alert('send'+Ajxh);
+    //alert('send'+Ajxh);
     $.post(
         "/getDsrList",
         {
@@ -18,7 +18,6 @@ $(function(){
 });
 
 function getQK(Ajxh,Dsrbh){
-    //alert("QK");
     $.post(
         "/getQK",
         {
@@ -26,7 +25,6 @@ function getQK(Ajxh,Dsrbh){
             "Dsrbh":Dsrbh
         },
         function(data){
-            //alert(data);
             $('#QKPanel').html(data);
             $('#QKModal').modal();
         }
@@ -35,5 +33,15 @@ function getQK(Ajxh,Dsrbh){
 }
 
 function getQZCS(Ajxh,Dsrbh){
-    alert("QZCS");
+    $.post(
+        "/getQZCS",
+        {
+            "Ajxh":Ajxh,
+            "Dsrbh":Dsrbh
+        },
+        function(data){
+            $('#QZCSPanel').html(data);
+            $('#QZCSModal').modal();
+        }
+    );
 }

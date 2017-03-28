@@ -1,11 +1,8 @@
 package com.wssearch.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.wssearch.model.User;
+import com.wssearch.model.*;
 import com.wssearch.model.Vo.Dsr;
-import com.wssearch.model.WsAjxxb;
-import com.wssearch.model.WsDsr;
-import com.wssearch.model.WsDsrQk;
 import com.wssearch.service.AJJBXXService;
 import com.wssearch.service.DsrService;
 import com.wssearch.service.TestService;
@@ -55,6 +52,11 @@ public class SearchController {
 //        return wsAjxxb.toString();
 //    }
 
+//    @RequestMapping("/test")
+//    public String test(){
+//        testService.test();
+//        return null;
+//    }
 
     @RequestMapping(value="/searchByAh")
     public String searchByAh(@RequestParam("Ah")String Ah,
@@ -93,12 +95,25 @@ public class SearchController {
                               @RequestParam("Dsrbh")String Dsrbh,
                               ModelAndView modelAndView){
         List<WsDsrQk> list=dsrService.getWsDsrQkList(Integer.valueOf(Ajxh),Integer.valueOf(Dsrbh));
-        System.out.println("listsize:"+list.size());
-        for(WsDsrQk wsDsrQk:list){
-            System.out.println(wsDsrQk.toString());
-        }
+//        System.out.println("listsize:"+list.size());
+//        for(WsDsrQk wsDsrQk:list){
+//            System.out.println(wsDsrQk.toString());
+//        }
         modelAndView.addObject("WsDsrQkList",list);
         modelAndView.setViewName("dsrQK");
         return modelAndView;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getQZCS",produces = "text/html;charset=cp936")
+    public ModelAndView getQZCS(@RequestParam("Ajxh")String Ajxh,
+                                @RequestParam("Dsrbh")String Dsrbh,
+                                ModelAndView modelAndView){
+        List<WsDsrQzcs> list=dsrService.getWsDsrQzcsList(Integer.valueOf(Ajxh),Integer.valueOf(Dsrbh));
+        System.out.println("listsize:"+list.size());
+        modelAndView.addObject("WsDsrQzcsList",list);
+        modelAndView.setViewName("dsrQZCS");
+        return modelAndView;
+    }
+
 }

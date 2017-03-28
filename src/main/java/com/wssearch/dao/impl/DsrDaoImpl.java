@@ -4,6 +4,7 @@ import com.wssearch.dao.DsrDao;
 import com.wssearch.model.Vo.Dsr;
 import com.wssearch.model.WsDsr;
 import com.wssearch.model.WsDsrQk;
+import com.wssearch.model.WsDsrQzcs;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -56,6 +57,17 @@ public class DsrDaoImpl implements DsrDao{
         query.setInteger("bh",Dsrbh);
         List<WsDsrQk> list=query.list();
         session.close();
+        return list;
+    }
+
+    @Override
+    public List<WsDsrQzcs> getWsDsrQzcsList(int Ajxh, int Dsrbh) {
+        Session session=sessionFactory.openSession();
+        String hql="from WsDsrQzcs where ajxh=:xh and dsrbh=:bh";
+        Query query=session.createQuery(hql);
+        query.setInteger("xh",Ajxh);
+        query.setInteger("bh",Dsrbh);
+        List<WsDsrQzcs> list=query.list();
         return list;
     }
 

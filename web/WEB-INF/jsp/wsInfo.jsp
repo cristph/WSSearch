@@ -48,10 +48,10 @@
                 </div>
                 <div class="title-box">基本信息</div>
                 <div class="panel panel-success">
-                    <div class="panel-heading">
+                    <div class="panel-heading" data-toggle="collapse" href="#Panel" style="cursor: pointer">
                         <h3 class="panel-title">案件基本信息</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body collapse in" id="Panel">
                         <ul class="list-group">
                             <input type="hidden" id="Ajxh" value="${item.ajxh}">
                             <c:if test="${item.ajxh!=null}">
@@ -127,9 +127,7 @@
                     </div>
                 </div>
 
-                <div id="dsrPanel">
-
-                </div>
+                <div id="dsrPanel"></div>
 
                 <p style="height: 100px"></p>
             </div>

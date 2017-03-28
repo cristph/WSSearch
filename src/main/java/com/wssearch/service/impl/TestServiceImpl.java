@@ -24,4 +24,9 @@ public class TestServiceImpl implements TestService{
     public List<User> getAll() {
         return testDao.getAll();
     }
+
+    @Override
+    public String test() {
+        return testDao.test();
+    }
 }

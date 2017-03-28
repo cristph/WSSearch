@@ -4,6 +4,7 @@ import com.wssearch.dao.DsrDao;
 import com.wssearch.model.Vo.Dsr;
 import com.wssearch.model.WsDsr;
 import com.wssearch.model.WsDsrQk;
+import com.wssearch.model.WsDsrQzcs;
 import com.wssearch.service.DsrService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,5 +35,10 @@ public class DsrServiceImpl  implements DsrService {
     @Override
     public List<WsDsrQk> getWsDsrQkList(int Ajxh, int Dsrbh) {
         return dsrDao.getWsDsrQkList(Ajxh, Dsrbh);
+    }
+
+    @Override
+    public List<WsDsrQzcs> getWsDsrQzcsList(int Ajxh, int Dsrbh) {
+        return dsrDao.getWsDsrQzcsList(Ajxh,Dsrbh);
     }
 }

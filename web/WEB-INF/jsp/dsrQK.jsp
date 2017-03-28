@@ -11,10 +11,10 @@
     <c:when test="${WsDsrQkList.size()>0}">
         <c:forEach items="${WsDsrQkList}" var="item" varStatus="i">
             <div class="panel panel-success">
-                <div class="panel-heading">
+                <div class="panel-heading" data-toggle="collapse" href="#dsrqkPanel${i.count}" style="cursor: pointer">
                     <h3 class="panel-title">当事人前科No.${i.count}</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body collapse in" id="dsrqkPanel${i.count}">
                     <ul class="list-group">
                         <c:if test="${item.ajxh!=null}">
                             <li class="list-group-item">案件序号<span style="color: black;font:large bolder;margin-left: 2%">${item.ajxh}</span></li>

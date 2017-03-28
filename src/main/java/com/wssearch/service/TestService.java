@@ -13,4 +13,6 @@ import java.util.List;
 public interface TestService {
 
     public List<User> getAll();
+
+    public String test();
 }

@@ -9,10 +9,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:forEach items="${list}" var="item" varStatus="i">
     <div class="panel panel-success">
-        <div class="panel-heading">
+        <div class="panel-heading" data-toggle="collapse" href="#dsrPanel${i.count}" style="cursor: pointer">
             <h3 class="panel-title">当事人No.${i.count}</h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body collapse" id="dsrPanel${i.count}">
             <ul class="list-group">
                 <c:if test="${item.ajxh!=null}">
                     <li class="list-group-item">案件序号<span style="color: black;font:large bolder;margin-left: 2%">${item.ajxh}</span></li>
@@ -104,8 +104,8 @@
                 <c:if test="${item.zzmm!=null}">
                     <li class="list-group-item">政治面貌<span style="color: black;font:large bolder;margin-left: 2%">${item.zzmm}</span></li>
                 </c:if>
-                <li class="list-group-item" onclick="getQK(${item.ajxh},${item.dsrbh})" style="cursor: pointer"><span style="color: black;font:large bolder">前科列表</span></li>
-                <li class="list-group-item" onclick="getQZCS(${item.ajxh},${item.dsrbh})" style="cursor: pointer"><span style="color: black;font:large bolder">强制措施</span></li>
+                <li class="list-group-item list-group-item-danger" onclick="getQK(${item.ajxh},${item.dsrbh})" style="cursor: pointer"><span style="color: black;font:large bolder">犯罪前科</span></li>
+                <li class="list-group-item list-group-item-warning" onclick="getQZCS(${item.ajxh},${item.dsrbh})" style="cursor: pointer"><span style="color: black;font:large bolder">强制措施</span></li>
             </ul>
         </div>
     </div>
@@ -119,6 +119,22 @@
                 <h4 class="modal-title" id="QKModalLabel">当事人前科</h4>
             </div>
             <div class="modal-body" id="QKPanel">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="QZCSModal" tabindex="-1" role="dialog" aria-labelledby="QZCSModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="QZCSModalLabel">当事人强制措施</h4>
+            </div>
+            <div class="modal-body" id="QZCSPanel">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
