@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: cristph
@@ -53,31 +54,81 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             <input type="hidden" id="Ajxh" value="${item.ajxh}">
-                            <li class="list-group-item">案件序号<span style="color: black;font:large bolder;margin-left: 2%">${item.ajxh}</span></li>
-                            <li class="list-group-item">案号 <span style="color: black;font:large bolder;margin-left: 2%">${item.ah}</span></li>
-                            <li class="list-group-item">案件性质 <span style="color: black;font:large bolder;margin-left: 2%">${item.ajxz}</span></li>
-                            <li class="list-group-item">审判程序<span style="color: black;font:large bolder;margin-left: 2%"> ${item.spcx}</span></li>
-                            <li class="list-group-item">文书名称 <span style="color: black;font:large bolder;margin-left: 2%">${item.wsmc}</span></li>
-                            <li class="list-group-item">文书种类 <span style="color: black;font:large bolder;margin-left: 2%">${item.wszl}</span></li>
-                            <li class="list-group-item">文书制作单位 <span style="color: black;font:large bolder;margin-left: 2%">${item.wszzdw}</span></li>
-                            <li class="list-group-item">经办法院 <span style="color: black;font:large bolder;margin-left: 2%">${item.jbfy}</span></li>
-                            <li class="list-group-item">法院级别 <span style="color: black;font:large bolder;margin-left: 2%">${item.fyjb}</span></li>
-                            <li class="list-group-item">行政区划 省 <span style="color: black;font:large bolder;margin-left: 2%">${item.xzqhsh}</span></li>
-                            <li class="list-group-item">行政区划 市 <span style="color: black;font:large bolder;margin-left: 2%">${item.xzqhs}</span></li>
-                            <li class="list-group-item">立案年度 <span style="color: black;font:large bolder;margin-left: 2%">${item.land}</span></li>
-                            <li class="list-group-item">是否提出管辖权异议<span style="color: black;font:large bolder;margin-left: 2%">${item.tcgxqyy}</span></li>
-                            <li class="list-group-item">结案方式 <span style="color: black;font:large bolder;margin-left: 2%">${item.jafs}</span></li>
-                            <li class="list-group-item">判决时间 <span style="color: black;font:large bolder;margin-left: 2%">${item.pjsj}</span></li>
-                            <li class="list-group-item">结案年度 <span style="color: black;font:large bolder;margin-left: 2%">${item.jand}</span></li>
-                            <li class="list-group-item">结案月份 <span style="color: black;font:large bolder;margin-left: 2%">${item.jayf}</span></li>
-                            <li class="list-group-item">可上诉至 <span style="color: black;font:large bolder;margin-left: 2%">${item.kssz}</span></li>
-                            <li class="list-group-item">上诉期限 <span style="color: black;font:large bolder;margin-left: 2%">${item.ssqx}</span></li>
-                            <li class="list-group-item">上诉提交材料 <span style="color: black;font:large bolder;margin-left: 2%">${item.sstjcl}</span></li>
-                            <li class="list-group-item">是否发回重审 <span style="color: black;font:large bolder;margin-left: 2%">${item.sffhcs}</span></li>
-                            <li class="list-group-item">发回重审原因 <span style="color: black;font:large bolder;margin-left: 2%">${item.fhccyy}</span></li>
-                            <li class="list-group-item">结案总标的 <span style="color: black;font:large bolder;margin-left: 2%">${item.jazbd}</span></li>
+                            <c:if test="${item.ajxh!=null}">
+                                <li class="list-group-item">案件序号<span style="color: black;font:large bolder;margin-left: 2%">${item.ajxh}</span></li>
+                            </c:if>
+                            <c:if test="${item.ah!=null}">
+                                <li class="list-group-item">案号<span style="color: black;font:large bolder;margin-left: 2%">${item.ah}</span></li>
+                            </c:if>
+                            <c:if test="${item.ajxz!=null}">
+                                <li class="list-group-item">案件性质<span style="color: black;font:large bolder;margin-left: 2%">${item.ajxz}</span></li>
+                            </c:if>
+                            <c:if test="${item.spcx!=null}">
+                                <li class="list-group-item">审判程序<span style="color: black;font:large bolder;margin-left: 2%">${item.spcx}</span></li>
+                            </c:if>
+                            <c:if test="${item.wsmc!=null}">
+                                <li class="list-group-item">文书名称<span style="color: black;font:large bolder;margin-left: 2%">${item.wsmc}</span></li>
+                            </c:if>
+                            <c:if test="${item.wszl!=null}">
+                                <li class="list-group-item">文书种类<span style="color: black;font:large bolder;margin-left: 2%">${item.wszl}</span></li>
+                            </c:if>
+                            <c:if test="${item.wszzdw!=null}">
+                                <li class="list-group-item">文书制作单位<span style="color: black;font:large bolder;margin-left: 2%">${item.wszzdw}</span></li>
+                            </c:if>
+                            <c:if test="${item.jbfy!=null}">
+                                <li class="list-group-item">经办法院<span style="color: black;font:large bolder;margin-left: 2%">${item.jbfy}</span></li>
+                            </c:if>
+                            <c:if test="${item.fyjb!=null}">
+                                <li class="list-group-item">法院级别<span style="color: black;font:large bolder;margin-left: 2%">${item.fyjb}</span></li>
+                            </c:if>
+                            <c:if test="${item.xzqhsh!=null}">
+                                <li class="list-group-item">行政区划 省<span style="color: black;font:large bolder;margin-left: 2%">${item.xzqhsh}</span></li>
+                            </c:if>
+                            <c:if test="${item.xzqhs!=null}">
+                                <li class="list-group-item">行政区划 市<span style="color: black;font:large bolder;margin-left: 2%">${item.xzqhs}</span></li>
+                            </c:if>
+                            <c:if test="${item.land!=null}">
+                                <li class="list-group-item">立案年度<span style="color: black;font:large bolder;margin-left: 2%">${item.land}</span></li>
+                            </c:if>
+                            <c:if test="${item.tcgxqyy!=null}">
+                                <li class="list-group-item">是否提出管辖权异议<span style="color: black;font:large bolder;margin-left: 2%">${item.tcgxqyy}</span></li>
+                            </c:if>
+                            <c:if test="${item.jafs!=null}">
+                                <li class="list-group-item">结案方式<span style="color: black;font:large bolder;margin-left: 2%">${item.jafs}</span></li>
+                            </c:if>
+                            <c:if test="${item.pjsj!=null}">
+                                <li class="list-group-item">判决时间<span style="color: black;font:large bolder;margin-left: 2%">${item.pjsj}</span></li>
+                            </c:if>
+                            <c:if test="${item.jand!=null}">
+                                <li class="list-group-item">结案年度<span style="color: black;font:large bolder;margin-left: 2%">${item.jand}</span></li>
+                            </c:if>
+                            <c:if test="${item.jayf!=null}">
+                                <li class="list-group-item">结案月份<span style="color: black;font:large bolder;margin-left: 2%">${item.jayf}</span></li>
+                            </c:if>
+                            <c:if test="${item.kssz!=null}">
+                                <li class="list-group-item">可上诉至<span style="color: black;font:large bolder;margin-left: 2%">${item.kssz}</span></li>
+                            </c:if>
+                            <c:if test="${item.ssqx!=null}">
+                                <li class="list-group-item">上诉期限<span style="color: black;font:large bolder;margin-left: 2%">${item.ssqx}</span></li>
+                            </c:if>
+                            <c:if test="${item.sstjcl!=null}">
+                                <li class="list-group-item">上诉提交材料<span style="color: black;font:large bolder;margin-left: 2%">${item.sstjcl}</span></li>
+                            </c:if>
+                            <c:if test="${item.sffhcs!=null}">
+                                <li class="list-group-item">是否发回重审<span style="color: black;font:large bolder;margin-left: 2%">${item.sffhcs}</span></li>
+                            </c:if>
+                            <c:if test="${item.fhccyy!=null}">
+                                <li class="list-group-item">发回重审原因<span style="color: black;font:large bolder;margin-left: 2%">${item.fhccyy}</span></li>
+                            </c:if>
+                            <c:if test="${item.jazbd!=null}">
+                                <li class="list-group-item">结案总标的<span style="color: black;font:large bolder;margin-left: 2%">${item.jazbd}</span></li>
+                            </c:if>
                         </ul>
                     </div>
+                </div>
+
+                <div id="dsrPanel">
+
                 </div>
 
                 <p style="height: 100px"></p>

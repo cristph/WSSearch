@@ -11,7 +11,29 @@ $(function(){
             "Ajxh":Ajxh
         },
         function (data) {
-            alert(data);
+            //alert(data);
+            $('#dsrPanel').html(data);
         }
     );
 });
+
+function getQK(Ajxh,Dsrbh){
+    //alert("QK");
+    $.post(
+        "/getQK",
+        {
+            "Ajxh":Ajxh,
+            "Dsrbh":Dsrbh
+        },
+        function(data){
+            //alert(data);
+            $('#QKPanel').html(data);
+            $('#QKModal').modal();
+        }
+    );
+
+}
+
+function getQZCS(Ajxh,Dsrbh){
+    alert("QZCS");
+}

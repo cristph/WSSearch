@@ -121,4 +121,20 @@ public class WsDsrQk implements Serializable{
     public void setXmsfsj(String xmsfsj) {
         this.xmsfsj = xmsfsj;
     }
+
+    @Override
+    public String toString() {
+        return "WsDsrQk{" +
+                "ajxh=" + ajxh +
+                ", qkbh=" + qkbh +
+                ", dsrbh=" + dsrbh +
+                ", qklb='" + qklb + '\'' +
+                ", cftime='" + cftime + '\'' +
+                ", cfyy='" + cfyy + '\'' +
+                ", cfdw='" + cfdw + '\'' +
+                ", cfxs='" + cfxs + '\'' +
+                ", cfxq='" + cfxq + '\'' +
+                ", xmsfsj='" + xmsfsj + '\'' +
+                '}';
+    }
 }
