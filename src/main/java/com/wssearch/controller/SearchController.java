@@ -3,9 +3,8 @@ package com.wssearch.controller;
 import com.alibaba.fastjson.JSON;
 import com.wssearch.model.*;
 import com.wssearch.model.Vo.Dsr;
-import com.wssearch.service.AJJBXXService;
-import com.wssearch.service.DsrService;
-import com.wssearch.service.TestService;
+import com.wssearch.model.Vo.ZkjlZm;
+import com.wssearch.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +33,15 @@ public class SearchController {
     @Resource
     DsrService dsrService;
 
+    @Resource
+    SSJLService ssjlService;
+
+    @Resource
+    CpfxgcService cpfxgcService;
+
+    @Resource
+    XSPJJGService xspjjgService;
+
 
     @RequestMapping("/se")
     public String search(){
@@ -54,7 +62,7 @@ public class SearchController {
 
 //    @RequestMapping("/test")
 //    public String test(){
-//        testService.test();
+//        ssjlService.getZkjlZmList(46817);
 //        return null;
 //    }
 
@@ -63,7 +71,7 @@ public class SearchController {
                              Model model){
         List<WsAjxxb> wsAjxxbList=ajjbxxService.searchByAh(Ah);
         model.addAttribute("list",wsAjxxbList);
-        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
+//        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
         return "/search";
     }
 
@@ -110,9 +118,90 @@ public class SearchController {
                                 @RequestParam("Dsrbh")String Dsrbh,
                                 ModelAndView modelAndView){
         List<WsDsrQzcs> list=dsrService.getWsDsrQzcsList(Integer.valueOf(Ajxh),Integer.valueOf(Dsrbh));
-        System.out.println("listsize:"+list.size());
+//        System.out.println("listsize:"+list.size());
         modelAndView.addObject("WsDsrQzcsList",list);
         modelAndView.setViewName("dsrQZCS");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getSSJL",produces = "text/html;charset=cp936")
+    public ModelAndView getSSJL(@RequestParam("Ajxh")String Ajxh,
+            ModelAndView modelAndView){
+        WsSsjl wsSsjl=ssjlService.getWsSsjl(Ajxh);
+        modelAndView.addObject("item",wsSsjl);
+        modelAndView.setViewName("ssjl");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getCTR",produces = "text/html;charset=cp936")
+    public ModelAndView getCTR(@RequestParam("Ajxh")String Ajxh,
+                                ModelAndView modelAndView){
+        List<WsSsjlCtr> wsSsjlCtrList=ssjlService.getWsSsjlCtrList(Ajxh);
+        modelAndView.addObject("list",wsSsjlCtrList);
+        modelAndView.setViewName("ctr");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getZKJL",produces = "text/html;charset=cp936")
+    public ModelAndView getZKJL(@RequestParam("Ajxh")String Ajxh,
+                               ModelAndView modelAndView){
+        List<ZkjlZm> list=ssjlService.getZkjlZmList(Ajxh);
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("zkjl");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getCPFXGC",produces = "text/html;charset=cp936")
+    public ModelAndView getCPFXGC(@RequestParam("Ajxh")String Ajxh,
+                                  ModelAndView modelAndView){
+        WsCpfxgc wsCpfxgc=cpfxgcService.getWsCpfxgc(Ajxh);
+        modelAndView.addObject("item",wsCpfxgc);
+        modelAndView.setViewName("cpfxgc");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getFLFT",produces = "text/html;charset=cp936")
+    public ModelAndView getFLFT(@RequestParam("Ajxh")String Ajxh,
+                                  ModelAndView modelAndView){
+        List<WsCpfxgcFlft> list=cpfxgcService.getWsCpfxgcFlftList(Ajxh);
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("flft");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getLXQJ",produces = "text/html;charset=cp936")
+    public ModelAndView getLXQJ(@RequestParam("Ajxh")String Ajxh,
+                                  ModelAndView modelAndView){
+        List<WsCpfxgcLxqj> list=cpfxgcService.getWsCpfxgcLxqjList(Ajxh);
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("lxqj");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getXSPJJG",produces = "text/html;charset=cp936")
+    public ModelAndView getXSPJJG(@RequestParam("Ajxh")String Ajxh,
+                                  ModelAndView modelAndView){
+        List<WsXspjjgfz> list=xspjjgService.getWsXspjjgfzList(Ajxh);
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("xspjjg");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getPF",produces = "text/html;charset=cp936")
+    public ModelAndView getXSPJJG(@RequestParam("Ajxh")String Ajxh,
+                                  @RequestParam("Fzbh")String Fzbh,
+                                  ModelAndView modelAndView){
+        List<WsXspjjgpf> list=xspjjgService.getWsXspjjgpfList(Ajxh,Fzbh);
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("pf");
         return modelAndView;
     }
 

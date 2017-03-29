@@ -129,6 +129,12 @@
 
                 <div id="dsrPanel"></div>
 
+                <div id="ssjlPanel"></div>
+
+                <div id="cpfxgcPanel"></div>
+
+                <div id="xspjjgPanel"></div>
+
                 <p style="height: 100px"></p>
             </div>
         </div>
