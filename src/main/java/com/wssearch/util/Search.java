@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Search {
 
-    public List<WsAjxxb> searchWsAjxxb(List<Condition> conditions,List<Sort> sorts){
+    public List<WsAjxxb> searchWsAjxxb(List<Condition> conditions, List<Sort> sorts, int beginIdex, int listNum){
 
         return null;
     }

@@ -87,11 +87,50 @@ public class SearchController {
         Sort sort=new Sort(SortClass.PJRQ,SortType.DESC);
         List<Sort> sorts=new ArrayList<>();
         sorts.add(sort);
+        List<WsAjxxb> list=ajjbxxService.searchWsAjxxb(conditions, sorts, 0, 5);
+
 
 //        List<WsAjxxb> wsAjxxbList=ajjbxxService.searchByAh(Ah);
-//        model.addAttribute("list",wsAjxxbList);
-//        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
+        model.addAttribute("list",list);
+//        System.out.println("size: "+list.size());
+//        for(WsAjxxb wsAjxxb : list){
+//            System.out.println(wsAjxxb.toString());
+//        }
+        model.addAttribute("AH",AH);
+        model.addAttribute("SortClass",SortClass.PJRQ);
+        model.addAttribute("SortType",SortType.DESC);
+
+        int count=ajjbxxService.searchByAjxhCount(AH);
+        model.addAttribute("AjCount",count);
+        System.out.println("Count:"+count);
         return "/search";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/goPage",produces = "text/html;charset=cp936")
+    public ModelAndView goPage(@RequestParam("AH")String AH,
+                               @RequestParam("SortClass")String sortClass,
+                               @RequestParam("SortType")String sortType,
+                               @RequestParam("BeginIndex")int BeginIndex,
+                               ModelAndView modelAndView){
+        System.out.println("-------AH:"+AH);
+        Condition condition=new Condition(SearchWord.AH,"天津市");
+        List<Condition> conditions=new ArrayList<>();
+        conditions.add(condition);
+        Sort sort=new Sort(SortClass.PJRQ,SortType.DESC);
+        List<Sort> sorts=new ArrayList<>();
+        sorts.add(sort);
+        List<WsAjxxb> list=ajjbxxService.searchWsAjxxb(conditions, sorts, (BeginIndex-1)*5, 5);
+        System.out.println("size: "+list.size());
+        for(WsAjxxb wsAjxxb : list){
+            System.out.println(wsAjxxb.toString());
+        }
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("ajPage");
+        int count=ajjbxxService.searchByAjxhCount("天津市");
+        modelAndView.addObject("AjCount",count);
+        System.out.println("Count2:"+count);
+        return modelAndView;
     }
 
 

@@ -5,8 +5,8 @@ package com.wssearch.util;
  */
 public enum SortType {
 
-    DESC("DESC"),
-    ASC("ASC");
+    DESC("desc"),
+    ASC("asc");
 
     private String typeName;
     SortType(String typeName){

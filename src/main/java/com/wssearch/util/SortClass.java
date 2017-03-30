@@ -5,9 +5,9 @@ package com.wssearch.util;
  */
 public enum SortClass {
 
-    FYCJ("FYCJ"),//法院层级
-    PJRQ("PJRQ"),//判决日期
-    SPCX("SPCX");//审判程序
+    FYCJ("fycj"),//法院层级
+    PJRQ("pjsj"),//判决日期
+    SPCX("spcx");//审判程序
 
     private String typeName;
     SortClass(String typeName){

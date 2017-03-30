@@ -68,7 +68,8 @@
                     <span class="sortBtn">审判程序 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
                 </div>
                 <div>
-                    <c:forEach items="${list}" var="item">
+                    <div id="AjDiv">
+                        <c:forEach items="${list}" var="item">
                         <div class="AJ">
                             <div class="row AJBiaoTi" onclick="showAj('${item.ajxh}')">
                                     ${item.spcx} ${item.wsmc}
@@ -79,7 +80,7 @@
                             <input type="hidden" value="${item.ajxh}">
                         </div>
                     </c:forEach>
-
+                    </div>
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <li>
@@ -87,11 +88,11 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
+                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',1)">1</a></li>
+                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',2)">2</a></li>
+                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',3)">3</a></li>
+                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',4)">4</a></li>
+                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',5)">5</a></li>
                             <li>
                                 <a href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

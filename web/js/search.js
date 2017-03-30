@@ -35,3 +35,20 @@ $('#searchBtn').click(function(){
 function showAj(Ajxh){
     location.href=addURLParam("/wsInfo","Ajxh",Ajxh);
 }
+
+function goPage(AH,SortClass,SortType,BeginIndex){
+    //alert(AH+SortClass+SortType+BeginIndex);
+    $.post(
+        "/goPage",
+        {
+            "AH":AH,
+            "SortClass":SortClass,
+            "SortType":SortType,
+            "BeginIndex":BeginIndex
+        },
+        function(data){
+            $('#AjDiv').html(data);
+        }
+    );
+    //$(this).closest('.d').addClass("active");
+}

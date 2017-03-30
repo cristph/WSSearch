@@ -5,9 +5,9 @@ package com.wssearch.util;
  */
 public enum SearchWord {
 
-    AY("AY"),//案由
-    AH("AH"),//案号
-    FYCJ("FYCJ");//法院层级
+    AY("ay"),//案由
+    AH("ah"),//案号
+    FYCJ("fycj");//法院层级
 
     private String typeName;
     SearchWord(String typeName){

@@ -57,15 +57,15 @@
     <property name="jdbcUrl" value="${jdbc_url}"/>
     <property name="user" value="${jdbc_username}"/>
     <property name="password" value="${jdbc_password}"/>
-</bean>
-
-    <bean id="dataSourceTwo" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-method="close">
-        <property name="driverClass" value="${driverClassName2}"/>
-        <property name="jdbcUrl" value="${jdbc_url2}"/>
-        <property name="user" value="${jdbc_username2}"/>
-        <property name="password" value="${jdbc_password2}"/>
     </bean>
+
+    <!--<bean id="dataSourceTwo" class="com.mchange.v2.c3p0.ComboPooledDataSource"-->
+          <!--destroy-method="close">-->
+        <!--<property name="driverClass" value="${driverClassName2}"/>-->
+        <!--<property name="jdbcUrl" value="${jdbc_url2}"/>-->
+        <!--<property name="user" value="${jdbc_username2}"/>-->
+        <!--<property name="password" value="${jdbc_password2}"/>-->
+    <!--</bean>-->
 
     <!--<bean id="dataSource" class="com.dessert.util.DynamicDataSource">-->
         <!--<property name="targetDataSources">-->
@@ -86,7 +86,7 @@
         <property name="hibernateProperties">
             <props>
                 <!-- 指定数据库方言 -->
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SybaseASE15Dialect</prop>
                 <!-- 是否根据需要每次自动创建数据库 -->
                 <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
                 <!-- 显示Hibernate持久化操作所生成的SQL -->
