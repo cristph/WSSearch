@@ -40,6 +40,6 @@
         </c:forEach>
     </c:when>
     <c:otherwise>
-        <p>无量刑情节r</p>
+        <p>无量刑情节</p>
     </c:otherwise>
 </c:choose>

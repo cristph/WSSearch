@@ -1,5 +1,6 @@
 package com.wssearch.dao;
 
+import com.wssearch.model.WsXspjjgfjx;
 import com.wssearch.model.WsXspjjgfz;
 import com.wssearch.model.WsXspjjgpf;
 
@@ -13,4 +14,6 @@ public interface XSPJJGDao {
     public List<WsXspjjgfz> getWsXspjjgfzList(int Ajxh);
 
     public List<WsXspjjgpf> getWsXspjjgpfList(int Ajxh,int Fzbh);
+
+    public List<WsXspjjgfjx> getWsXspjjgfjxList(int Ajxh,int Fzbh,int pfbh);
 }

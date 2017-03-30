@@ -3,8 +3,10 @@ package com.wssearch.controller;
 import com.alibaba.fastjson.JSON;
 import com.wssearch.model.*;
 import com.wssearch.model.Vo.Dsr;
+import com.wssearch.model.Vo.PfFjx;
 import com.wssearch.model.Vo.ZkjlZm;
 import com.wssearch.service.*;
+import com.wssearch.util.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,11 +68,28 @@ public class SearchController {
 //        return null;
 //    }
 
-    @RequestMapping(value="/searchByAh")
-    public String searchByAh(@RequestParam("Ah")String Ah,
+//    @RequestMapping(value="/searchByAh")
+//    public String searchByAh(@RequestParam("Ah")String Ah,
+//                             Model model){
+//        List<WsAjxxb> wsAjxxbList=ajjbxxService.searchByAh(Ah);
+//        model.addAttribute("list",wsAjxxbList);
+////        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
+//        return "/search";
+//    }
+
+    @RequestMapping(value="/search")
+    public String searchByAh(@RequestParam("AH")String AH,
                              Model model){
-        List<WsAjxxb> wsAjxxbList=ajjbxxService.searchByAh(Ah);
-        model.addAttribute("list",wsAjxxbList);
+
+        Condition condition=new Condition(SearchWord.AH,AH);
+        List<Condition> conditions=new ArrayList<>();
+        conditions.add(condition);
+        Sort sort=new Sort(SortClass.PJRQ,SortType.DESC);
+        List<Sort> sorts=new ArrayList<>();
+        sorts.add(sort);
+
+//        List<WsAjxxb> wsAjxxbList=ajjbxxService.searchByAh(Ah);
+//        model.addAttribute("list",wsAjxxbList);
 //        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
         return "/search";
     }
@@ -199,7 +218,7 @@ public class SearchController {
     public ModelAndView getXSPJJG(@RequestParam("Ajxh")String Ajxh,
                                   @RequestParam("Fzbh")String Fzbh,
                                   ModelAndView modelAndView){
-        List<WsXspjjgpf> list=xspjjgService.getWsXspjjgpfList(Ajxh,Fzbh);
+        List<PfFjx> list=xspjjgService.getPfFjxList(Ajxh,Fzbh);
         modelAndView.addObject("list",list);
         modelAndView.setViewName("pf");
         return modelAndView;

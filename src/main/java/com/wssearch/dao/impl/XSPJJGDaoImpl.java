@@ -1,6 +1,7 @@
 package com.wssearch.dao.impl;
 
 import com.wssearch.dao.XSPJJGDao;
+import com.wssearch.model.WsXspjjgfjx;
 import com.wssearch.model.WsXspjjgfz;
 import com.wssearch.model.WsXspjjgpf;
 import org.hibernate.Query;
@@ -28,6 +29,7 @@ public class XSPJJGDaoImpl implements XSPJJGDao{
         Query query=session.createQuery(hql);
         query.setInteger("xh",Ajxh);
         List<WsXspjjgfz> list=query.list();
+        session.close();
         return list;
     }
 
@@ -39,6 +41,20 @@ public class XSPJJGDaoImpl implements XSPJJGDao{
         query.setInteger("xh",Ajxh);
         query.setInteger("bh",Fzbh);
         List<WsXspjjgpf> list=query.list();
+        session.close();
+        return list;
+    }
+
+    @Override
+    public List<WsXspjjgfjx> getWsXspjjgfjxList(int Ajxh, int Fzbh, int pfbh) {
+        Session session=sessionFactory.openSession();
+        String hql="from WsXspjjgfjx where ajxh=:xh and fzbh=:bh and pfbh=:fbh";
+        Query query=session.createQuery(hql);
+        query.setInteger("xh",Ajxh);
+        query.setInteger("bh",Fzbh);
+        query.setInteger("fbh",pfbh);
+        List<WsXspjjgfjx> list=query.list();
+        session.close();
         return list;
     }
 }

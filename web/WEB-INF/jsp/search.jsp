@@ -24,6 +24,7 @@
     <link href="css/base.css" rel="stylesheet">
     <link href="css/zTreeStyle.css" rel="stylesheet">
     <link href="css/search.css" rel="stylesheet">
+    <link href="css/cikonss.css" rel="stylesheet"/>
     <%--<link href="css/buttons.css" rel="stylesheet">--%>
 </head>
 
@@ -54,23 +55,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3 well">
+            <div class="col-sm-3 treeBox">
                 <div id="treeDemo" class="ztree"></div>
             </div>
             <div class="col-sm-9">
-                <div class="well">检索条件：</div>
-                <div class="row">
-                    <span class="button button-primary button-small">法院层级</span>
-                    <span class="button button-primary button-small">裁判日期</span>
-                    <span class="button button-primary button-small">审判程序</span>
+                <div class="title-box">检索条件：
+                    <span class="label label-primary">案号：天津市 <span class="glyphicon glyphicon-remove scondition" aria-hidden="true"></span></span>
+                </div>
+                <div class="row" style="margin: 2% 0 2% 0">
+                    <span class="sortBtn">法院层级 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
+                    <span class="sortBtn">裁判日期 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
+                    <span class="sortBtn">审判程序 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
                 </div>
                 <div>
                     <c:forEach items="${list}" var="item">
-                        <div class="well AJ">
+                        <div class="AJ">
                             <div class="row AJBiaoTi" onclick="showAj('${item.ajxh}')">
                                     ${item.spcx} ${item.wsmc}
                             </div>
-                            <div class="row AJCiBiaoTi">
+                            <div class="row AJCiBiaoTi" onclick="showAj('${item.ajxh}')">
                                     ${item.jbfy} &nbsp;&nbsp;&nbsp;&nbsp; ${item.ah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.pjsj}
                             </div>
                             <input type="hidden" value="${item.ajxh}">
