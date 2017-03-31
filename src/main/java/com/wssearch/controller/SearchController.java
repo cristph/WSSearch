@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,43 +46,9 @@ public class SearchController {
     @Resource
     XSPJJGService xspjjgService;
 
-
-    @RequestMapping("/se")
-    public String search(){
-        return "/search";
-    }
-
-//    @ResponseBody
-//    @RequestMapping(value="/searchByAh",produces = "text/plain;charset=cp936")
-//    public String searchByAh(@RequestParam("Ah")String Ah,
-//                             Model model){
-//        WsAjxxb wsAjxxb=ajjbxxService.searchByAh(Ah);
-//        model.addAttribute("wsAjxxb",wsAjxxb);
-//        System.out.println(wsAjxxb.toString());
-////        response.setContentType("application/json;charset=UTF-8");
-////        return JSON.toJSONString(wsAjxxb);
-//        return wsAjxxb.toString();
-//    }
-
-//    @RequestMapping("/test")
-//    public String test(){
-//        ssjlService.getZkjlZmList(46817);
-//        return null;
-//    }
-
-//    @RequestMapping(value="/searchByAh")
-//    public String searchByAh(@RequestParam("Ah")String Ah,
-//                             Model model){
-//        List<WsAjxxb> wsAjxxbList=ajjbxxService.searchByAh(Ah);
-//        model.addAttribute("list",wsAjxxbList);
-////        System.out.println("size: "+wsAjxxbList.size()+"item:"+ wsAjxxbList.get(0).toString());
-//        return "/search";
-//    }
-
     @RequestMapping(value="/search")
     public String searchByAh(@RequestParam("AH")String AH,
                              Model model){
-
         Condition condition=new Condition(SearchWord.AH,AH);
         List<Condition> conditions=new ArrayList<>();
         conditions.add(condition);
@@ -88,21 +56,15 @@ public class SearchController {
         List<Sort> sorts=new ArrayList<>();
         sorts.add(sort);
         List<WsAjxxb> list=ajjbxxService.searchWsAjxxb(conditions, sorts, 0, 5);
-
-
-//        List<WsAjxxb> wsAjxxbList=ajjbxxService.searchByAh(Ah);
         model.addAttribute("list",list);
-//        System.out.println("size: "+list.size());
-//        for(WsAjxxb wsAjxxb : list){
-//            System.out.println(wsAjxxb.toString());
-//        }
+
+
         model.addAttribute("AH",AH);
         model.addAttribute("SortClass",SortClass.PJRQ);
         model.addAttribute("SortType",SortType.DESC);
 
         int count=ajjbxxService.searchByAjxhCount(AH);
         model.addAttribute("AjCount",count);
-        System.out.println("Count:"+count);
         return "/search";
     }
 
@@ -113,23 +75,23 @@ public class SearchController {
                                @RequestParam("SortType")String sortType,
                                @RequestParam("BeginIndex")int BeginIndex,
                                ModelAndView modelAndView){
-        System.out.println("-------AH:"+AH);
-        Condition condition=new Condition(SearchWord.AH,"天津市");
+
+        String AH_UTF8=null;
+        try {
+            AH_UTF8=URLDecoder.decode(AH,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        Condition condition=new Condition(SearchWord.AH,AH_UTF8);
         List<Condition> conditions=new ArrayList<>();
         conditions.add(condition);
         Sort sort=new Sort(SortClass.PJRQ,SortType.DESC);
         List<Sort> sorts=new ArrayList<>();
         sorts.add(sort);
         List<WsAjxxb> list=ajjbxxService.searchWsAjxxb(conditions, sorts, (BeginIndex-1)*5, 5);
-        System.out.println("size: "+list.size());
-        for(WsAjxxb wsAjxxb : list){
-            System.out.println(wsAjxxb.toString());
-        }
         modelAndView.addObject("list",list);
         modelAndView.setViewName("ajPage");
-        int count=ajjbxxService.searchByAjxhCount("天津市");
-        modelAndView.addObject("AjCount",count);
-        System.out.println("Count2:"+count);
         return modelAndView;
     }
 
@@ -149,9 +111,6 @@ public class SearchController {
         List<WsDsr> list= dsrService.getWsDsrList(Integer.valueOf(Ajxh));
         modelAndView.addObject("list",list);
         modelAndView.setViewName("wsDsr");
-        for(WsDsr dsr:list){
-            System.out.println(dsr.toString());
-        }
         return modelAndView;
     }
 
@@ -161,10 +120,6 @@ public class SearchController {
                               @RequestParam("Dsrbh")String Dsrbh,
                               ModelAndView modelAndView){
         List<WsDsrQk> list=dsrService.getWsDsrQkList(Integer.valueOf(Ajxh),Integer.valueOf(Dsrbh));
-//        System.out.println("listsize:"+list.size());
-//        for(WsDsrQk wsDsrQk:list){
-//            System.out.println(wsDsrQk.toString());
-//        }
         modelAndView.addObject("WsDsrQkList",list);
         modelAndView.setViewName("dsrQK");
         return modelAndView;
@@ -176,7 +131,6 @@ public class SearchController {
                                 @RequestParam("Dsrbh")String Dsrbh,
                                 ModelAndView modelAndView){
         List<WsDsrQzcs> list=dsrService.getWsDsrQzcsList(Integer.valueOf(Ajxh),Integer.valueOf(Dsrbh));
-//        System.out.println("listsize:"+list.size());
         modelAndView.addObject("WsDsrQzcsList",list);
         modelAndView.setViewName("dsrQZCS");
         return modelAndView;

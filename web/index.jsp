@@ -30,7 +30,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-3">
-        <p style="font-size: large;font-weight: bold;color: white">Dessert</p>
+        <p style="font-size: large;font-weight: bold;color: white">WSSearch</p>
       </div>
       <div class="col-sm-9 home-links">
         <a href="${pageContext.request.contextPath}/login" id="login">Login</a>

@@ -35,7 +35,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <p style="font-size: large;font-weight: bold;color: white">Dessert</p>
+                <p style="font-size: large;font-weight: bold;color: white">WSSearch</p>
             </div>
             <div class="col-sm-9 home-links">
                 <a href="${pageContext.request.contextPath}/login" id="login">Login</a>
@@ -60,12 +60,13 @@
             </div>
             <div class="col-sm-9">
                 <div class="title-box">检索条件：
-                    <span class="label label-primary">案号：天津市 <span class="glyphicon glyphicon-remove scondition" aria-hidden="true"></span></span>
+                    <span class="label label-primary">案号：${AH} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true"></span></span>
                 </div>
                 <div class="row" style="margin: 2% 0 2% 0">
                     <span class="sortBtn">法院层级 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
                     <span class="sortBtn">裁判日期 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
                     <span class="sortBtn">审判程序 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
+                    <span style="font-weight: bolder;color: white">共得到${AjCount}条记录</span>
                 </div>
                 <div>
                     <div id="AjDiv">
@@ -88,11 +89,11 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',1)">1</a></li>
-                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',2)">2</a></li>
-                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',3)">3</a></li>
-                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',4)">4</a></li>
-                            <li class="d"><a href="javascript:goPage('${AH}','${SortClass}','${SortType}',5)">5</a></li>
+                            <li class="active"><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',1)">1</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',2)">2</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',3)">3</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',4)">4</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',5)">5</a></li>
                             <li>
                                 <a href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

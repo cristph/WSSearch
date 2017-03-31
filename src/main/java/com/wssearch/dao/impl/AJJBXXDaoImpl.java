@@ -100,15 +100,16 @@ public class AJJBXXDaoImpl implements AJJBXXDao {
                 j++;
             }
         }
-        System.out.println("hql:"+hql);
+//        System.out.println("searchWsAjxxb hql:"+hql);
+//        System.out.println("cdvalue:"+"%"+conditions.get(0).getValue()+"%");
         Query query=session.createQuery(hql);
         for(Condition condition : conditions){
             query.setString((condition.getSearchWord().getTypeName()+"value"),("%"+condition.getValue()+"%"));
         }
         query.setFirstResult(beginIdex);
         query.setMaxResults(listNum);
-        System.out.println("begin:"+beginIdex+";sizez:"+listNum);
         List<WsAjxxb> list=query.list();
+        session.close();
         return list;
     }
 }

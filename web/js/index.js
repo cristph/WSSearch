@@ -10,8 +10,6 @@ function addURLParam(url, name, value){
 
 $('#searchBtn').click(function(){
     var AH=$('#searchInput').val();
-    //var conditions=new Array();
-    //conditions.push({SearchWord:"AH",value:AH});
     var url=addURLParam("/search","AH",AH);
     location.href=url;
 });

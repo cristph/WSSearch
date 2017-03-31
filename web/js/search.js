@@ -29,7 +29,8 @@ function addURLParam(url, name, value){
 
 $('#searchBtn').click(function(){
     var input=$('#searchInput').val();
-    location.href=addURLParam("/searchByAh","Ah",input);
+    location.href=addURLParam("/search","AH",input);
+
 });
 
 function showAj(Ajxh){
@@ -37,18 +38,21 @@ function showAj(Ajxh){
 }
 
 function goPage(AH,SortClass,SortType,BeginIndex){
-    //alert(AH+SortClass+SortType+BeginIndex);
+    var current=event.toElement.parentNode;
+    $(current.parentNode).find("li").each(function(){
+       $(this).removeClass("active");
+    });
+    $(current).addClass("active");
     $.post(
         "/goPage",
         {
-            "AH":AH,
-            "SortClass":SortClass,
-            "SortType":SortType,
+            "AH":encodeURIComponent(AH),
+            "SortClass":encodeURIComponent(SortClass),
+            "SortType":encodeURIComponent(SortType),
             "BeginIndex":BeginIndex
         },
         function(data){
             $('#AjDiv').html(data);
         }
     );
-    //$(this).closest('.d').addClass("active");
 }
