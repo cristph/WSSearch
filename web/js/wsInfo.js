@@ -50,6 +50,149 @@ $(function(){
             );
         });
     });
+
+    var Ajxz=$('#Ajxz').val();
+    var Spcx=$('#Spcx').val();
+    //alert(Ajxh+";"+Ajxz+";"+Spcx);
+    var jbqkPost=$.post(
+        "/getJBQK",
+        {
+            "Ajxh":Ajxh,
+            "Ajxz":encodeURIComponent(Ajxz),
+            "Spcx":encodeURIComponent(Spcx)
+        },
+        function(data){
+            $('#jbqkPanel').html(data);
+        }
+    );
+
+    jbqkPost.done(function(){
+        $('#BGRBCPanel').on('show.bs.collapse',function(){
+            $('#BGRBCPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkBgrbc",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#BGRBCPanel').html(data);
+                }
+            );
+        });
+
+        $('#BGRBHPanel').on('show.bs.collapse',function(){
+            $('#BGRBHPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkBhrbh",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#BGRBHPanel').html(data);
+                }
+            );
+        });
+
+        $('#BSSLDPanel').on('show.bs.collapse',function(){
+            $('#BSSLDPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkBssld",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#BSSLDPanel').html(data);
+                }
+            );
+        });
+
+        $('#BSSRBCDPanel').on('show.bs.collapse',function(){
+            $('#BSSRBCDPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkBssrbcd",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#BSSRBCDPanel').html(data);
+                }
+            );
+        });
+
+        $('#BSZJDPanel').on('show.bs.collapse',function(){
+            $('#BSZJDPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkBszjd",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#BSZJDPanel').html(data);
+                }
+            );
+        });
+
+        $('#CMSSDPanel').on('show.bs.collapse',function(){
+            $('#CMSSDPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkCmssd",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#CMSSDPanel').html(data);
+                }
+            );
+        });
+
+        $('#QSSLDPanel').on('show.bs.collapse',function(){
+            $('#QSSLDPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkQssld",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#QSSLDPanel').html(data);
+                }
+            );
+        });
+
+        $('#QSZJDPanel').on('show.bs.collapse',function(){
+            $('#QSZJDPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkQszjd",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#QSZJDPanel').html(data);
+                }
+            );
+        });
+
+        $('#ZJDPanel').on('show.bs.collapse',function(){
+            $('#ZJDPanel').html("load...");
+            $.post(
+                "/getQKD",
+                {
+                    "Class":"WsAjjbqkZjd",
+                    "Ajxh":Ajxh
+                },
+                function(data){
+                    $('#ZJDPanel').html(data);
+                }
+            );
+        });
+    });
 });
 
 function getQK(Ajxh,Dsrbh){
@@ -146,3 +289,4 @@ function getPF(Ajxh,Fzbh){
         }
     );
 }
+

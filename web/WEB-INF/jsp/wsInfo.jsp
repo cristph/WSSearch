@@ -43,10 +43,9 @@
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="text-center">
-                    <h1>大标题</h1>
-                    <h2>次标题</h2>
+                    <h1>${item.ajxz}</h1>
+                    <h2>${item.spcx}</h2>
                 </div>
-                <div class="title-box">基本信息</div>
                 <div class="panel panel-success">
                     <div class="panel-heading" data-toggle="collapse" href="#Panel" style="cursor: pointer">
                         <h3 class="panel-title">案件基本信息</h3>
@@ -54,6 +53,8 @@
                     <div class="panel-body collapse in" id="Panel">
                         <ul class="list-group">
                             <input type="hidden" id="Ajxh" value="${item.ajxh}">
+                            <input type="hidden" id="Ajxz" value="${item.ajxz}">
+                            <input type="hidden" id="Spcx" value="${item.spcx}">
                             <c:if test="${item.ajxh!=null}">
                                 <li class="list-group-item">案件序号<span style="color: black;font:large bolder;margin-left: 2%">${item.ajxh}</span></li>
                             </c:if>
@@ -131,6 +132,8 @@
 
                 <div id="ssjlPanel"></div>
 
+                <div id="jbqkPanel"></div>
+
                 <div id="cpfxgcPanel"></div>
 
                 <div id="xspjjgPanel"></div>
@@ -145,11 +148,11 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <a href="/">Home</a>
-                <a href="/terms" target="_blank">Terms</a>
-                <a href="/privacy" target="_blank">Privacy</a>
-                <a href="https://twitter.com/wiplohq" target="_blank" rel="nofollow">Twitter</a>
-                <a href="mailto:team@wiplo.com?subject=Hi Wiplo Team!" rel="nofollow">Contact</a>
+                <a href="javascript:void(0)">Home</a>
+                <a href="javascript:void(0)" target="_blank">Terms</a>
+                <a href="javascript:void(0)" target="_blank">Privacy</a>
+                <a href="javascript:void(0)" target="_blank" rel="nofollow">Twitter</a>
+                <a href="javascript:void(0)" rel="nofollow">Contact</a>
                 <small>Architect @ Cristph</small>
             </div>
         </div>

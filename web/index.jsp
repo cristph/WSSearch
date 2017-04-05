@@ -56,11 +56,11 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center">
-        <a href="/">Home</a>
-        <a href="/terms" target="_blank">Terms</a>
-        <a href="/privacy" target="_blank">Privacy</a>
-        <a href="https://twitter.com/wiplohq" target="_blank" rel="nofollow">Twitter</a>
-        <a href="mailto:team@wiplo.com?subject=Hi Wiplo Team!" rel="nofollow">Contact</a>
+        <a href="javascript:void(0)">Home</a>
+        <a href="javascript:void(0)" target="_blank">Terms</a>
+        <a href="javascript:void(0)" target="_blank">Privacy</a>
+        <a href="javascript:void(0)" target="_blank" rel="nofollow">Twitter</a>
+        <a href="javascript:void(0)" rel="nofollow">Contact</a>
         <small>Architect @ Cristph</small>
       </div>
     </div>

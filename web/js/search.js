@@ -30,11 +30,17 @@ function addURLParam(url, name, value){
 $('#searchBtn').click(function(){
     var input=$('#searchInput').val();
     location.href=addURLParam("/search","AH",input);
+});
 
+$(document).keyup(function(event){
+    if(event.keyCode==13){
+        var input=$('#searchInput').val();
+        location.href=addURLParam("/search","AH",input);
+    }
 });
 
 function showAj(Ajxh){
-    location.href=addURLParam("/wsInfo","Ajxh",Ajxh);
+    open(addURLParam("/wsInfo","Ajxh",Ajxh));
 }
 
 function goPage(AH,SortClass,SortType,BeginIndex){

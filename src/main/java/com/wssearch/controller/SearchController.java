@@ -3,6 +3,7 @@ package com.wssearch.controller;
 import com.alibaba.fastjson.JSON;
 import com.wssearch.model.*;
 import com.wssearch.model.Vo.Dsr;
+import com.wssearch.model.Vo.Nr;
 import com.wssearch.model.Vo.PfFjx;
 import com.wssearch.model.Vo.ZkjlZm;
 import com.wssearch.service.*;
@@ -45,6 +46,9 @@ public class SearchController {
 
     @Resource
     XSPJJGService xspjjgService;
+
+    @Resource
+    JBQKService jbqkService;
 
     @RequestMapping(value="/search")
     public String searchByAh(@RequestParam("AH")String AH,
@@ -214,6 +218,50 @@ public class SearchController {
         List<PfFjx> list=xspjjgService.getPfFjxList(Ajxh,Fzbh);
         modelAndView.addObject("list",list);
         modelAndView.setViewName("pf");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getJBQK",produces = "text/html;charset=cp936")
+    public ModelAndView getJBQK(@RequestParam("Ajxh")String Ajxh,
+                                @RequestParam("Ajxz")String Ajxz,
+                                @RequestParam("Spcx")String Spcx,
+                                ModelAndView modelAndView){
+        String Ajxz_utf8=null;
+        String Spcx_utf8=null;
+        try {
+            Ajxz_utf8=URLDecoder.decode(Ajxz,"utf-8");
+            Spcx_utf8=URLDecoder.decode(Spcx,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if(Ajxz_utf8.equals("民事案件")||Ajxz_utf8.equals("行政案件")){
+            WsAjjbqkmsxz wsAjjbqkmsxz=jbqkService.getWsAjjbqkmsxz(Ajxh);
+            modelAndView.addObject("item",wsAjjbqkmsxz);
+            modelAndView.addObject("cl","msxz");
+        }else if(Ajxz_utf8.equals("刑事案件")){
+            if(Spcx_utf8.equals("二审案件")){
+                WSAjjbqkxses wsAjjbqkxses=jbqkService.getWSAjjbqkxses(Ajxh);
+                modelAndView.addObject("item",wsAjjbqkxses);
+                modelAndView.addObject("cl","xses");
+            }else if(Spcx_utf8.equals("一审案件")){
+                WsAjjbqkxsys wsAjjbqkxsys=jbqkService.getWsAjjbqkxsys(Ajxh);
+                modelAndView.addObject("item",wsAjjbqkxsys);
+                modelAndView.addObject("cl","xsys");
+            }
+        }
+        modelAndView.setViewName("jbqk");
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getQKD",produces = "text/html;charset=cp936")
+    public ModelAndView getQKD(@RequestParam("Class")String Class,
+                               @RequestParam("Ajxh")String Ajxh,
+                               ModelAndView modelAndView){
+        List<Nr> list=jbqkService.getNrList(Ajxh,Class);
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("nr");
         return modelAndView;
     }
 

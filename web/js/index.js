@@ -13,3 +13,11 @@ $('#searchBtn').click(function(){
     var url=addURLParam("/search","AH",AH);
     location.href=url;
 });
+
+$(document).keyup(function(event){
+    if(event.keyCode==13){
+        var AH=$('#searchInput').val();
+        var url=addURLParam("/search","AH",AH);
+        location.href=url;
+    }
+});
