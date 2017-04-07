@@ -41,10 +41,11 @@ $('#complexSearch').click(function(){
     var lvsuo=$('#lvsuo').val();
     var lvshi=$('#lvshi').val();
     var flyj=$('#flyj').val();
+    var cpnf=$('#cpnf').val();
 
     alert("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
         +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";lvsuo:"+lvsuo
-        +";lvshi:"+lvshi+";flyj:"+flyj);
+        +";lvshi:"+lvshi+";flyj:"+flyj+";cpnf:"+cpnf);
 
     var url="/complexSearch";
     url=addURLParam(url,"ay",ay);
@@ -62,6 +63,7 @@ $('#complexSearch').click(function(){
     url=addURLParam(url,"lvsuo",lvsuo);
     url=addURLParam(url,"lvshi",lvshi);
     url=addURLParam(url,"flyj",flyj);
+    url=addURLParam(url,"cpnf",cpnf);
 
     location.href=url;
 

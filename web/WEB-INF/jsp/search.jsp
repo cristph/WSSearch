@@ -187,25 +187,68 @@
             </div>
             <div class="col-sm-9">
                 <div class="title-box">检索条件：
-                    <span class="label label-primary">案号：${AH} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true"></span></span>
+                    <c:if test="${ay!=''}">
+                        <span class="label label-primary">案由：${ay} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${ah!=''}">
+                        <span class="label label-primary">案号：${ah} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${ajmc!=''}">
+                        <span class="label label-primary">案件名称：${ajmc} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${fymc!=''}">
+                        <span class="label label-primary">法院名称：${fymc} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${fycj!=''}">
+                        <span class="label label-primary">法院层级：${fycj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${ajlx!=''}">
+                        <span class="label label-primary">案件类型：${ajlx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${spcx!=''}">
+                        <span class="label label-primary">审判程序：${spcx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${wslx!=''}">
+                        <span class="label label-primary">文书类型：${wslx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${cpry!=''}">
+                        <span class="label label-primary">裁判人员：${cpry} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${lvsuo!=''}">
+                        <span class="label label-primary">律所：${lvsuo} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${lvshi!=''}">
+                        <span class="label label-primary">律师：${lvshi} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${flyj!=''}">
+                        <span class="label label-primary">法律依据：${flyj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
+                    <c:if test="${cpnf!=''}">
+                        <span class="label label-primary">裁判年份：${cpnf} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                    </c:if>
                 </div>
                 <div class="row" style="margin: 2% 0 2% 0">
                     <span class="sortBtn">法院层级 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
                     <span class="sortBtn">裁判日期 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
                     <span class="sortBtn">审判程序 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
-                    <span style="font-weight: bolder;color: white">共得到${AjCount}条记录</span>
+                    <span style="font-weight: bolder;color: white">共得到${AjCount}条记录</span><span style="width: 100px;height: 2px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="checkbox" style="margin:5px 0 0;border:1px solid #006600;" id="downloadAll">
+                    <span style="border:1px solid #006600;border-radius: 2px;background-color: grey;color: black;cursor: pointer" onclick="downloadXml()">批量下载xml</span>
+                    <span style="border:1px solid #006600;border-radius: 2px;background-color: grey;color: black;cursor: pointer" onclick="downloadDoc">批量下载doc</span>
                 </div>
                 <div>
                     <div id="AjDiv">
                         <c:forEach items="${list}" var="item">
                         <div class="AJ">
-                            <div class="row AJBiaoTi" onclick="showAj('${item.ajxh}')">
+                            <input type="checkbox" value="${item.xmlPath}" style="margin:5px 0 0;border:1px solid #006600;">
+                            <div class="row AJBiaoTi" onclick="showAj('${item.wsah}')">
                                     ${item.spcx} ${item.wsmc}
                             </div>
-                            <div class="row AJCiBiaoTi" onclick="showAj('${item.ajxh}')">
-                                    ${item.jbfy} &nbsp;&nbsp;&nbsp;&nbsp; ${item.ah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.pjsj}
+                            <div class="row AJCiBiaoTi" onclick="showAj('${item.wsah}')">
+                                    ${item.gymc}${item.zymc}${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
                             </div>
-                            <input type="hidden" value="${item.ajxh}">
+                            <input type="hidden" value="${item.wsah}">
+                            <input type="hidden" value="${item.docPath}" id="xml${item.wsah}">
                         </div>
                     </c:forEach>
                     </div>
@@ -216,11 +259,11 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="active"><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',1)">1</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',2)">2</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',3)">3</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',4)">4</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${AH}','${SortClass}','${SortType}',5)">5</a></li>
+                            <li class="active"><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',1)">1</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',2)">2</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',3)">3</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',4)">4</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',5)">5</a></li>
                             <li>
                                 <a href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

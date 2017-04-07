@@ -85,3 +85,83 @@ $('#complexSearch').click(function(){
         +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";lvsuo:"+lvsuo
         +";lvshi:"+lvshi+";flyj:"+flyj);
 });
+
+
+function downloadXml(){
+    //alert("!");
+    var ajs=document.getElementsByClassName("AJ");
+    var paths="";
+    for(var i=0;i<ajs.length;i++){
+        if(ajs[i].firstElementChild.checked){
+            var path=$(ajs[i].firstElementChild).val();
+            //alert(path);
+            paths+=(path+"|");
+        }
+    }
+    //alert(paths);
+    console.log("paths"+paths);
+    $.post(
+        "/download",
+        {
+            "paths":paths
+        },
+        function(data){
+            console.log(data);
+        }
+    );
+}
+
+
+function downloadDoc(){
+    //alert("!");
+    var ajs=document.getElementsByClassName("AJ");
+    var paths="";
+    for(var i=0;i<ajs.length;i++){
+        if(ajs[i].firstElementChild.checked){
+            var path=$(ajs[i].lastElementChild).val();
+            //alert(path);
+            paths+=(path+"|");
+        }
+    }
+    //alert(paths);
+    console.log("paths"+paths);
+    $.post(
+        "/download",
+        {
+            "paths":paths
+        },
+        function(data){
+            console.log(data);
+        }
+    );
+}
+
+$('#downloadAll').click(function(){
+    //alert(document.getElementById("downloadAll").checked);
+    var ajs=document.getElementsByClassName("AJ");
+    for(var i=0;i<ajs.length;i++){
+        if($(ajs[i].firstElementChild).is(':checked')){
+            $(ajs[i].firstElementChild).removeAttr("checked");
+        }else{
+            $(ajs[i].firstElementChild).prop("checked",true);
+        }
+    }
+    //if(document.getElementById("downloadAll").checked==true){
+    //    var ajs=document.getElementsByClassName("AJ");
+    //    for(var i=0;i<ajs.length;i++){
+    //        $(ajs[i].firstElementChild).removeAttr("checked");
+    //    }
+    //    $('#downloadAll').removeAttr("checked");
+    //}else{
+    //    var ajs=document.getElementsByClassName("AJ");
+    //    for(var i=0;i<ajs.length;i++){
+    //        $(ajs[i].firstElementChild).attr("checked",'true');
+    //    }
+    //    $('#downloadAll').attr("checked",'true');
+    //}
+
+});
+
+function removeLabel(){
+    $(event.toElement.parentNode).remove();
+}

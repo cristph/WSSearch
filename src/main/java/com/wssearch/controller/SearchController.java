@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,27 +52,30 @@ public class SearchController {
     @Resource
     JBQKService jbqkService;
 
-    @RequestMapping(value="/search")
-    public String searchByAh(@RequestParam("AH")String AH,
-                             Model model){
-        Condition condition=new Condition(SearchWord.AH,AH);
-        List<Condition> conditions=new ArrayList<>();
-        conditions.add(condition);
-        Sort sort=new Sort(SortClass.PJRQ,SortType.DESC);
-        List<Sort> sorts=new ArrayList<>();
-        sorts.add(sort);
-        List<WsAjxxb> list=ajjbxxService.searchWsAjxxb(conditions, sorts, 0, 5);
-        model.addAttribute("list",list);
+    @Resource
+    ComplexSearchService complexSearchService;
 
-
-        model.addAttribute("AH",AH);
-        model.addAttribute("SortClass",SortClass.PJRQ);
-        model.addAttribute("SortType",SortType.DESC);
-
-        int count=ajjbxxService.searchByAjxhCount(AH);
-        model.addAttribute("AjCount",count);
-        return "/search";
-    }
+//    @RequestMapping(value="/search")
+//    public String searchByAh(@RequestParam("AH")String AH,
+//                             Model model){
+//        Condition condition=new Condition(SearchWord.AH,AH);
+//        List<Condition> conditions=new ArrayList<>();
+//        conditions.add(condition);
+//        Sort sort=new Sort(SortClass.PJRQ,SortType.DESC);
+//        List<Sort> sorts=new ArrayList<>();
+//        sorts.add(sort);
+//        List<WsAjxxb> list=ajjbxxService.searchWsAjxxb(conditions, sorts, 0, 5);
+//        model.addAttribute("list",list);
+//
+//
+//        model.addAttribute("AH",AH);
+//        model.addAttribute("SortClass",SortClass.PJRQ);
+//        model.addAttribute("SortType",SortType.DESC);
+//
+//        int count=ajjbxxService.searchByAjxhCount(AH);
+//        model.addAttribute("AjCount",count);
+//        return "/search";
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/goPage",produces = "text/html;charset=cp936")
@@ -282,29 +286,33 @@ public class SearchController {
                                 @RequestParam("dsr")String dsr,
                                 @RequestParam("lvsuo")String lvsuo,
                                 @RequestParam("lvshi")String lvshi,
-                                @RequestParam("flyj")String flyj
-                                ){
+                                @RequestParam("flyj")String flyj,
+                                @RequestParam("cpnf")String cpnf,
+                                Model model){
         HashMap<String,String> conditions=new HashMap<>();
+        String ayUtf8=null;
+        String fymcUtf8=null;
+        String cprqbeginUtf8=null;
+        String cprqendUtf8=null;
+        String dsrUtf8=null;
         try {
+            ayUtf8=URLDecoder.decode(ay,"utf-8");
             if(ah.trim().length()!=0){
                 String ahUtf8=URLDecoder.decode(ah,"utf-8");
-                conditions.put("ah",ahUtf8);
+                conditions.put("wsah",ahUtf8);
             }
             if(ajmc.trim().length()!=0){
                 String ajmcUtf8=URLDecoder.decode(ajmc,"utf-8");
-                conditions.put("ajmc",ajmcUtf8);
+                conditions.put("wsmc",ajmcUtf8);
             }
-            if(fymc.trim().length()!=0){
-                String fymcUtf8=URLDecoder.decode(fymc,"utf-8");
-                conditions.put("fymc",fymcUtf8);
-            }
+            fymcUtf8=URLDecoder.decode(fymc,"utf-8");
             if(fycj.trim().length()!=0){
                 String fycjUtf8=URLDecoder.decode(fycj,"utf-8");
                 conditions.put("fycj",fycjUtf8);
             }
             if(ajlx.trim().length()!=0){
                 String ajlxUtf8=URLDecoder.decode(ajlx,"utf-8");
-                conditions.put("ajlx",ajlxUtf8);
+                conditions.put("ajlb",ajlxUtf8);
             }
             if(spcx.trim().length()!=0){
                 String spcxUtf8=URLDecoder.decode(spcx,"utf-8");
@@ -314,37 +322,76 @@ public class SearchController {
                 String wslxUtf8=URLDecoder.decode(wslx,"utf-8");
                 conditions.put("wslx",wslxUtf8);
             }
-            if(cprqbegin.trim().length()!=0){
-                String cprqbeginUtf8=URLDecoder.decode(cprqbegin,"utf-8");
-                conditions.put("cprqbegin",cprqbeginUtf8);
-            }
-            if(cprqend.trim().length()!=0){
-                String cprqendUtf8=URLDecoder.decode(cprqend,"utf-8");
-                conditions.put("cprqend",cprqendUtf8);
-            }
+            cprqbeginUtf8=URLDecoder.decode(cprqbegin,"utf-8");
+            cprqendUtf8=URLDecoder.decode(cprqend,"utf-8");
             if(cpry.trim().length()!=0){
                 String cpryUtf8=URLDecoder.decode(cpry,"utf-8");
-                conditions.put("cpry",cpryUtf8);
+                conditions.put("spry",cpryUtf8);
             }
-            if(dsr.trim().length()!=0){
-                String dsrUtf8=URLDecoder.decode(dsr,"utf-8");
-                conditions.put("dsr",dsrUtf8);
-            }
+            dsrUtf8=URLDecoder.decode(dsr,"utf-8");
             if(lvsuo.trim().length()!=0){
                 String lvsuoUtf8=URLDecoder.decode(lvsuo,"utf-8");
-                conditions.put("lvsuo",lvsuoUtf8);
+                conditions.put("lsmc",lvsuoUtf8);
             }
             if(lvshi.trim().length()!=0){
                 String lvshiUtf8=URLDecoder.decode(lvshi,"utf-8");
-                conditions.put("lvshi",lvshiUtf8);
+                conditions.put("lsxm",lvshiUtf8);
             }
             if(flyj.trim().length()!=0){
                 String flyjUtf8=URLDecoder.decode(flyj,"utf-8");
                 conditions.put("flyj",flyjUtf8);
             }
+            if(cpnf.trim().length()!=0){
+                String cpnfUtf8=URLDecoder.decode(cpnf,"utf-8");
+                conditions.put("cpnf",cpnfUtf8);
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
+
+
+        //List<Wssxb> list=complexSearchService.getWssxbList(conditions, ayUtf8,fymcUtf8,dsrUtf8,cprqbeginUtf8,cprqendUtf8,new ArrayList<Sort>(),0,5);
+        List<Wssxb> list=new ArrayList<>();
+        Wssxb wssxb1=new Wssxb();
+        wssxb1.setWsah("1111111");
+        wssxb1.setSpcx("1zzzzz");
+        wssxb1.setWsmc("1wwwwww");
+        wssxb1.setXmlPath("/jkdk/dsa");
+
+        Wssxb wssxb2=new Wssxb();
+        wssxb2.setWsah("2222222");
+
+        Wssxb wssxb3=new Wssxb();
+        wssxb3.setWsah("3333333");
+
+        list.add(wssxb1);
+        list.add(wssxb2);
+        list.add(wssxb3);
+
+        model.addAttribute("list",list);
+        model.addAttribute("ah",ah);
+        model.addAttribute("ay",ay);
+        model.addAttribute("fycj",fycj);
+        model.addAttribute("fymc",fymc);
+        model.addAttribute("ajmc",ajmc);
+        model.addAttribute("ajlx",ajlx);
+        model.addAttribute("spcx",spcx);
+        model.addAttribute("wslx",wslx);
+        model.addAttribute("cpry",cpry);
+        model.addAttribute("lvsuo",lvsuo);
+        model.addAttribute("lvshi",lvshi);
+        model.addAttribute("flyj",flyj);
+        model.addAttribute("cpnf",cpnf);
+
+
+
+
+        model.addAttribute("SortClass",SortClass.PJRQ);
+        model.addAttribute("SortType",SortType.DESC);
+
+//        int count=ajjbxxService.searchByAjxhCount(AH);
+//        model.addAttribute("AjCount",count);
         return "search";
     }
 

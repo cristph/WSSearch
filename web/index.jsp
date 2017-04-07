@@ -162,9 +162,13 @@
             </div>
             <div class="row" style="margin-bottom: 2%">
               <div class="col-sm-11">
+                <span>裁判年份：</span><input type="text" style="width: 70%;" id="cpnf">
+              </div>
+            </div>
+            <div class="row" style="margin-bottom: 2%">
+              <div class="col-sm-11">
                 <span>法律依据：</span><input type="text" style="width: 70%;" id="flyj">
               </div>
-
             </div>
             <div class="row" style="margin-bottom: 2%">
               <div class="col-sm-6" ><button id="complexSearch">检索</button></div>
