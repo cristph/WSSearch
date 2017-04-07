@@ -21,3 +21,71 @@ $(document).keyup(function(event){
         location.href=url;
     }
 });
+
+
+$('#complexSearch').click(function(){
+    var qwjsInput=$('#qwjsInput').val();
+    var qwjs=$('#qwjs option:selected').val();
+    var ay=$('#ay').val();
+    var ah=$('#ah').val();
+    var ajmc=$('#ajmc').val();
+    var fymc=$('#fymc').val();
+    var fycj=$('#fycj option:selected').val();
+    var ajlx=$('#ajlx option:selected').val();
+    var spcx=$('#spcx option:selected').val();
+    var wslx=$('#wslx option:selected').val();
+    var cprqbegin=$('#cprqbegin').val();
+    var cprqend=$('#cprqend').val();
+    var cpry=$('#cpry').val();
+    var dsr=$('#dsr').val();
+    var lvsuo=$('#lvsuo').val();
+    var lvshi=$('#lvshi').val();
+    var flyj=$('#flyj').val();
+
+    alert("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
+        +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";lvsuo:"+lvsuo
+        +";lvshi:"+lvshi+";flyj:"+flyj);
+
+    var url="/complexSearch";
+    url=addURLParam(url,"ay",ay);
+    url=addURLParam(url,"ah",ah);
+    url=addURLParam(url,"ajmc",ajmc);
+    url=addURLParam(url,"fymc",fymc);
+    url=addURLParam(url,"fycj",fycj);
+    url=addURLParam(url,"ajlx",ajlx);
+    url=addURLParam(url,"spcx",spcx);
+    url=addURLParam(url,"wslx",wslx);
+    url=addURLParam(url,"cprqbegin",cprqbegin);
+    url=addURLParam(url,"cprqend",cprqend);
+    url=addURLParam(url,"cpry",cpry);
+    url=addURLParam(url,"dsr",dsr);
+    url=addURLParam(url,"lvsuo",lvsuo);
+    url=addURLParam(url,"lvshi",lvshi);
+    url=addURLParam(url,"flyj",flyj);
+
+    location.href=url;
+
+    //$.post(
+    //    "/complexSearch",
+    //    {
+    //        "ay":encodeURIComponent(ay),
+    //        "ah":encodeURIComponent(ah),
+    //        "ajmc":encodeURIComponent(ajmc),
+    //        "fymc":encodeURIComponent(fymc),
+    //        "fycj":encodeURIComponent(fycj),
+    //        "ajlx":encodeURIComponent(ajlx),
+    //        "spcx":encodeURIComponent(spcx),
+    //        "wslx":encodeURIComponent(wslx),
+    //        "cprqbegin":cprqbegin,
+    //        "cprqend":cprqend,
+    //        "cpry":encodeURIComponent(cpry),
+    //        "dsr":encodeURIComponent(dsr),
+    //        "lvsuo":encodeURIComponent(lvsuo),
+    //        "lvshi":encodeURIComponent(lvshi),
+    //        "flyj":encodeURIComponent(flyj)
+    //    },
+    //    function(data){
+    //
+    //    }
+    //);
+});

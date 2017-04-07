@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -263,6 +264,88 @@ public class SearchController {
         modelAndView.addObject("list",list);
         modelAndView.setViewName("nr");
         return modelAndView;
+    }
+
+
+    @RequestMapping(value="/complexSearch")
+    public String complexSearch(@RequestParam("ay")String ay,
+                                @RequestParam("ah")String ah,
+                                @RequestParam("ajmc")String ajmc,
+                                @RequestParam("fymc")String fymc,
+                                @RequestParam("fycj")String fycj,
+                                @RequestParam("ajlx")String ajlx,
+                                @RequestParam("spcx")String spcx,
+                                @RequestParam("wslx")String wslx,
+                                @RequestParam("cprqbegin")String cprqbegin,
+                                @RequestParam("cprqend")String cprqend,
+                                @RequestParam("cpry")String cpry,
+                                @RequestParam("dsr")String dsr,
+                                @RequestParam("lvsuo")String lvsuo,
+                                @RequestParam("lvshi")String lvshi,
+                                @RequestParam("flyj")String flyj
+                                ){
+        HashMap<String,String> conditions=new HashMap<>();
+        try {
+            if(ah.trim().length()!=0){
+                String ahUtf8=URLDecoder.decode(ah,"utf-8");
+                conditions.put("ah",ahUtf8);
+            }
+            if(ajmc.trim().length()!=0){
+                String ajmcUtf8=URLDecoder.decode(ajmc,"utf-8");
+                conditions.put("ajmc",ajmcUtf8);
+            }
+            if(fymc.trim().length()!=0){
+                String fymcUtf8=URLDecoder.decode(fymc,"utf-8");
+                conditions.put("fymc",fymcUtf8);
+            }
+            if(fycj.trim().length()!=0){
+                String fycjUtf8=URLDecoder.decode(fycj,"utf-8");
+                conditions.put("fycj",fycjUtf8);
+            }
+            if(ajlx.trim().length()!=0){
+                String ajlxUtf8=URLDecoder.decode(ajlx,"utf-8");
+                conditions.put("ajlx",ajlxUtf8);
+            }
+            if(spcx.trim().length()!=0){
+                String spcxUtf8=URLDecoder.decode(spcx,"utf-8");
+                conditions.put("spcx",spcxUtf8);
+            }
+            if(wslx.trim().length()!=0){
+                String wslxUtf8=URLDecoder.decode(wslx,"utf-8");
+                conditions.put("wslx",wslxUtf8);
+            }
+            if(cprqbegin.trim().length()!=0){
+                String cprqbeginUtf8=URLDecoder.decode(cprqbegin,"utf-8");
+                conditions.put("cprqbegin",cprqbeginUtf8);
+            }
+            if(cprqend.trim().length()!=0){
+                String cprqendUtf8=URLDecoder.decode(cprqend,"utf-8");
+                conditions.put("cprqend",cprqendUtf8);
+            }
+            if(cpry.trim().length()!=0){
+                String cpryUtf8=URLDecoder.decode(cpry,"utf-8");
+                conditions.put("cpry",cpryUtf8);
+            }
+            if(dsr.trim().length()!=0){
+                String dsrUtf8=URLDecoder.decode(dsr,"utf-8");
+                conditions.put("dsr",dsrUtf8);
+            }
+            if(lvsuo.trim().length()!=0){
+                String lvsuoUtf8=URLDecoder.decode(lvsuo,"utf-8");
+                conditions.put("lvsuo",lvsuoUtf8);
+            }
+            if(lvshi.trim().length()!=0){
+                String lvshiUtf8=URLDecoder.decode(lvshi,"utf-8");
+                conditions.put("lvshi",lvshiUtf8);
+            }
+            if(flyj.trim().length()!=0){
+                String flyjUtf8=URLDecoder.decode(flyj,"utf-8");
+                conditions.put("flyj",flyjUtf8);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "search";
     }
 
 }
