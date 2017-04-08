@@ -9,12 +9,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:forEach items="${list}" var="item">
     <div class="AJ">
-        <div class="row AJBiaoTi" onclick="showAj('${item.ajxh}')">
+        <input type="checkbox" value="${item.xmlPath}" style="margin:5px 0 0;border:1px solid #006600;">
+        <div class="row AJBiaoTi" onclick="showAj('${item.wsah}')">
                 ${item.spcx} ${item.wsmc}
         </div>
-        <div class="row AJCiBiaoTi" onclick="showAj('${item.ajxh}')">
-                ${item.jbfy} &nbsp;&nbsp;&nbsp;&nbsp; ${item.ah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.pjsj}
+        <div class="row AJCiBiaoTi" onclick="showAj('${item.wsah}')">
+                ${item.gymc}${item.zymc}${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
         </div>
-        <input type="hidden" value="${item.ajxh}">
+        <div style="padding: 0 0 20px 0;">
+            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.wsmc}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
+            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item.wsmc}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
+        </div>
+        <input type="hidden" value="${item.wsah}">
+        <input type="hidden" value="${item.xmlPath}" id="xml${item.wsmc}">
+        <input type="hidden" value="${item.docPath}" id="doc${item.wsmc}">
     </div>
 </c:forEach>

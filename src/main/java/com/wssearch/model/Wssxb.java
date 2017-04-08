@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 
 /**
  * Created by cristph on 2017/4/7.
@@ -31,11 +32,11 @@ public class Wssxb {
     private String sjaydm;//三级案由代码
     private String sijaymc;//四级案由名称
     private String sijaydm;//四级案由代码
-    private String fycj;//法院层级
+    private int fycj;//法院层级
     private String gymc;//高院名称
     private String zymc;//中院名称
     private String jcymc;//基层院名称
-    private String cprq;//裁判日期
+    private Date cprq;//裁判日期
     private String cpnf;//裁判年份
     private String spcx;//审判程序
     private String spry;//审判人员
@@ -175,10 +176,10 @@ public class Wssxb {
         this.sijaydm = sijaydm;
     }
     @Column(name = "FYCJ", length = 10)
-    public String getFycj() {
+    public int getFycj() {
         return fycj;
     }
-    public void setFycj(String fycj) {
+    public void setFycj(int fycj) {
         this.fycj = fycj;
     }
     @Column(name = "GYMC", length = 50)
@@ -203,10 +204,10 @@ public class Wssxb {
         this.jcymc = jcymc;
     }
     @Column(name = "CPRQ", length = 50)
-    public String getCprq() {
+    public Date getCprq() {
         return cprq;
     }
-    public void setCprq(String cprq) {
+    public void setCprq(Date cprq) {
         this.cprq = cprq;
     }
     @Column(name = "CPNF", length = 20)
@@ -280,4 +281,42 @@ public class Wssxb {
         this.flyj = flyj;
     }
 
+    @Override
+    public String toString() {
+        return "Wssxb{" +
+                "wsid=" + wsid +
+                ", wsah='" + wsah + '\'' +
+                ", wsmc='" + wsmc + '\'' +
+                ", wslx='" + wslx + '\'' +
+                ", xmlName='" + xmlName + '\'' +
+                ", xmlPath='" + xmlPath + '\'' +
+                ", docName='" + docName + '\'' +
+                ", docPath='" + docPath + '\'' +
+                ", ajlb='" + ajlb + '\'' +
+                ", aycj=" + aycj +
+                ", yjaymc='" + yjaymc + '\'' +
+                ", yjaydm='" + yjaydm + '\'' +
+                ", ejaymc='" + ejaymc + '\'' +
+                ", ejaydm='" + ejaydm + '\'' +
+                ", sjaymc='" + sjaymc + '\'' +
+                ", sjaydm='" + sjaydm + '\'' +
+                ", sijaymc='" + sijaymc + '\'' +
+                ", sijaydm='" + sijaydm + '\'' +
+                ", fycj='" + fycj + '\'' +
+                ", gymc='" + gymc + '\'' +
+                ", zymc='" + zymc + '\'' +
+                ", jcymc='" + jcymc + '\'' +
+                ", cprq='" + cprq + '\'' +
+                ", cpnf='" + cpnf + '\'' +
+                ", spcx='" + spcx + '\'' +
+                ", spry='" + spry + '\'' +
+                ", yghzgsr='" + yghzgsr + '\'' +
+                ", bg='" + bg + '\'' +
+                ", ygsfct='" + ygsfct + '\'' +
+                ", bgsfct='" + bgsfct + '\'' +
+                ", lsmc='" + lsmc + '\'' +
+                ", lsxm='" + lsxm + '\'' +
+                ", flyj='" + flyj + '\'' +
+                '}';
+    }
 }

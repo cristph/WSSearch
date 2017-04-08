@@ -86,11 +86,11 @@
                 <span>法院层级：</span>
                 <select id="fycj" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                   <option value="全部">全部</option>
-                  <option value="最高法院">最高法院</option>
-                  <option value="高级法院">高级法院</option>
-                  <option value="中级法院">中级法院</option>
-                  <option value="低级法院">低级法院</option>
-                  <option value="基层法院">基层法院</option>
+                  <option value="1">最高法院</option>
+                  <option value="2">高级法院</option>
+                  <option value="3">中级法院</option>
+                  <option value="4">低级法院</option>
+                  <option value="5">基层法院</option>
                 </select>
               </div>
             </div>
@@ -108,9 +108,9 @@
               <div class="col-sm-6">
                 <span>审判程序：</span>
                 <select id="spcx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
-                  <option value="一审">一审</option>
-                  <option value="二审">二审</option>
-                  <option value="再审">再审</option>
+                  <option value="一审案件">一审案件</option>
+                  <option value="二审案件">二审案件</option>
+                  <option value="再审案件">再审案件</option>
                 </select>
               </div>
             </div>
@@ -119,7 +119,7 @@
                 <span>文书类型：</span>
                 <select id="wslx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                   <option value="判决书">判决书</option>
-                  <option value="裁定书">裁定书</option>
+                  <option value="裁判文书">裁判文书 </option>
                   <option value="调解书">调解书</option>
                   <option value="决定书">决定书</option>
                   <option value="通知书">通知书</option>

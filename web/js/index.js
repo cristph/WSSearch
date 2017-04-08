@@ -43,7 +43,7 @@ $('#complexSearch').click(function(){
     var flyj=$('#flyj').val();
     var cpnf=$('#cpnf').val();
 
-    alert("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
+    console.log("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
         +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";lvsuo:"+lvsuo
         +";lvshi:"+lvshi+";flyj:"+flyj+";cpnf:"+cpnf);
 
@@ -66,28 +66,4 @@ $('#complexSearch').click(function(){
     url=addURLParam(url,"cpnf",cpnf);
 
     location.href=url;
-
-    //$.post(
-    //    "/complexSearch",
-    //    {
-    //        "ay":encodeURIComponent(ay),
-    //        "ah":encodeURIComponent(ah),
-    //        "ajmc":encodeURIComponent(ajmc),
-    //        "fymc":encodeURIComponent(fymc),
-    //        "fycj":encodeURIComponent(fycj),
-    //        "ajlx":encodeURIComponent(ajlx),
-    //        "spcx":encodeURIComponent(spcx),
-    //        "wslx":encodeURIComponent(wslx),
-    //        "cprqbegin":cprqbegin,
-    //        "cprqend":cprqend,
-    //        "cpry":encodeURIComponent(cpry),
-    //        "dsr":encodeURIComponent(dsr),
-    //        "lvsuo":encodeURIComponent(lvsuo),
-    //        "lvshi":encodeURIComponent(lvshi),
-    //        "flyj":encodeURIComponent(flyj)
-    //    },
-    //    function(data){
-    //
-    //    }
-    //);
 });

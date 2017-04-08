@@ -77,32 +77,32 @@ public class SearchController {
 //        return "/search";
 //    }
 
-    @ResponseBody
-    @RequestMapping(value = "/goPage",produces = "text/html;charset=cp936")
-    public ModelAndView goPage(@RequestParam("AH")String AH,
-                               @RequestParam("SortClass")String sortClass,
-                               @RequestParam("SortType")String sortType,
-                               @RequestParam("BeginIndex")int BeginIndex,
-                               ModelAndView modelAndView){
-
-        String AH_UTF8=null;
-        try {
-            AH_UTF8=URLDecoder.decode(AH,"utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        Condition condition=new Condition(SearchWord.AH,AH_UTF8);
-        List<Condition> conditions=new ArrayList<>();
-        conditions.add(condition);
-        Sort sort=new Sort(SortClass.PJRQ,SortType.DESC);
-        List<Sort> sorts=new ArrayList<>();
-        sorts.add(sort);
-        List<WsAjxxb> list=ajjbxxService.searchWsAjxxb(conditions, sorts, (BeginIndex-1)*5, 5);
-        modelAndView.addObject("list",list);
-        modelAndView.setViewName("ajPage");
-        return modelAndView;
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/goPage",produces = "text/html;charset=cp936")
+//    public ModelAndView goPage(@RequestParam("AH")String AH,
+//                               @RequestParam("SortClass")String sortClass,
+//                               @RequestParam("SortType")String sortType,
+//                               @RequestParam("BeginIndex")int BeginIndex,
+//                               ModelAndView modelAndView){
+//
+//        String AH_UTF8=null;
+//        try {
+//            AH_UTF8=URLDecoder.decode(AH,"utf-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Condition condition=new Condition(SearchWord.AH,AH_UTF8);
+//        List<Condition> conditions=new ArrayList<>();
+//        conditions.add(condition);
+//        Sort sort=new Sort(SortClass.PJRQ,SortType.DESC);
+//        List<Sort> sorts=new ArrayList<>();
+//        sorts.add(sort);
+//        List<WsAjxxb> list=ajjbxxService.searchWsAjxxb(conditions, sorts, (BeginIndex-1)*5, 5);
+//        modelAndView.addObject("list",list);
+//        modelAndView.setViewName("ajPage");
+//        return modelAndView;
+//    }
 
 
     @RequestMapping("/wsInfo")
@@ -295,55 +295,53 @@ public class SearchController {
         String cprqbeginUtf8=null;
         String cprqendUtf8=null;
         String dsrUtf8=null;
+        String fycjUtf8=null;
         try {
             ayUtf8=URLDecoder.decode(ay,"utf-8");
             if(ah.trim().length()!=0){
                 String ahUtf8=URLDecoder.decode(ah,"utf-8");
-                conditions.put("wsah",ahUtf8);
+                conditions.put("wsah",ahUtf8.trim());
             }
             if(ajmc.trim().length()!=0){
                 String ajmcUtf8=URLDecoder.decode(ajmc,"utf-8");
-                conditions.put("wsmc",ajmcUtf8);
+                conditions.put("wsmc",ajmcUtf8.trim());
             }
             fymcUtf8=URLDecoder.decode(fymc,"utf-8");
-            if(fycj.trim().length()!=0){
-                String fycjUtf8=URLDecoder.decode(fycj,"utf-8");
-                conditions.put("fycj",fycjUtf8);
-            }
+            fycjUtf8=URLDecoder.decode(fycj,"utf-8");
             if(ajlx.trim().length()!=0){
                 String ajlxUtf8=URLDecoder.decode(ajlx,"utf-8");
-                conditions.put("ajlb",ajlxUtf8);
+                conditions.put("ajlb",ajlxUtf8.trim());
             }
             if(spcx.trim().length()!=0){
                 String spcxUtf8=URLDecoder.decode(spcx,"utf-8");
-                conditions.put("spcx",spcxUtf8);
+                conditions.put("spcx",spcxUtf8.trim());
             }
             if(wslx.trim().length()!=0){
                 String wslxUtf8=URLDecoder.decode(wslx,"utf-8");
-                conditions.put("wslx",wslxUtf8);
+                conditions.put("wslx",wslxUtf8.trim());
             }
             cprqbeginUtf8=URLDecoder.decode(cprqbegin,"utf-8");
             cprqendUtf8=URLDecoder.decode(cprqend,"utf-8");
             if(cpry.trim().length()!=0){
                 String cpryUtf8=URLDecoder.decode(cpry,"utf-8");
-                conditions.put("spry",cpryUtf8);
+                conditions.put("spry",cpryUtf8.trim());
             }
             dsrUtf8=URLDecoder.decode(dsr,"utf-8");
             if(lvsuo.trim().length()!=0){
                 String lvsuoUtf8=URLDecoder.decode(lvsuo,"utf-8");
-                conditions.put("lsmc",lvsuoUtf8);
+                conditions.put("lsmc",lvsuoUtf8.trim());
             }
             if(lvshi.trim().length()!=0){
                 String lvshiUtf8=URLDecoder.decode(lvshi,"utf-8");
-                conditions.put("lsxm",lvshiUtf8);
+                conditions.put("lsxm",lvshiUtf8.trim());
             }
             if(flyj.trim().length()!=0){
                 String flyjUtf8=URLDecoder.decode(flyj,"utf-8");
-                conditions.put("flyj",flyjUtf8);
+                conditions.put("flyj",flyjUtf8.trim());
             }
             if(cpnf.trim().length()!=0){
                 String cpnfUtf8=URLDecoder.decode(cpnf,"utf-8");
-                conditions.put("cpnf",cpnfUtf8);
+                conditions.put("cpnf",cpnfUtf8.trim());
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -351,23 +349,36 @@ public class SearchController {
 
 
 
-        //List<Wssxb> list=complexSearchService.getWssxbList(conditions, ayUtf8,fymcUtf8,dsrUtf8,cprqbeginUtf8,cprqendUtf8,new ArrayList<Sort>(),0,5);
-        List<Wssxb> list=new ArrayList<>();
-        Wssxb wssxb1=new Wssxb();
-        wssxb1.setWsah("1111111");
-        wssxb1.setSpcx("1zzzzz");
-        wssxb1.setWsmc("1wwwwww");
-        wssxb1.setXmlPath("/jkdk/dsa");
-
-        Wssxb wssxb2=new Wssxb();
-        wssxb2.setWsah("2222222");
-
-        Wssxb wssxb3=new Wssxb();
-        wssxb3.setWsah("3333333");
-
-        list.add(wssxb1);
-        list.add(wssxb2);
-        list.add(wssxb3);
+        List<Wssxb> list=complexSearchService.getWssxbList(conditions, ayUtf8.trim(), Integer.valueOf(fycjUtf8),fymcUtf8.trim(), dsrUtf8.trim(),
+                cprqbeginUtf8.trim(), cprqendUtf8.trim(), new ArrayList<Sort>(),0,5);
+//        List<Wssxb> list=new ArrayList<>();
+//        Wssxb wssxb1=new Wssxb();
+//        wssxb1.setWsah("天津市20016号");
+//        wssxb1.setSpcx("一审案件");
+//        wssxb1.setWsmc("一审判决书1");
+//        wssxb1.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10030.xml");
+//        wssxb1.setDocPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\附件7 案由代码.doc");
+//        wssxb1.setGymc("天津市高级人民法院");
+//
+//        Wssxb wssxb2=new Wssxb();
+//        wssxb2.setWsah("天津市"+Math.random()+"号");
+//        wssxb2.setSpcx("一审案件");
+//        wssxb2.setWsmc("一审判决书4");
+//        wssxb2.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10031.xml");
+//        wssxb2.setDocPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\文书可视化-吴骁恺-3月2日.docx");
+//        wssxb2.setGymc("天津市高级人民法院");
+//
+//        Wssxb wssxb3=new Wssxb();
+//        wssxb3.setWsah("天津市"+Math.random()+"号");
+//        wssxb3.setSpcx("一审案件");
+//        wssxb3.setWsmc("一审判决书5");
+//        wssxb3.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10032.xml");
+//        wssxb3.setDocPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\文书可视化与搜索进度_吴骁恺_0319.docx");
+//        wssxb3.setGymc("天津市高级人民法院");
+//
+//        list.add(wssxb1);
+//        list.add(wssxb2);
+//        list.add(wssxb3);
 
         model.addAttribute("list",list);
         model.addAttribute("ah",ah);
@@ -385,14 +396,140 @@ public class SearchController {
         model.addAttribute("cpnf",cpnf);
 
 
-
-
         model.addAttribute("SortClass",SortClass.PJRQ);
         model.addAttribute("SortType",SortType.DESC);
 
-//        int count=ajjbxxService.searchByAjxhCount(AH);
-//        model.addAttribute("AjCount",count);
+        int count=complexSearchService.getWssxbListNum(conditions, ayUtf8.trim(), Integer.valueOf(fycjUtf8),fymcUtf8.trim(), dsrUtf8.trim(),
+                cprqbeginUtf8.trim(), cprqendUtf8.trim());
+//        int count=3;
+        model.addAttribute("AjCount",count);
         return "search";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/goPage",produces = "text/html;charset=cp936")
+    public ModelAndView goPage(@RequestParam("ay")String ay,
+                               @RequestParam("ah")String ah,
+                               @RequestParam("ajmc")String ajmc,
+                               @RequestParam("fymc")String fymc,
+                               @RequestParam("fycj")String fycj,
+                               @RequestParam("ajlx")String ajlx,
+                               @RequestParam("spcx")String spcx,
+                               @RequestParam("wslx")String wslx,
+                               @RequestParam("cprqbegin")String cprqbegin,
+                               @RequestParam("cprqend")String cprqend,
+                               @RequestParam("cpry")String cpry,
+                               @RequestParam("dsr")String dsr,
+                               @RequestParam("lvsuo")String lvsuo,
+                               @RequestParam("lvshi")String lvshi,
+                               @RequestParam("flyj")String flyj,
+                               @RequestParam("cpnf")String cpnf,
+                               @RequestParam("SortClass")String sortClass,
+                               @RequestParam("SortType")String sortType,
+                               @RequestParam("BeginIndex")int BeginIndex,
+                               ModelAndView modelAndView){
+
+        HashMap<String,String> conditions=new HashMap<>();
+        String ayUtf8=null;
+        String fymcUtf8=null;
+        String cprqbeginUtf8=null;
+        String cprqendUtf8=null;
+        String dsrUtf8=null;
+        String fycjUtf8=null;
+
+        try {
+            ayUtf8=URLDecoder.decode(ay,"utf-8");
+            if(ah.trim().length()!=0){
+                String ahUtf8=URLDecoder.decode(ah,"utf-8");
+                conditions.put("wsah",ahUtf8.trim());
+            }
+            if(ajmc.trim().length()!=0){
+                String ajmcUtf8=URLDecoder.decode(ajmc,"utf-8");
+                conditions.put("wsmc",ajmcUtf8.trim());
+            }
+            fymcUtf8=URLDecoder.decode(fymc,"utf-8");
+            fycjUtf8=URLDecoder.decode(fycj,"utf-8");
+            if(ajlx.trim().length()!=0){
+                String ajlxUtf8=URLDecoder.decode(ajlx,"utf-8");
+                conditions.put("ajlb",ajlxUtf8.trim());
+            }
+            if(spcx.trim().length()!=0){
+                String spcxUtf8=URLDecoder.decode(spcx,"utf-8");
+                conditions.put("spcx",spcxUtf8.trim());
+            }
+            if(wslx.trim().length()!=0){
+                String wslxUtf8=URLDecoder.decode(wslx,"utf-8");
+                conditions.put("wslx",wslxUtf8.trim());
+            }
+            cprqbeginUtf8=URLDecoder.decode(cprqbegin,"utf-8");
+            cprqendUtf8=URLDecoder.decode(cprqend,"utf-8");
+            if(cpry.trim().length()!=0){
+                String cpryUtf8=URLDecoder.decode(cpry,"utf-8");
+                conditions.put("spry",cpryUtf8.trim());
+            }
+            dsrUtf8=URLDecoder.decode(dsr,"utf-8");
+            if(lvsuo.trim().length()!=0){
+                String lvsuoUtf8=URLDecoder.decode(lvsuo,"utf-8");
+                conditions.put("lsmc",lvsuoUtf8.trim());
+            }
+            if(lvshi.trim().length()!=0){
+                String lvshiUtf8=URLDecoder.decode(lvshi,"utf-8");
+                conditions.put("lsxm",lvshiUtf8.trim());
+            }
+            if(flyj.trim().length()!=0){
+                String flyjUtf8=URLDecoder.decode(flyj,"utf-8");
+                conditions.put("flyj",flyjUtf8.trim());
+            }
+            if(cpnf.trim().length()!=0){
+                String cpnfUtf8=URLDecoder.decode(cpnf,"utf-8");
+                conditions.put("cpnf",cpnfUtf8.trim());
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+
+        List<Wssxb> list=complexSearchService.getWssxbList(conditions, ayUtf8.trim(), Integer.valueOf(fycjUtf8),fymcUtf8.trim(), dsrUtf8.trim(),
+                cprqbeginUtf8.trim(), cprqendUtf8.trim(), new ArrayList<Sort>(),(BeginIndex-1)*5,5);
+//        List<Wssxb> list=new ArrayList<>();
+//        Wssxb wssxb1=new Wssxb();
+//        wssxb1.setWsah("天津市"+Math.random()+"号");
+//        wssxb1.setSpcx("一审案件");
+//        wssxb1.setWsmc("一审判决书3");
+//        wssxb1.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10030.xml");
+//        wssxb1.setDocPath("/jkdk/doc3");
+//        wssxb1.setGymc("天津市高级人民法院");
+//
+//        Wssxb wssxb2=new Wssxb();
+//        wssxb2.setWsah("天津市"+Math.random()+"号");
+//        wssxb2.setSpcx("一审案件");
+//        wssxb2.setWsmc("一审判决书4");
+//        wssxb2.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10031.xml");
+//        wssxb2.setDocPath("/jkdk/doc3");
+//        wssxb2.setGymc("天津市高级人民法院");
+//
+//        Wssxb wssxb3=new Wssxb();
+//        wssxb3.setWsah("天津市"+Math.random()+"号");
+//        wssxb3.setSpcx("一审案件");
+//        wssxb3.setWsmc("一审判决书5");
+//        wssxb3.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10032.xml");
+//        wssxb3.setDocPath("/jkdk/doc3");
+//        wssxb3.setGymc("天津市高级人民法院");
+//
+//        list.add(wssxb1);
+//        list.add(wssxb2);
+//        list.add(wssxb3);
+
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("ajPage");
+        return modelAndView;
+    }
+
+    @RequestMapping("/test")
+    public String test(){
+        complexSearchService.getAll();
+        return null;
     }
 
 }

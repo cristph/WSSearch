@@ -90,11 +90,11 @@
                                 <span>法院层级：</span>
                                 <select id="fycj" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                                     <option value="全部">全部</option>
-                                    <option value="最高法院">最高法院</option>
-                                    <option value="高级法院">高级法院</option>
-                                    <option value="中级法院">中级法院</option>
-                                    <option value="低级法院">低级法院</option>
-                                    <option value="基层法院">基层法院</option>
+                                    <option value="1">最高法院</option>
+                                    <option value="2">高级法院</option>
+                                    <option value="3">中级法院</option>
+                                    <option value="4">低级法院</option>
+                                    <option value="5">基层法院</option>
                                 </select>
                             </div>
                         </div>
@@ -188,44 +188,65 @@
             <div class="col-sm-9">
                 <div class="title-box">检索条件：
                     <c:if test="${ay!=''}">
-                        <span class="label label-primary">案由：${ay} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">案由:${ay} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('ay')"></span></span>
                     </c:if>
                     <c:if test="${ah!=''}">
-                        <span class="label label-primary">案号：${ah} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">案号:${ah} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('ah')"></span></span>
                     </c:if>
                     <c:if test="${ajmc!=''}">
-                        <span class="label label-primary">案件名称：${ajmc} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">案件名称:${ajmc} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('ajmc')"></span></span>
                     </c:if>
                     <c:if test="${fymc!=''}">
-                        <span class="label label-primary">法院名称：${fymc} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">法院名称:${fymc} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fymc')"></span></span>
                     </c:if>
                     <c:if test="${fycj!=''}">
-                        <span class="label label-primary">法院层级：${fycj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">法院层级:${fycj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>
                     </c:if>
                     <c:if test="${ajlx!=''}">
-                        <span class="label label-primary">案件类型：${ajlx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">案件类型:${ajlx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('ajlx')"></span></span>
                     </c:if>
                     <c:if test="${spcx!=''}">
-                        <span class="label label-primary">审判程序：${spcx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">审判程序:${spcx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('spcx')"></span></span>
                     </c:if>
                     <c:if test="${wslx!=''}">
-                        <span class="label label-primary">文书类型：${wslx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">文书类型:${wslx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('wslx')"></span></span>
                     </c:if>
                     <c:if test="${cpry!=''}">
-                        <span class="label label-primary">裁判人员：${cpry} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">裁判人员:${cpry} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('cpry')"></span></span>
                     </c:if>
                     <c:if test="${lvsuo!=''}">
-                        <span class="label label-primary">律所：${lvsuo} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">律所:${lvsuo} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('lvsuo')"></span></span>
                     </c:if>
                     <c:if test="${lvshi!=''}">
-                        <span class="label label-primary">律师：${lvshi} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">律师:${lvshi} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('lvshi')"></span></span>
                     </c:if>
                     <c:if test="${flyj!=''}">
-                        <span class="label label-primary">法律依据：${flyj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary">法律依据:${flyj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('flyj')"></span></span>
                     </c:if>
                     <c:if test="${cpnf!=''}">
-                        <span class="label label-primary">裁判年份：${cpnf} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel()"></span></span>
+                        <span class="label label-primary" >裁判年份:${cpnf} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('cpnf')"></span></span>
                     </c:if>
+                </div>
+                <div id="searchConditions">
+                    <input type="hidden" id="cond_ay" value="${ay}">
+                    <input type="hidden" id="cond_ah" value="${ah}">
+                    <input type="hidden" id="cond_ajmc" value="${ajmc}">
+                    <input type="hidden" id="cond_fymc" value="${fymc}">
+                    <input type="hidden" id="cond_fycj" value="${fycj}">
+                    <input type="hidden" id="cond_ajlx" value="${ajlx}">
+                    <input type="hidden" id="cond_spcx" value="${spcx}">
+                    <input type="hidden" id="cond_wslx" value="${wslx}">
+                    <input type="hidden" id="cond_cprqbegin" value="${cprqbegin}">
+                    <input type="hidden" id="cond_cprqend" value="${cprqend}">
+                    <input type="hidden" id="cond_cpry" value="${cpry}">
+                    <input type="hidden" id="cond_dsr" value="${dsr}">
+                    <input type="hidden" id="cond_lvsuo" value="${lvsuo}">
+                    <input type="hidden" id="cond_lvshi" value="${lvshi}">
+                    <input type="hidden" id="cond_flyj" value="${flyj}">
+                    <input type="hidden" id="cond_cpnf" value="${cpnf}">
+
+                    <input type="hidden" id="SortClass" value="${SortClass}">
+                    <input type="hidden" id="SortType" value="${SortType}">
                 </div>
                 <div class="row" style="margin: 2% 0 2% 0">
                     <span class="sortBtn">法院层级 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
@@ -233,8 +254,8 @@
                     <span class="sortBtn">审判程序 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
                     <span style="font-weight: bolder;color: white">共得到${AjCount}条记录</span><span style="width: 100px;height: 2px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <input type="checkbox" style="margin:5px 0 0;border:1px solid #006600;" id="downloadAll">
-                    <span style="border:1px solid #006600;border-radius: 2px;background-color: grey;color: black;cursor: pointer" onclick="downloadXml()">批量下载xml</span>
-                    <span style="border:1px solid #006600;border-radius: 2px;background-color: grey;color: black;cursor: pointer" onclick="downloadDoc">批量下载doc</span>
+                    <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadXml()">批量下载xml</span>
+                    <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadDoc()">批量下载doc</span>
                 </div>
                 <div>
                     <div id="AjDiv">
@@ -247,10 +268,15 @@
                             <div class="row AJCiBiaoTi" onclick="showAj('${item.wsah}')">
                                     ${item.gymc}${item.zymc}${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
                             </div>
+                            <div style="padding: 0 0 20px 0;">
+                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.wsmc}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
+                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item.wsmc}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
+                            </div>
                             <input type="hidden" value="${item.wsah}">
-                            <input type="hidden" value="${item.docPath}" id="xml${item.wsah}">
+                            <input type="hidden" value="${item.xmlPath}" id="xml${item.wsmc}">
+                            <input type="hidden" value="${item.docPath}" id="doc${item.wsmc}">
                         </div>
-                    </c:forEach>
+                        </c:forEach>
                     </div>
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
@@ -259,11 +285,11 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="active"><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',1)">1</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',2)">2</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',3)">3</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',4)">4</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${ah}','${SortClass}','${SortType}',5)">5</a></li>
+                            <li class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',1)">1</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',2)">2</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',3)">3</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',4)">4</a></li>
+                            <li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',5)">5</a></li>
                             <li>
                                 <a href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
