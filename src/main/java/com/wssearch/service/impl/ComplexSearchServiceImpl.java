@@ -33,6 +33,11 @@ public class ComplexSearchServiceImpl implements ComplexSearchService {
     }
 
     @Override
+    public List<Wssxb> getWssxList(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, HashMap<String, String> sorts, int beginIdex, int listNum) {
+        return complexSearchDao.getWssxList(preciseConditions, ambiguousConditions, ay, fymc, dsr, beginDate, endDate, sorts, beginIdex, listNum);
+    }
+
+    @Override
     public List<Wssxb> getAll() {
         return complexSearchDao.getAll();
     }

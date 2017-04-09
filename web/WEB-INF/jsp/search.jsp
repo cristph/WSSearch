@@ -249,9 +249,12 @@
                     <input type="hidden" id="SortType" value="${SortType}">
                 </div>
                 <div class="row" style="margin: 2% 0 2% 0">
-                    <span class="sortBtn">法院层级 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
-                    <span class="sortBtn">裁判日期 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
-                    <span class="sortBtn">审判程序 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
+                    <input type="hidden" id="fycjOrder" value="desc">
+                    <input type="hidden" id="cprqOrder" value="desc">
+                    <input type="hidden" id="spcxOrder" value="desc">
+                    <span class="sortBtn" onclick="changeSortOrder('fycj')">法院层级 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="fycjArrow"></span></span>
+                    <span class="sortBtn" onclick="changeSortOrder('cprq')">裁判日期 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="cprqArrow"></span></span>
+                    <span class="sortBtn" onclick="changeSortOrder('spcx')">审判程序 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="spcxArrow"></span></span>
                     <span style="font-weight: bolder;color: white">共得到${AjCount}条记录</span><span style="width: 100px;height: 2px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <input type="checkbox" style="margin:5px 0 0;border:1px solid #006600;" id="downloadAll">
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadXml()">批量下载xml</span>
@@ -279,19 +282,61 @@
                         </c:forEach>
                     </div>
                     <nav aria-label="Page navigation">
-                        <ul class="pagination">
+                        <input type="hidden" id="maxPageNum" value="${maxPageNum}">
+                        <input type="hidden" id="currentPageIndex" value="1">
+                        <input type="hidden" id="firstPageIndex" value="1">
+                        <input type="hidden" id="endPageIndex" value="5">
+                        <ul class="pagination" id="PP">
                             <li>
-                                <a href="#" aria-label="Previous">
+                                <a href="javascript:void(0)" aria-label="Previous" onclick="goPrevious()">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',1)">1</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',2)">2</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',3)">3</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',4)">4</a></li>
-                            <li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',5)">5</a></li>
+
+                            <%--<c:forEach var="i" begin="${beginPageIndex}" end="${endPageIndex}" step="1">--%>
+                                <%--<c:choose>--%>
+                                    <%--<c:when test="${i==1}">--%>
+                                        <%--<li class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>--%>
+                                    <%--</c:when>--%>
+                                    <%--<c:otherwise>--%>
+                                        <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>--%>
+                                    <%--</c:otherwise>--%>
+                                <%--</c:choose>--%>
+                            <%--</c:forEach>--%>
+                            <c:choose>
+                                <c:when test="${maxPageNum>5}">
+                                    <c:forEach var="i" begin="1" end="5" step="1">
+                                        <c:choose>
+                                            <c:when test="${i==1}">
+                                                <li id="page${i}" class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li id="page${i}" class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach var="i" begin="1" end="${maxPageNum}" step="1">
+                                        <c:choose>
+                                            <c:when test="${i==1}">
+                                                <li id="page${i}" class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li id="page${i}" class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <%--<li class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',1)">1</a></li>--%>
+                            <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',2)">2</a></li>--%>
+                            <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',3)">3</a></li>--%>
+                            <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',4)">4</a></li>--%>
+                            <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',5)">5</a></li>--%>
                             <li>
-                                <a href="#" aria-label="Next">
+                                <a href="javascript:void(0)" aria-label="Next" onclick="goNext()">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

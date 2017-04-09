@@ -43,12 +43,7 @@ function showAj(Ajxh){
     open(addURLParam("/wsInfo","Ajxh",Ajxh));
 }
 
-function goPage(SortClass,SortType,BeginIndex){
-    var current=event.toElement.parentNode;
-    $(current.parentNode).find("li").each(function(){
-       $(this).removeClass("active");
-    });
-    $(current).addClass("active");
+function showPage(SortClass,SortType,BeginIndex){
     $.post(
         "/goPage",
         {
@@ -76,6 +71,100 @@ function goPage(SortClass,SortType,BeginIndex){
             $('#AjDiv').html(data);
         }
     );
+}
+
+function goPage(SortClass,SortType,BeginIndex){
+    var current=event.toElement.parentNode;
+    $(current.parentNode).find("li").each(function(){
+       $(this).removeClass("active");
+    });
+    $(current).addClass("active");
+    showPage(SortClass,SortType,BeginIndex);
+    $('#currentPageIndex').val(BeginIndex);
+}
+
+function goPrevious(){
+    var maxPageNum=$('#maxPageNum').val();
+    var currentPageIndex=$('#currentPageIndex').val();
+    if(currentPageIndex==1){
+        return;
+    }else{
+        var firstPageIndex=$('#firstPageIndex').val();
+        if(currentPageIndex==firstPageIndex){
+            var str="";
+            var previous=parseInt(currentPageIndex)-1;
+            str+="<li><a href=\"javascript:void(0)\" aria-label=\"Previous\" onclick=\"goPrevious()\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
+            if(previous-4>=1){
+                for(var i=previous-4;i<=previous;i++){
+                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('PJRQ','DESC','"+i+"')\">"+i+"</a></li>";
+                }
+            }else{
+                for(var i=1;i<=previous;i++){
+                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('PJRQ','DESC','"+i+"')\">"+i+"</a></li>";
+                }
+            }
+            str+="<li><a href=\"javascript:void(0)\" aria-label=\"Next\" onclick=\"goNext()\"><span aria-hidden=\"true\">&raquo;</span></a></li>";
+            $('#PP').html(str);
+            $('#page'+previous).addClass('active');
+            $('#endPageIndex').val(previous);
+            if(previous-4>=1){
+                $('#firstPageIndex').val(previous-4);
+            }else{
+                $('#firstPageIndexPageIndex').val(1);
+            }
+            $('#currentPageIndex').val(previous);
+            showPage($('#SortClass').val(),$('#SortType').val(),previous);
+        }else{
+            $('#page'+currentPageIndex).removeClass('active');
+            var previous=parseInt(currentPageIndex)-1;
+            $('#page'+previous).addClass('active');
+            $('#currentPageIndex').val(previous);
+            showPage($('#SortClass').val(),$('#SortType').val(),previous);
+        }
+    }
+
+
+}
+
+function goNext(){
+    var maxPageNum=$('#maxPageNum').val();
+    var currentPageIndex=$('#currentPageIndex').val();
+    if(currentPageIndex==maxPageNum){
+        return;
+    }else{
+        var endPageIndex=$('#endPageIndex').val();
+        if(currentPageIndex==endPageIndex){
+            var str="";
+            var next=parseInt(currentPageIndex)+1;
+            str+="<li><a href=\"javascript:void(0)\" aria-label=\"Previous\" onclick=\"goPrevious()\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
+            if(next+4<=maxPageNum){
+                for(var i=next;i<next+5;i++){
+                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('PJRQ','DESC','"+i+"')\">"+i+"</a></li>";
+                }
+            }else{
+                for(var i=next;i<=maxPageNum;i++){
+                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('PJRQ','DESC','"+i+"')\">"+i+"</a></li>";
+                }
+            }
+            str+="<li><a href=\"javascript:void(0)\" aria-label=\"Next\" onclick=\"goNext()\"><span aria-hidden=\"true\">&raquo;</span></a></li>";
+            $('#PP').html(str);
+            $('#page'+next).addClass('active');
+            $('#firstPageIndex').val(next);
+            if(next+4<=maxPageNum){
+                $('#endPageIndex').val(next+4);
+            }else{
+                $('#endPageIndex').val(maxPageNum);
+            }
+            $('#currentPageIndex').val(next);
+            showPage($('#SortClass').val(),$('#SortType').val(),next);
+        }else{
+            $('#page'+currentPageIndex).removeClass('active');
+            var next=parseInt(currentPageIndex)+1;
+            $('#page'+next).addClass('active');
+            $('#currentPageIndex').val(next);
+            showPage($('#SortClass').val(),$('#SortType').val(),next);
+        }
+    }
 }
 
 $('#complexSearch').click(function(){
@@ -193,16 +282,8 @@ $('#downloadAll').click(function(){
 });
 
 function removeLabel(key){
-    //console.log("text:"+event.toElement.parentNode.textContent);
-    //console.log(event.toElement.parentNode.textContent.split(':'));
-    //var value=event.toElement.parentNode.textContent.split(':')[1];
-    //console.log("value:"+value);
-    //var str="哈哈哈:加快";
-    //console.log(str.split(':'));
     $('#cond_'+key).val('');
-    //alert("new:"+$('#cond_'+key).val());
     $(event.toElement.parentNode).remove();
-
     $.post(
         "/goPage",
         {
@@ -230,4 +311,55 @@ function removeLabel(key){
             $('#AjDiv').html(data);
         }
     );
+}
+
+function changeSortOrder(sortClass){
+    var current=$('#'+sortClass+'Arrow');
+    if(current.hasClass('glyphicon-arrow-up')){
+        current.removeClass('glyphicon-arrow-up');
+        current.addClass('glyphicon-arrow-down');
+        $('#'+sortClass+'Order').val('desc');
+    }else{
+        current.removeClass('glyphicon-arrow-down');
+        current.addClass('glyphicon-arrow-up');
+        $('#'+sortClass+'Order').val('asc');
+    }
+    //alert("post");
+    var sorts=[];
+    var orders=[];
+    sorts.push('fycj');
+    orders.push($('#fycjOrder').val());
+    sorts.push('cprq');
+    orders.push($('#cprqOrder').val());
+    sorts.push('spcx');
+    orders.push($('#spcxOrder').val());
+
+    $.post(
+        "/gPage",
+        {
+            "ay":encodeURIComponent($('#cond_ay').val()),
+            "ah":encodeURIComponent($('#cond_ah').val()),
+            "ajmc":encodeURIComponent($('#cond_ajmc').val()),
+            "fymc":encodeURIComponent($('#cond_fymc').val()),
+            "fycj":encodeURIComponent($('#cond_fycj').val()),
+            "ajlx":encodeURIComponent($('#cond_ajlx').val()),
+            "spcx":encodeURIComponent($('#cond_spcx').val()),
+            "wslx":encodeURIComponent($('#cond_wslx').val()),
+            "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
+            "cprqend":encodeURIComponent($('#cond_cprqend').val()),
+            "cpry":encodeURIComponent($('#cond_cpry').val()),
+            "dsr":encodeURIComponent($('#cond_dsr').val()),
+            "lvsuo":encodeURIComponent($('#cond_lvsuo').val()),
+            "lvshi":encodeURIComponent($('#cond_lvshi').val()),
+            "flyj":encodeURIComponent($('#cond_flyj').val()),
+            "cpnf":encodeURIComponent($('#cond_cpnf').val()),
+            "SortClass[]":sorts,
+            "SortType[]":orders,
+            "BeginIndex":0
+        },
+        function(data){
+            $('#AjDiv').html(data);
+        }
+    );
+
 }
