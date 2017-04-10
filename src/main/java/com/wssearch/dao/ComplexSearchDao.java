@@ -3,6 +3,7 @@ package com.wssearch.dao;
 import com.wssearch.model.Wssxb;
 import com.wssearch.util.Sort;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,15 +12,18 @@ import java.util.List;
  */
 public interface ComplexSearchDao {
 
-    public List<Wssxb> getWssxbList(HashMap<String,String> conditions,String ay,int fycj,String fymc,String dsr,String beginDate,String endDate,
-                                    List<Sort> sorts, int beginIdex, int listNum);
-
-
-    public int getWssxbListNum(HashMap<String,String> conditions,String ay,int fycj,String fymc,String dsr,String beginDate,String endDate);
+//    public List<Wssxb> getWssxbList(HashMap<String,String> conditions,String ay,int fycj,String fymc,String dsr,String beginDate,String endDate,
+//                                    List<Sort> sorts, int beginIdex, int listNum);
+//
+//
+//    public int getWssxbListNum(HashMap<String,String> conditions,String ay,int fycj,String fymc,String dsr,String beginDate,String endDate);
 
     public List<Wssxb> getWssxList(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions,
                                    String ay, String fymc, String dsr, String beginDate, String endDate,
-                                   HashMap<String,String> sorts, int beginIdex, int listNum);
+                                   HashMap<String,String> sorts, int beginIdex, int listNum) throws SQLException;
+
+    public int getWssxListNum(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions,
+                              String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException;
 
     public List<Wssxb> getAll();
 }

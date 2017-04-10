@@ -85,7 +85,7 @@
               <div class="col-sm-6">
                 <span>法院层级：</span>
                 <select id="fycj" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
-                  <option value="全部">全部</option>
+                  <option value="0">全部</option>
                   <option value="1">最高法院</option>
                   <option value="2">高级法院</option>
                   <option value="3">中级法院</option>
@@ -111,6 +111,7 @@
                   <option value="一审案件">一审案件</option>
                   <option value="二审案件">二审案件</option>
                   <option value="再审案件">再审案件</option>
+                  <option value="再审复查与审判监督案">再审复查与审判监督案</option>
                 </select>
               </div>
             </div>

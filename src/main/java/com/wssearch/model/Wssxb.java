@@ -32,7 +32,7 @@ public class Wssxb {
     private String sjaydm;//三级案由代码
     private String sijaymc;//四级案由名称
     private String sijaydm;//四级案由代码
-    private int fycj;//法院层级
+    private Integer fycj;//法院层级
     private String gymc;//高院名称
     private String zymc;//中院名称
     private String jcymc;//基层院名称
@@ -176,10 +176,10 @@ public class Wssxb {
         this.sijaydm = sijaydm;
     }
     @Column(name = "FYCJ", length = 10)
-    public int getFycj() {
+    public Integer getFycj() {
         return fycj;
     }
-    public void setFycj(int fycj) {
+    public void setFycj(Integer fycj) {
         this.fycj = fycj;
     }
     @Column(name = "GYMC", length = 50)

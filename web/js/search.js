@@ -43,7 +43,7 @@ function showAj(Ajxh){
     open(addURLParam("/wsInfo","Ajxh",Ajxh));
 }
 
-function showPage(SortClass,SortType,BeginIndex){
+function showPage(sorts,orders,BeginIndex){
     $.post(
         "/goPage",
         {
@@ -63,8 +63,8 @@ function showPage(SortClass,SortType,BeginIndex){
             "lvshi":encodeURIComponent($('#cond_lvshi').val()),
             "flyj":encodeURIComponent($('#cond_flyj').val()),
             "cpnf":encodeURIComponent($('#cond_cpnf').val()),
-            "SortClass":encodeURIComponent(SortClass),
-            "SortType":encodeURIComponent(SortType),
+            "SortClass[]":sorts,
+            "SortType[]":orders,
             "BeginIndex":BeginIndex
         },
         function(data){
@@ -73,13 +73,21 @@ function showPage(SortClass,SortType,BeginIndex){
     );
 }
 
-function goPage(SortClass,SortType,BeginIndex){
+function goPage(BeginIndex){
     var current=event.toElement.parentNode;
     $(current.parentNode).find("li").each(function(){
        $(this).removeClass("active");
     });
     $(current).addClass("active");
-    showPage(SortClass,SortType,BeginIndex);
+    var sorts=[];
+    var orders=[];
+    sorts.push('fycj');
+    orders.push($('#fycjOrder').val());
+    sorts.push('cprq');
+    orders.push($('#cprqOrder').val());
+    sorts.push('spcx');
+    orders.push($('#spcxOrder').val());
+    showPage(sorts,orders,BeginIndex);
     $('#currentPageIndex').val(BeginIndex);
 }
 
@@ -335,7 +343,7 @@ function changeSortOrder(sortClass){
     orders.push($('#spcxOrder').val());
 
     $.post(
-        "/gPage",
+        "/goPage",
         {
             "ay":encodeURIComponent($('#cond_ay').val()),
             "ah":encodeURIComponent($('#cond_ah').val()),
@@ -355,9 +363,10 @@ function changeSortOrder(sortClass){
             "cpnf":encodeURIComponent($('#cond_cpnf').val()),
             "SortClass[]":sorts,
             "SortType[]":orders,
-            "BeginIndex":0
+            "BeginIndex":1
         },
         function(data){
+            console.log(data);
             $('#AjDiv').html(data);
         }
     );

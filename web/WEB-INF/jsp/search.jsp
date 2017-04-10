@@ -89,7 +89,7 @@
                             <div class="col-sm-6">
                                 <span>法院层级：</span>
                                 <select id="fycj" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
-                                    <option value="全部">全部</option>
+                                    <option value="0">全部</option>
                                     <option value="1">最高法院</option>
                                     <option value="2">高级法院</option>
                                     <option value="3">中级法院</option>
@@ -115,6 +115,7 @@
                                     <option value="一审">一审</option>
                                     <option value="二审">二审</option>
                                     <option value="再审">再审</option>
+                                    <option value="再审复查与审判监督案">再审复查与审判监督案</option>
                                 </select>
                             </div>
                         </div>
@@ -123,7 +124,7 @@
                                 <span>文书类型：</span>
                                 <select id="wslx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                                     <option value="判决书">判决书</option>
-                                    <option value="裁定书">裁定书</option>
+                                    <option value="裁定书">裁判文书</option>
                                     <option value="调解书">调解书</option>
                                     <option value="决定书">决定书</option>
                                     <option value="通知书">通知书</option>
@@ -255,7 +256,7 @@
                     <span class="sortBtn" onclick="changeSortOrder('fycj')">法院层级 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="fycjArrow"></span></span>
                     <span class="sortBtn" onclick="changeSortOrder('cprq')">裁判日期 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="cprqArrow"></span></span>
                     <span class="sortBtn" onclick="changeSortOrder('spcx')">审判程序 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="spcxArrow"></span></span>
-                    <span style="font-weight: bolder;color: white">共得到${AjCount}条记录</span><span style="width: 100px;height: 2px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span style="font-weight: bolder;color: white">共得到${AjCount}条记录</span><span style="width: 100px;height: 2px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <input type="checkbox" style="margin:5px 0 0;border:1px solid #006600;" id="downloadAll">
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadXml()">批量下载xml</span>
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadDoc()">批量下载doc</span>
@@ -308,10 +309,10 @@
                                     <c:forEach var="i" begin="1" end="5" step="1">
                                         <c:choose>
                                             <c:when test="${i==1}">
-                                                <li id="page${i}" class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>
+                                                <li id="page${i}" class="active"><a href="javascript:void(0)" onclick="goPage('${i}')">${i}</a></li>
                                             </c:when>
                                             <c:otherwise>
-                                                <li id="page${i}" class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>
+                                                <li id="page${i}" class=""><a href="javascript:void(0)" onclick="goPage('${i}')">${i}</a></li>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
@@ -320,10 +321,10 @@
                                     <c:forEach var="i" begin="1" end="${maxPageNum}" step="1">
                                         <c:choose>
                                             <c:when test="${i==1}">
-                                                <li id="page${i}" class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>
+                                                <li id="page${i}" class="active"><a href="javascript:void(0)" onclick="goPage('${i}')">${i}</a></li>
                                             </c:when>
                                             <c:otherwise>
-                                                <li id="page${i}" class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>
+                                                <li id="page${i}" class=""><a href="javascript:void(0)" onclick="goPage('${i}')">${i}</a></li>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
@@ -341,7 +342,9 @@
                                 </a>
                             </li>
                         </ul>
+                        <span style="color: white;font-size: larger;font-weight: bolder;margin-bottom: 20px">共${maxPageNum}页</span>
                     </nav>
+
                 </div>
             </div>
         </div>
