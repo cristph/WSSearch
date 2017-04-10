@@ -25,5 +25,11 @@ public interface ComplexSearchDao {
     public int getWssxListNum(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions,
                               String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException;
 
+
+    public String createView(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions,
+                             String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException;
+
+    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName) throws SQLException;
+
     public List<Wssxb> getAll();
 }

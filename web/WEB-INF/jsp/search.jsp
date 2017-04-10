@@ -112,9 +112,9 @@
                             <div class="col-sm-6">
                                 <span>审判程序：</span>
                                 <select id="spcx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
-                                    <option value="一审">一审</option>
-                                    <option value="二审">二审</option>
-                                    <option value="再审">再审</option>
+                                    <option value="一审案件">一审案件</option>
+                                    <option value="二审案件">二审案件</option>
+                                    <option value="再审案件">再审案件</option>
                                     <option value="再审复查与审判监督案">再审复查与审判监督案</option>
                                 </select>
                             </div>
@@ -124,7 +124,7 @@
                                 <span>文书类型：</span>
                                 <select id="wslx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                                     <option value="判决书">判决书</option>
-                                    <option value="裁定书">裁判文书</option>
+                                    <option value="裁判文书">裁判文书 </option>
                                     <option value="调解书">调解书</option>
                                     <option value="决定书">决定书</option>
                                     <option value="通知书">通知书</option>
@@ -167,9 +167,13 @@
                         </div>
                         <div class="row" style="margin-bottom: 2%">
                             <div class="col-sm-11">
+                                <span>裁判年份：</span><input type="text" style="width: 70%;" id="cpnf">
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 2%">
+                            <div class="col-sm-11">
                                 <span>法律依据：</span><input type="text" style="width: 70%;" id="flyj">
                             </div>
-
                         </div>
                         <div class="row" style="margin-bottom: 2%">
                             <div class="col-sm-6" ><button id="complexSearch">检索</button></div>
@@ -229,6 +233,7 @@
                     </c:if>
                 </div>
                 <div id="searchConditions">
+                    <input type="hidden" id="viewName" value="">
                     <input type="hidden" id="cond_ay" value="${ay}">
                     <input type="hidden" id="cond_ah" value="${ah}">
                     <input type="hidden" id="cond_ajmc" value="${ajmc}">

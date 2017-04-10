@@ -179,7 +179,7 @@
           <input type="text" class="form-control input-lg" placeholder="输入案由、关键词、法院、当事人、律师" id="searchInput">
           <span class="input-group-addon btn-lg join-btn" style="font-size: large;font-weight: bolder" id="searchBtn">搜索</span>
         </div>
-        <p style="height: 100px"></p>
+        <p style="height: 300px"></p>
       </div>
     </div>
   </div>

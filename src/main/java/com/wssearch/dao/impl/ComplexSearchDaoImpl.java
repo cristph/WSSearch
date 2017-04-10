@@ -170,6 +170,10 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
 //        return count.intValue();
 //    }
 
+    /*
+    *beginIdex 开始序号，包括在内
+    * listnum 数量
+     */
     @Override
     public List<Wssxb> getWssxList(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, HashMap<String,String> sorts, int beginIdex, int listNum) throws SQLException {
 //        Session session=sessionFactory.openSession();
@@ -181,7 +185,7 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int max=beginIdex+listNum;
+        int max=beginIdex+listNum-1;
         String sql="select TOP "+max+" WS_ID, rownum=identity(3) " +
                 "into #temp from WSXXB where ";
         int i=0;
@@ -232,13 +236,13 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         }
         sql=sql.trim();
 
-        System.out.println("sql before:"+sql);
-        System.out.println("--:"+sql.lastIndexOf("and"));
-        System.out.println(sql.length());
+//        System.out.println("sql before:"+sql);
+//        System.out.println("--:"+sql.lastIndexOf("and"));
+//        System.out.println(sql.length());
         if(sql.lastIndexOf("and")==(sql.length()-3)){
             sql=sql.substring(0,sql.length()-3);
         }
-        System.out.println("sql after:"+sql);
+//        System.out.println("sql after:"+sql);
 
         i=0;
         int sortsSize=sorts.size();
@@ -419,7 +423,101 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         ResultSet rs = stmt.executeQuery(sql);
         rs.next();
         int count=rs.getInt(1);
+        rs.close();
+        stmt.close();
+        connection.close();
         return count;
+    }
+
+    @Override
+    public String createView(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException {
+        Connection connection=null;
+        try {
+            connection=JDBCUtil.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String viewName="view"+System.currentTimeMillis();
+        System.out.println("begin create view:"+viewName);
+        String sql="CREATE VIEW " +viewName+ " AS SELECT * from WSXXB where ";
+        int i=0;
+        int preciseConditionsSize=preciseConditions.size();
+        for(String key: preciseConditions.keySet()){
+            if(key.equals("fycj")){
+                sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
+            }else {
+                sql+=(key.toUpperCase()+" = '"+ preciseConditions.get(key)+"'");
+            }
+            if(i<preciseConditionsSize-1){
+                sql+=" and ";
+                i++;
+            }
+        }
+
+        i=0;
+        int ambiguousConditionsSize=ambiguousConditions.size();
+        if(preciseConditionsSize>0&&ambiguousConditionsSize>0){
+            sql+=" and ";
+        }
+        for(String key: ambiguousConditions.keySet()){
+            sql+=(key.toUpperCase()+" like '%"+ ambiguousConditions.get(key)+"%'");
+            if(i<ambiguousConditionsSize-1){
+                sql+=" and ";
+                i++;
+            }
+        }
+        if(preciseConditionsSize>0||ambiguousConditionsSize>0){
+            sql+=" and ";
+        }
+        if(ay.length()>0){
+            sql+=("(YJAYMC like '%"+ay+"%' or EJAYMC like '%"+ay+"%' or SJAYMC like '%"+ay+"%' or SiJAYMC like '%"+ay+"%') and ");
+        }
+        if(fymc.length()>0){
+            sql+=("(GYMC like '%"+fymc+"%' or ZYMC like '%"+fymc+"%' or JCYMC like '%"+fymc+"%') and ");
+        }
+        if(dsr.length()>0){
+            sql+=("(YGHZGSR like '%"+dsr+"%' or BG like '%"+dsr+"%') and ");
+        }
+        if(beginDate.length()>0){
+            sql+=" CPRQ >='"+beginDate+"' and ";
+        }
+        if(endDate.length()>0){
+            sql+=" CPRQ <='"+endDate+"' ";
+        }
+        sql=sql.trim();
+        if(sql.lastIndexOf("and")==(sql.length()-3)){
+            sql=sql.substring(0,sql.length()-3);
+        }
+        System.out.println("sql execute:"+sql);
+        Statement stmt=connection.createStatement();
+        stmt.execute(sql);
+        stmt.close();
+        connection.close();
+        return viewName;
+    }
+
+    @Override
+    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName) throws SQLException {
+        Connection connection=null;
+        try {
+            connection=JDBCUtil.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql="select "+groupName+",count(*) " +
+                "from "+viewName +
+                " group by "+groupName;
+        Statement stmt=connection.createStatement();
+        ResultSet rs=stmt.executeQuery(sql);
+        HashMap<String, Integer> hashMap=new HashMap<>();
+        while(rs.next()){
+            hashMap.put(rs.getString(1),rs.getInt(2));
+        }
+        rs.close();
+        stmt.close();
+        connection.close();
+        return hashMap;
     }
 
     public List<Wssxb> getAll(){

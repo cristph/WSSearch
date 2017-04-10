@@ -39,8 +39,8 @@ $(document).keyup(function(event){
     }
 });
 
-function showAj(Ajxh){
-    open(addURLParam("/wsInfo","Ajxh",Ajxh));
+function showAj(Wsah){
+    open(addURLParam("/wsInfo","Wsah",Wsah));
 }
 
 function showPage(sorts,orders,BeginIndex){
@@ -104,11 +104,11 @@ function goPrevious(){
             str+="<li><a href=\"javascript:void(0)\" aria-label=\"Previous\" onclick=\"goPrevious()\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
             if(previous-4>=1){
                 for(var i=previous-4;i<=previous;i++){
-                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('PJRQ','DESC','"+i+"')\">"+i+"</a></li>";
+                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('"+i+"')\">"+i+"</a></li>";
                 }
             }else{
                 for(var i=1;i<=previous;i++){
-                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('PJRQ','DESC','"+i+"')\">"+i+"</a></li>";
+                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('"+i+"')\">"+i+"</a></li>";
                 }
             }
             str+="<li><a href=\"javascript:void(0)\" aria-label=\"Next\" onclick=\"goNext()\"><span aria-hidden=\"true\">&raquo;</span></a></li>";
@@ -121,13 +121,13 @@ function goPrevious(){
                 $('#firstPageIndexPageIndex').val(1);
             }
             $('#currentPageIndex').val(previous);
-            showPage($('#SortClass').val(),$('#SortType').val(),previous);
+            goPage(previous);
         }else{
             $('#page'+currentPageIndex).removeClass('active');
             var previous=parseInt(currentPageIndex)-1;
             $('#page'+previous).addClass('active');
             $('#currentPageIndex').val(previous);
-            showPage($('#SortClass').val(),$('#SortType').val(),previous);
+            goPage(previous);
         }
     }
 
@@ -147,11 +147,11 @@ function goNext(){
             str+="<li><a href=\"javascript:void(0)\" aria-label=\"Previous\" onclick=\"goPrevious()\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
             if(next+4<=maxPageNum){
                 for(var i=next;i<next+5;i++){
-                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('PJRQ','DESC','"+i+"')\">"+i+"</a></li>";
+                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('"+i+"')\">"+i+"</a></li>";
                 }
             }else{
                 for(var i=next;i<=maxPageNum;i++){
-                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('PJRQ','DESC','"+i+"')\">"+i+"</a></li>";
+                    str+="<li id=\"page"+i+"\" class=\"\"><a href=\"javascript:void(0)\" onclick=\"goPage('"+i+"')\">"+i+"</a></li>";
                 }
             }
             str+="<li><a href=\"javascript:void(0)\" aria-label=\"Next\" onclick=\"goNext()\"><span aria-hidden=\"true\">&raquo;</span></a></li>";
@@ -164,13 +164,13 @@ function goNext(){
                 $('#endPageIndex').val(maxPageNum);
             }
             $('#currentPageIndex').val(next);
-            showPage($('#SortClass').val(),$('#SortType').val(),next);
+            goPage(next);
         }else{
             $('#page'+currentPageIndex).removeClass('active');
             var next=parseInt(currentPageIndex)+1;
             $('#page'+next).addClass('active');
             $('#currentPageIndex').val(next);
-            showPage($('#SortClass').val(),$('#SortType').val(),next);
+            goPage(next);
         }
     }
 }
@@ -193,9 +193,11 @@ $('#complexSearch').click(function(){
     var lvsuo=$('#lvsuo').val();
     var lvshi=$('#lvshi').val();
     var flyj=$('#flyj').val();
+    var cpnf=$('#cpnf').val();
+
     console.log("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
         +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";lvsuo:"+lvsuo
-        +";lvshi:"+lvshi+";flyj:"+flyj);
+        +";lvshi:"+lvshi+";flyj:"+flyj+";cpnf:"+cpnf);
 
     var url="/complexSearch";
     url=addURLParam(url,"ay",ay);
@@ -292,33 +294,15 @@ $('#downloadAll').click(function(){
 function removeLabel(key){
     $('#cond_'+key).val('');
     $(event.toElement.parentNode).remove();
-    $.post(
-        "/goPage",
-        {
-            "ay":encodeURIComponent($('#cond_ay').val()),
-            "ah":encodeURIComponent($('#cond_ah').val()),
-            "ajmc":encodeURIComponent($('#cond_ajmc').val()),
-            "fymc":encodeURIComponent($('#cond_fymc').val()),
-            "fycj":encodeURIComponent($('#cond_fycj').val()),
-            "ajlx":encodeURIComponent($('#cond_ajlx').val()),
-            "spcx":encodeURIComponent($('#cond_spcx').val()),
-            "wslx":encodeURIComponent($('#cond_wslx').val()),
-            "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
-            "cprqend":encodeURIComponent($('#cond_cprqend').val()),
-            "cpry":encodeURIComponent($('#cond_cpry').val()),
-            "dsr":encodeURIComponent($('#cond_dsr').val()),
-            "lvsuo":encodeURIComponent($('#cond_lvsuo').val()),
-            "lvshi":encodeURIComponent($('#cond_lvshi').val()),
-            "flyj":encodeURIComponent($('#cond_flyj').val()),
-            "cpnf":encodeURIComponent($('#cond_cpnf').val()),
-            "SortClass":encodeURIComponent($('#SortClass').val()),
-            "SortType":encodeURIComponent($('#SortType').val()),
-            "BeginIndex":0
-        },
-        function(data){
-            $('#AjDiv').html(data);
-        }
-    );
+    var sorts=[];
+    var orders=[];
+    sorts.push('fycj');
+    orders.push($('#fycjOrder').val());
+    sorts.push('cprq');
+    orders.push($('#cprqOrder').val());
+    sorts.push('spcx');
+    orders.push($('#spcxOrder').val());
+    showPage(sorts,orders,$('#currentPageIndex').val());
 }
 
 function changeSortOrder(sortClass){
@@ -341,9 +325,13 @@ function changeSortOrder(sortClass){
     orders.push($('#cprqOrder').val());
     sorts.push('spcx');
     orders.push($('#spcxOrder').val());
+    showPage(sorts,orders,1);
+}
 
+$(function(){
+    console.log("begin create view");
     $.post(
-        "/goPage",
+        "/createView",
         {
             "ay":encodeURIComponent($('#cond_ay').val()),
             "ah":encodeURIComponent($('#cond_ah').val()),
@@ -360,15 +348,11 @@ function changeSortOrder(sortClass){
             "lvsuo":encodeURIComponent($('#cond_lvsuo').val()),
             "lvshi":encodeURIComponent($('#cond_lvshi').val()),
             "flyj":encodeURIComponent($('#cond_flyj').val()),
-            "cpnf":encodeURIComponent($('#cond_cpnf').val()),
-            "SortClass[]":sorts,
-            "SortType[]":orders,
-            "BeginIndex":1
+            "cpnf":encodeURIComponent($('#cond_cpnf').val())
         },
         function(data){
-            console.log(data);
-            $('#AjDiv').html(data);
+            console.log("get:"+data);
+            $('#viewName').val(data);
         }
     );
-
-}
+});

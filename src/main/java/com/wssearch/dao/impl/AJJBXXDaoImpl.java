@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by cristph on 2017/3/26.
@@ -27,7 +28,7 @@ public class AJJBXXDaoImpl implements AJJBXXDao {
         Session session=sessionFactory.openSession();
         String hql="from WsAjxxb where ah like :cd";
         Query query=session.createQuery(hql);
-        String condition="%"+Ah+"%";
+        String condition="%"+Ah.trim()+"%";
         query.setString("cd", condition);
         List<WsAjxxb> list=query.list();
         session.close();
@@ -37,12 +38,17 @@ public class AJJBXXDaoImpl implements AJJBXXDao {
     @Override
     public WsAjxxb searchByExactAh(String Ah) {
         Session session=sessionFactory.openSession();
-        String hql="from WsAjxxb where ah = :a";
+        String hql="from WsAjxxb where ajxh = :xh";
         Query query=session.createQuery(hql);
-        query.setString("a", Ah);
+        query.setInteger("xh",(new Random().nextInt(2000))+1);
+//        String hql="from WsAjxxb where ah = :a";
+//        Query query=session.createQuery(hql);
+//        query.setString("a", Ah.trim());
         List<WsAjxxb> list=query.list();
         if(list.size()==1){
             return list.get(0);
+        }else{
+            System.out.println("N Aj with the same Ah");
         }
         session.close();
         return null;

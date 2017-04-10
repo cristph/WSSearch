@@ -44,6 +44,11 @@ public class ComplexSearchServiceImpl implements ComplexSearchService {
     }
 
     @Override
+    public String createView(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException {
+        return complexSearchDao.createView(preciseConditions,ambiguousConditions,ay,fymc,dsr,beginDate,endDate);
+    }
+
+    @Override
     public List<Wssxb> getAll() {
         return complexSearchDao.getAll();
     }
