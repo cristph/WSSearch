@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
@@ -788,21 +789,22 @@ public class SearchController {
     @ResponseBody
     @RequestMapping(value = "/createView")
     public String createView(@RequestParam("ay")String ay,
-                              @RequestParam("ah")String ah,
-                              @RequestParam("ajmc")String ajmc,
-                              @RequestParam("fymc")String fymc,
-                              @RequestParam("fycj")String fycj,
-                              @RequestParam("ajlx")String ajlx,
-                              @RequestParam("spcx")String spcx,
-                              @RequestParam("wslx")String wslx,
-                              @RequestParam("cprqbegin")String cprqbegin,
-                              @RequestParam("cprqend")String cprqend,
-                              @RequestParam("cpry")String cpry,
-                              @RequestParam("dsr")String dsr,
-                              @RequestParam("lvsuo")String lvsuo,
-                              @RequestParam("lvshi")String lvshi,
-                              @RequestParam("flyj")String flyj,
-                              @RequestParam("cpnf")String cpnf){
+                             @RequestParam("ah")String ah,
+                             @RequestParam("ajmc")String ajmc,
+                             @RequestParam("fymc")String fymc,
+                             @RequestParam("fycj")String fycj,
+                             @RequestParam("ajlx")String ajlx,
+                             @RequestParam("spcx")String spcx,
+                             @RequestParam("wslx")String wslx,
+                             @RequestParam("cprqbegin")String cprqbegin,
+                             @RequestParam("cprqend")String cprqend,
+                             @RequestParam("cpry")String cpry,
+                             @RequestParam("dsr")String dsr,
+                             @RequestParam("lvsuo")String lvsuo,
+                             @RequestParam("lvshi")String lvshi,
+                             @RequestParam("flyj")String flyj,
+                             @RequestParam("cpnf")String cpnf,
+                             HttpSession httpSession){
         HashMap<String,String> preciseConditions=new HashMap<>();
         HashMap<String,String> ambiguousConditions=new HashMap<>();
         String ayUtf8=null;
@@ -871,6 +873,16 @@ public class SearchController {
             e.printStackTrace();
         }
         System.out.println("get viewName:"+viewName);
+        if(httpSession.getAttribute("viewName")!=null){
+            String oldView=(String)httpSession.getAttribute("viewName");
+            try {
+                complexSearchService.dropView(oldView);
+                System.out.println("drop viewName:"+oldView);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        httpSession.setAttribute("viewName",viewName);
         return viewName;
     }
 

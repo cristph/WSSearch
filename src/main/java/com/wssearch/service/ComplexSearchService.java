@@ -31,5 +31,7 @@ public interface ComplexSearchService {
 
     public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName) throws SQLException;
 
+    public String dropView(String viewName) throws SQLException;
+
     public List<Wssxb> getAll();
 }

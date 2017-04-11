@@ -191,7 +191,7 @@
                 <div id="treeDemo" class="ztree"></div>
             </div>
             <div class="col-sm-9">
-                <div class="title-box">检索条件：
+                <div class="title-box" id="condBox">检索条件：
                     <c:if test="${ay!=''}">
                         <span class="label label-primary">案由:${ay} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('ay')"></span></span>
                     </c:if>
@@ -444,18 +444,65 @@
     };
 
     function zTreeOnClick(event, treeId, treeNode){
-        alert(treeId+"|"+treeNode.tId+"|"+treeNode.name);
+//        alert(treeId+"|"+treeNode.tId+"|"+treeNode.name);
         var parent=treeNode.getParentNode();
-        alert(parent.tId+"|"+parent.name);
+//        alert(parent.tId+"|"+parent.name);
+        if(parent.name=='按裁判年份筛选'){
+            var cpnf=treeNode.name.split('年')[0];
+            addLabel('裁判年份', cpnf, 'cpnf');
+            addSearchCondition('cpnf',cpnf);
+        }else if(parent.name=='按关键字筛选'){
+
+        }else if(parent.name=='按法院层级筛选'){
+            var fy=treeNode.name.split('(')[0];
+            var fycj=0;
+            if(fy=='最高法院'){
+                fycj=1;
+            }else if(fy=='高级法院'){
+                fycj=2;
+            }else if(fy=='中级级法院'){
+                fycj=3;
+            }else if(fy=='低级法院'){
+                fycj=4;
+            }else if(fy=='基层法院'){
+                fycj=5;
+            }
+            addLabel('法院层级', fycj, 'fycj');
+            addSearchCondition('fycj',fycj);
+        }else if(parent.name=='按审判程序筛选'){
+            var spcx=treeNode.name.split('(')[0];
+            addLabel('审判程序', spcx, 'spcx');
+            addSearchCondition('spcx',spcx);
+        }else if(parent.name=='按文书类型筛选'){
+            var wslx=treeNode.name.split('(')[0];
+            addLabel('文书类型', wslx, 'wslx');
+            addSearchCondition('wslx',wslx);
+        }else if(parent.name=='按案由筛选'){
+
+        }
     }
 
-    function addLabel(conditionName, conditionValue){
-
+    function addLabel(conditionName, conditionValue, conditionEngName){
+        var span=document.createElement('span');
+        span.classList.add('label');
+        span.classList.add('label-primary');
+        span.innerHTML=conditionName+":"+conditionValue+" <span class=\"glyphicon glyphicon-remove scondition\" aria-hidden=\"true\" onclick=\"removeLabel('"+conditionEngName+"')\"></span>";
+        document.getElementById('condBox').appendChild(span);
     }
 
 
     function addSearchCondition(conditionName, conditionValue){
-
+        $('#cond_'+conditionName).val(conditionValue);
+        var sorts=[];
+        var orders=[];
+        sorts.push('fycj');
+        orders.push($('#fycjOrder').val());
+        sorts.push('cprq');
+        orders.push($('#cprqOrder').val());
+        sorts.push('spcx');
+        orders.push($('#spcxOrder').val());
+        showPage(sorts,orders,1);
+        resetNum();
     }
 
     $(function(){
@@ -495,99 +542,110 @@
         );
 
 
-
         createViewPost.done(function(){
-            $.post(
-                    "/groupStatistics",
-                    {
-                        "groupName": "AYCJ",
-                        "viewName": $('#viewName').val()
-                    },
-                    function(map){
-                        var i=1;
-                        for(var key in map){
-                            var value=map[key];
-                            var entry={id:2*10+i, pId:2, name:"案由层级"+key+"("+value+")"};
-                            nodes.push(entry);
-                            i++;
+            var p1=new Promise(function (resolve){
+                $.post(
+                        "/groupStatistics",
+                        {
+                            "groupName": "AYCJ",
+                            "viewName": $('#viewName').val()
+                        },
+                        function(map){
+                            var i=1;
+                            for(var key in map){
+                                var value=map[key];
+                                var entry={id:2*10+i, pId:2, name:"案由层级"+key+"("+value+")"};
+                                nodes.push(entry);
+                                i++;
+                            }
+                            resolve('p1 done');
                         }
-                    }
-            );
+                );
+            });
 
-
-            $.post(
-                    "/groupStatistics",
-                    {
-                        "groupName": "FYCJ",
-                        "viewName": $('#viewName').val()
-                    },
-                    function(map){
-                        var i=1;
-                        var fycjArray=["全部","最高法院","高级法院","中级法院","低级法院","基层法院"];
-                        for(var key in map){
-                            var value=map[key];
-                            var entry={id:3*10+i, pId:3, name:fycjArray[key]+"("+value+")"};
-                            nodes.push(entry);
-                            i++;
+            var p2=new Promise(function (resolve){
+                $.post(
+                        "/groupStatistics",
+                        {
+                            "groupName": "FYCJ",
+                            "viewName": $('#viewName').val()
+                        },
+                        function(map){
+                            var i=1;
+                            var fycjArray=["全部","最高法院","高级法院","中级法院","低级法院","基层法院"];
+                            for(var key in map){
+                                var value=map[key];
+                                var entry={id:3*10+i, pId:3, name:fycjArray[key]+"("+value+")"};
+                                nodes.push(entry);
+                                i++;
+                            }
+                            resolve("p2 done");
                         }
-                    }
-            );
+                );
+            });
 
-
-            $.post(
-                    "/groupStatistics",
-                    {
-                        "groupName": "CPNF",
-                        "viewName": $('#viewName').val()
-                    },
-                    function(map){
-                        var i=1;
-                        for(var key in map){
-                            var value=map[key];
-                            var entry={id:4*10+i, pId:4, name:key+"年("+value+")"};
-                            nodes.push(entry);
-                            i++;
+            var p3=new Promise(function (resolve){
+                $.post(
+                        "/groupStatistics",
+                        {
+                            "groupName": "CPNF",
+                            "viewName": $('#viewName').val()
+                        },
+                        function(map){
+                            var i=1;
+                            for(var key in map){
+                                var value=map[key];
+                                var entry={id:4*10+i, pId:4, name:key+"年("+value+")"};
+                                nodes.push(entry);
+                                i++;
+                            }
+                            resolve('p3 done');
                         }
-                    }
-            );
+                );
+            });
 
-
-            $.post(
-                    "/groupStatistics",
-                    {
-                        "groupName": "SPCX",
-                        "viewName": $('#viewName').val()
-                    },
-                    function(map){
-                        var i=1;
-                        for(var key in map){
-                            var value=map[key];
-                            var entry={id:5*10+i, pId:5, name:key+"("+value+")"};
-                            nodes.push(entry);
-                            i++;
+            var p4=new Promise(function (resolve){
+                $.post(
+                        "/groupStatistics",
+                        {
+                            "groupName": "SPCX",
+                            "viewName": $('#viewName').val()
+                        },
+                        function(map){
+                            var i=1;
+                            for(var key in map){
+                                var value=map[key];
+                                var entry={id:5*10+i, pId:5, name:key+"("+value+")"};
+                                nodes.push(entry);
+                                i++;
+                            }
+                            resolve('p4 done');
                         }
-                    }
-            );
+                );
+            });
 
-
-            var last=$.post(
-                    "/groupStatistics",
-                    {
-                        "groupName": "WSLX",
-                        "viewName": $('#viewName').val()
-                    },
-                    function(map){
-                        var i=1;
-                        for(var key in map){
-                            var value=map[key];
-                            var entry={id:6*10+i, pId:6, name:key+"("+value+")"};
-                            nodes.push(entry);
-                            i++;
+            var p5=new Promise(function (resolve){
+                $.post(
+                        "/groupStatistics",
+                        {
+                            "groupName": "WSLX",
+                            "viewName": $('#viewName').val()
+                        },
+                        function(map){
+                            var i=1;
+                            for(var key in map){
+                                var value=map[key];
+                                var entry={id:6*10+i, pId:6, name:key+"("+value+")"};
+                                nodes.push(entry);
+                                i++;
+                            }
+                            resolve('p5 done');
                         }
-                    }
-            );
+                );
+            });
 
-            last.done(function(){
+            Promise.all([p1,p2,p3,p4,p5]).then(function(result){
+                console.log(result);
                 $.fn.zTree.init($("#treeDemo"), setting, nodes);
             });
         });

@@ -549,6 +549,20 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         return hashMap;
     }
 
+    @Override
+    public String dropView(String viewName) throws SQLException {
+        Connection connection=null;
+        try {
+            connection=JDBCUtil.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql="drop view "+viewName;
+        Statement stmt=connection.createStatement();
+        stmt.execute(sql);
+        return "done";
+    }
+
     public List<Wssxb> getAll(){
 //        Session session=sessionFactory.openSession();
 //        String hql="select w from Wssxb w";

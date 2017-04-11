@@ -54,6 +54,11 @@ public class ComplexSearchServiceImpl implements ComplexSearchService {
     }
 
     @Override
+    public String dropView(String viewName) throws SQLException {
+        return complexSearchDao.dropView(viewName);
+    }
+
+    @Override
     public List<Wssxb> getAll() {
         return complexSearchDao.getAll();
     }
