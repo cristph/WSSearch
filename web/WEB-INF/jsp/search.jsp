@@ -105,8 +105,8 @@
                                     <option value="刑事案件">刑事案件</option>
                                     <option value="民事案件">民事案件</option>
                                     <option value="行政案件">行政案件</option>
-                                    <%--<option value="赔偿案件">赔偿案件</option>--%>
-                                    <%--<option value="执行案件">执行案件</option>--%>
+                                    <option value="赔偿案件">赔偿案件</option>
+                                    <option value="执行案件">执行案件</option>
                                 </select>
                             </div>
                             <div class="col-sm-6">
@@ -205,7 +205,25 @@
                         <span class="label label-primary">法院名称:${fymc} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fymc')"></span></span>
                     </c:if>
                     <c:if test="${fycj!=''}">
-                        <span class="label label-primary">法院层级:${fycj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>
+                        <c:if test="${fycj==0}">
+                            <span class="label label-primary">法院层级:全部法院 <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>
+                        </c:if>
+                        <c:if test="${fycj==1}">
+                            <span class="label label-primary">法院层级:最高法院 <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>
+                        </c:if>
+                        <c:if test="${fycj==2}">
+                            <span class="label label-primary">法院层级:高级法院 <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>
+                        </c:if>
+                        <c:if test="${fycj==3}">
+                            <span class="label label-primary">法院层级:中级法院 <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>
+                        </c:if>
+                        <c:if test="${fycj==4}">
+                            <span class="label label-primary">法院层级:低级法院 <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>
+                        </c:if>
+                        <c:if test="${fycj==5}">
+                            <span class="label label-primary">法院层级:基层法院 <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>
+                        </c:if>
+                        <%--<span class="label label-primary">法院层级:${fycj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('fycj')"></span></span>--%>
                     </c:if>
                     <c:if test="${ajlx!=''}">
                         <span class="label label-primary">案件类型:${ajlx} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('ajlx')"></span></span>
@@ -261,7 +279,7 @@
                     <span class="sortBtn" onclick="changeSortOrder('fycj')">法院层级 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="fycjArrow"></span></span>
                     <span class="sortBtn" onclick="changeSortOrder('cprq')">裁判日期 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="cprqArrow"></span></span>
                     <span class="sortBtn" onclick="changeSortOrder('spcx')">审判程序 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="spcxArrow"></span></span>
-                    <span style="font-weight: bolder;color: white">共得到${AjCount}条记录</span><span style="width: 100px;height: 2px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span style="font-weight: bolder;color: white">共得到<span id="AJC">${AjCount}</span>条记录</span><span style="width: 100px;height: 2px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <input type="checkbox" style="margin:5px 0 0;border:1px solid #006600;" id="downloadAll">
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadXml()">批量下载xml</span>
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadDoc()">批量下载doc</span>
@@ -347,7 +365,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <span style="color: white;font-size: larger;font-weight: bolder;margin-bottom: 20px">共${maxPageNum}页</span>
+                        <span style="color: white;font-size: larger;font-weight: bolder;margin-bottom: 20px">共<span id="PN">${maxPageNum}</span>页</span>
                     </nav>
 
                 </div>
@@ -375,7 +393,7 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/search.js"></script>
+<script src="js/search.js" type="text/javascript" charset="GBK"></script>
 <script src="js/jquery.ztree.all.min.js"></script>
 <script>
 
@@ -415,56 +433,166 @@
             simpleData: {
                 enable: true
             }
+        },
+        callback:{
+            onClick:zTreeOnClick
         }
     };
-
-    var zNodes =[
-        { id:1, pId:0, name:"按关键字筛选",  isParent:true,open:true},
-//    { id:11, pId:1, name:"父节点11 - 折叠"},
-//    { id:111, pId:11, name:"叶子节点111"},
-//    { id:112, pId:11, name:"叶子节点112"},
-//    { id:113, pId:11, name:"叶子节点113"},
-//    { id:114, pId:11, name:"叶子节点114"},
-//    { id:12, pId:1, name:"父节点12 - 折叠"},
-//    { id:121, pId:12, name:"叶子节点121"},
-//    { id:122, pId:12, name:"叶子节点122"},
-//    { id:123, pId:12, name:"叶子节点123"},
-//    { id:124, pId:12, name:"叶子节点124"},
-//    { id:13, pId:1, name:"父节点13 - 没有子节点", isParent:true},
-        { id:2, pId:0, name:"按案由筛选", isParent:true},
-//    { id:21, pId:2, name:"父节点21 - 展开", open:true},
-//    { id:211, pId:21, name:"叶子节点211"},
-//    { id:212, pId:21, name:"叶子节点212"},
-//    { id:213, pId:21, name:"叶子节点213"},
-//    { id:214, pId:21, name:"叶子节点214"},
-//    { id:22, pId:2, name:"父节点22 - 折叠"},
-//    { id:221, pId:22, name:"叶子节点221"},
-//    { id:222, pId:22, name:"叶子节点222"},
-//    { id:223, pId:22, name:"叶子节点223"},
-//    { id:224, pId:22, name:"叶子节点224"},
-//    { id:23, pId:2, name:"父节点23 - 折叠"},
-//    { id:231, pId:23, name:"叶子节点231"},
-//    { id:232, pId:23, name:"叶子节点232"},
-//    { id:233, pId:23, name:"叶子节点233"},
-//    { id:234, pId:23, name:"叶子节点234"},
-        { id:3, pId:0, name:"按法院层级筛选", isParent:true},
-        { id:31, pId:3, name:"最高法院"},
-        { id:32, pId:3, name:"高级法院"},
-        { id:33, pId:3, name:"中级法院"},
-        { id:34, pId:3, name:"低级法院"},
-        { id:35, pId:3, name:"基层法院"},
-        { id:4, pId:0, name:"按裁判年份筛选", isParent:true},
-        { id:5, pId:0, name:"按审判程序筛选", isParent:true},
-        { id:6, pId:0, name:"按文书类型筛选", isParent:true}
-    ];
 
     function showIconForTree(treeId, treeNode) {
         return !treeNode.isParent;
     };
 
-    $(document).ready(function(){
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    function zTreeOnClick(event, treeId, treeNode){
+        alert(treeId+"|"+treeNode.tId+"|"+treeNode.name);
+        var parent=treeNode.getParentNode();
+        alert(parent.tId+"|"+parent.name);
+    }
+
+    function addLabel(conditionName, conditionValue){
+
+    }
+
+
+    function addSearchCondition(conditionName, conditionValue){
+
+    }
+
+    $(function(){
+        var nodes =[
+            { id:1, pId:0, name:"按关键字筛选",  isParent:true,open:true},
+            { id:2, pId:0, name:"按案由筛选", isParent:true},
+            { id:3, pId:0, name:"按法院层级筛选", isParent:true},
+            { id:4, pId:0, name:"按裁判年份筛选", isParent:true},
+            { id:5, pId:0, name:"按审判程序筛选", isParent:true},
+            { id:6, pId:0, name:"按文书类型筛选", isParent:true}
+        ];
+        $.fn.zTree.init($("#treeDemo"), setting, nodes);
+
+        var createViewPost=$.post(
+                "/createView",
+                {
+                    "ay":encodeURIComponent($('#cond_ay').val()),
+                    "ah":encodeURIComponent($('#cond_ah').val()),
+                    "ajmc":encodeURIComponent($('#cond_ajmc').val()),
+                    "fymc":encodeURIComponent($('#cond_fymc').val()),
+                    "fycj":encodeURIComponent($('#cond_fycj').val()),
+                    "ajlx":encodeURIComponent($('#cond_ajlx').val()),
+                    "spcx":encodeURIComponent($('#cond_spcx').val()),
+                    "wslx":encodeURIComponent($('#cond_wslx').val()),
+                    "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
+                    "cprqend":encodeURIComponent($('#cond_cprqend').val()),
+                    "cpry":encodeURIComponent($('#cond_cpry').val()),
+                    "dsr":encodeURIComponent($('#cond_dsr').val()),
+                    "lvsuo":encodeURIComponent($('#cond_lvsuo').val()),
+                    "lvshi":encodeURIComponent($('#cond_lvshi').val()),
+                    "flyj":encodeURIComponent($('#cond_flyj').val()),
+                    "cpnf":encodeURIComponent($('#cond_cpnf').val())
+                },
+                function(data){
+                    $('#viewName').val(data);
+                }
+        );
+
+
+
+        createViewPost.done(function(){
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "groupName": "AYCJ",
+                        "viewName": $('#viewName').val()
+                    },
+                    function(map){
+                        var i=1;
+                        for(var key in map){
+                            var value=map[key];
+                            var entry={id:2*10+i, pId:2, name:"案由层级"+key+"("+value+")"};
+                            nodes.push(entry);
+                            i++;
+                        }
+                    }
+            );
+
+
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "groupName": "FYCJ",
+                        "viewName": $('#viewName').val()
+                    },
+                    function(map){
+                        var i=1;
+                        var fycjArray=["全部","最高法院","高级法院","中级法院","低级法院","基层法院"];
+                        for(var key in map){
+                            var value=map[key];
+                            var entry={id:3*10+i, pId:3, name:fycjArray[key]+"("+value+")"};
+                            nodes.push(entry);
+                            i++;
+                        }
+                    }
+            );
+
+
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "groupName": "CPNF",
+                        "viewName": $('#viewName').val()
+                    },
+                    function(map){
+                        var i=1;
+                        for(var key in map){
+                            var value=map[key];
+                            var entry={id:4*10+i, pId:4, name:key+"年("+value+")"};
+                            nodes.push(entry);
+                            i++;
+                        }
+                    }
+            );
+
+
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "groupName": "SPCX",
+                        "viewName": $('#viewName').val()
+                    },
+                    function(map){
+                        var i=1;
+                        for(var key in map){
+                            var value=map[key];
+                            var entry={id:5*10+i, pId:5, name:key+"("+value+")"};
+                            nodes.push(entry);
+                            i++;
+                        }
+                    }
+            );
+
+
+            var last=$.post(
+                    "/groupStatistics",
+                    {
+                        "groupName": "WSLX",
+                        "viewName": $('#viewName').val()
+                    },
+                    function(map){
+                        var i=1;
+                        for(var key in map){
+                            var value=map[key];
+                            var entry={id:6*10+i, pId:6, name:key+"("+value+")"};
+                            nodes.push(entry);
+                            i++;
+                        }
+                    }
+            );
+
+            last.done(function(){
+                $.fn.zTree.init($("#treeDemo"), setting, nodes);
+            });
+        });
     });
+
 </script>
 
 </body>

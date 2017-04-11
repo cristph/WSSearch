@@ -303,6 +303,33 @@ function removeLabel(key){
     sorts.push('spcx');
     orders.push($('#spcxOrder').val());
     showPage(sorts,orders,$('#currentPageIndex').val());
+
+    $.post(
+        "/getNum",
+        {
+            "ay":encodeURIComponent($('#cond_ay').val()),
+            "ah":encodeURIComponent($('#cond_ah').val()),
+            "ajmc":encodeURIComponent($('#cond_ajmc').val()),
+            "fymc":encodeURIComponent($('#cond_fymc').val()),
+            "fycj":encodeURIComponent($('#cond_fycj').val()),
+            "ajlx":encodeURIComponent($('#cond_ajlx').val()),
+            "spcx":encodeURIComponent($('#cond_spcx').val()),
+            "wslx":encodeURIComponent($('#cond_wslx').val()),
+            "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
+            "cprqend":encodeURIComponent($('#cond_cprqend').val()),
+            "cpry":encodeURIComponent($('#cond_cpry').val()),
+            "dsr":encodeURIComponent($('#cond_dsr').val()),
+            "lvsuo":encodeURIComponent($('#cond_lvsuo').val()),
+            "lvshi":encodeURIComponent($('#cond_lvshi').val()),
+            "flyj":encodeURIComponent($('#cond_flyj').val()),
+            "cpnf":encodeURIComponent($('#cond_cpnf').val())
+        },
+        function(data){
+            var nums=data.split(';');
+            $('#AJC').html(nums[0]);
+            $('#PN').html(nums[1]);
+        }
+    );
 }
 
 function changeSortOrder(sortClass){
@@ -327,32 +354,3 @@ function changeSortOrder(sortClass){
     orders.push($('#spcxOrder').val());
     showPage(sorts,orders,1);
 }
-
-$(function(){
-    console.log("begin create view");
-    $.post(
-        "/createView",
-        {
-            "ay":encodeURIComponent($('#cond_ay').val()),
-            "ah":encodeURIComponent($('#cond_ah').val()),
-            "ajmc":encodeURIComponent($('#cond_ajmc').val()),
-            "fymc":encodeURIComponent($('#cond_fymc').val()),
-            "fycj":encodeURIComponent($('#cond_fycj').val()),
-            "ajlx":encodeURIComponent($('#cond_ajlx').val()),
-            "spcx":encodeURIComponent($('#cond_spcx').val()),
-            "wslx":encodeURIComponent($('#cond_wslx').val()),
-            "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
-            "cprqend":encodeURIComponent($('#cond_cprqend').val()),
-            "cpry":encodeURIComponent($('#cond_cpry').val()),
-            "dsr":encodeURIComponent($('#cond_dsr').val()),
-            "lvsuo":encodeURIComponent($('#cond_lvsuo').val()),
-            "lvshi":encodeURIComponent($('#cond_lvshi').val()),
-            "flyj":encodeURIComponent($('#cond_flyj').val()),
-            "cpnf":encodeURIComponent($('#cond_cpnf').val())
-        },
-        function(data){
-            console.log("get:"+data);
-            $('#viewName').val(data);
-        }
-    );
-});

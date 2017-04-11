@@ -193,13 +193,19 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         int preciseConditionsSize=preciseConditions.size();
         for(String key: preciseConditions.keySet()){
             if(key.equals("fycj")){
-                sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
+                if(!preciseConditions.get(key).equals("0")){
+                    sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
+                    if(i<preciseConditionsSize-1){
+                        sql+=" and ";
+                    }
+                }
+                i++;
             }else {
                 sql+=(key.toUpperCase()+" = '"+ preciseConditions.get(key)+"'");
-            }
-            if(i<preciseConditionsSize-1){
-                sql+=" and ";
-                i++;
+                if(i<preciseConditionsSize-1){
+                    sql+=" and ";
+                    i++;
+                }
             }
         }
 
@@ -374,13 +380,19 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         int preciseConditionsSize=preciseConditions.size();
         for(String key: preciseConditions.keySet()){
             if(key.equals("fycj")){
-                sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
+                if(!preciseConditions.get(key).equals("0")){
+                    sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
+                    if(i<preciseConditionsSize-1){
+                        sql+=" and ";
+                    }
+                }
+                i++;
             }else {
                 sql+=(key.toUpperCase()+" = '"+ preciseConditions.get(key)+"'");
-            }
-            if(i<preciseConditionsSize-1){
-                sql+=" and ";
-                i++;
+                if(i<preciseConditionsSize-1){
+                    sql+=" and ";
+                    i++;
+                }
             }
         }
 
@@ -445,13 +457,19 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         int preciseConditionsSize=preciseConditions.size();
         for(String key: preciseConditions.keySet()){
             if(key.equals("fycj")){
-                sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
+                if(!preciseConditions.get(key).equals("0")){
+                    sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
+                    if(i<preciseConditionsSize-1){
+                        sql+=" and ";
+                    }
+                }
+                i++;
             }else {
                 sql+=(key.toUpperCase()+" = '"+ preciseConditions.get(key)+"'");
-            }
-            if(i<preciseConditionsSize-1){
-                sql+=" and ";
-                i++;
+                if(i<preciseConditionsSize-1){
+                    sql+=" and ";
+                    i++;
+                }
             }
         }
 
@@ -511,9 +529,20 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         Statement stmt=connection.createStatement();
         ResultSet rs=stmt.executeQuery(sql);
         HashMap<String, Integer> hashMap=new HashMap<>();
-        while(rs.next()){
-            hashMap.put(rs.getString(1),rs.getInt(2));
+        if(groupName.equals("FYCJ")||groupName.equals("AYCJ")){
+            while(rs.next()){
+                hashMap.put(String.valueOf(rs.getInt(1)),rs.getInt(2));
+            }
+        }else{
+            while(rs.next()){
+                hashMap.put(rs.getString(1),rs.getInt(2));
+            }
         }
+        System.out.println("GRUOP BY "+groupName);
+        for(String key: hashMap.keySet()){
+            System.out.println(key+"||"+hashMap.get(key));
+        }
+        System.out.println();
         rs.close();
         stmt.close();
         connection.close();
@@ -521,15 +550,69 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
     }
 
     public List<Wssxb> getAll(){
-        Session session=sessionFactory.openSession();
-        String hql="select w from Wssxb w";
-        Query query=session.createQuery(hql);
-        List<Wssxb> list=query.list();
-        session.close();
-        System.out.println("size:"+list.size());
-        for(Wssxb wssxb:list){
-            System.out.println(wssxb.toString());
+//        Session session=sessionFactory.openSession();
+//        String hql="select w from Wssxb w";
+//        Query query=session.createQuery(hql);
+//        List<Wssxb> list=query.list();
+//        session.close();
+//        System.out.println("size:"+list.size());
+//        for(Wssxb wssxb:list){
+//            System.out.println(wssxb.toString());
+//        }
+        Connection connection=null;
+        try {
+            connection=JDBCUtil.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return list;
+
+        String sql="select distinct WSLX from WSXXB";
+        Statement stmt= null;
+        try {
+            stmt = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ResultSet rs=stmt.executeQuery(sql);
+            while (rs.next()){
+                System.out.println(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        sql="select distinct SPCX from WSXXB";
+        stmt= null;
+        try {
+            stmt = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ResultSet rs=stmt.executeQuery(sql);
+            while (rs.next()){
+                System.out.println(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        sql="select distinct AJLB from WSXXB";
+        stmt= null;
+        try {
+            stmt = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ResultSet rs=stmt.executeQuery(sql);
+            while (rs.next()){
+                System.out.println(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

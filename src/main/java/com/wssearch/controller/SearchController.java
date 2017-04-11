@@ -444,6 +444,105 @@ public class SearchController {
         return "search";
     }
 
+    @ResponseBody
+    @RequestMapping(value="/getNum")
+    public String getNum(@RequestParam("ay")String ay,
+                         @RequestParam("ah")String ah,
+                         @RequestParam("ajmc")String ajmc,
+                         @RequestParam("fymc")String fymc,
+                         @RequestParam("fycj")String fycj,
+                         @RequestParam("ajlx")String ajlx,
+                         @RequestParam("spcx")String spcx,
+                         @RequestParam("wslx")String wslx,
+                         @RequestParam("cprqbegin")String cprqbegin,
+                         @RequestParam("cprqend")String cprqend,
+                         @RequestParam("cpry")String cpry,
+                         @RequestParam("dsr")String dsr,
+                         @RequestParam("lvsuo")String lvsuo,
+                         @RequestParam("lvshi")String lvshi,
+                         @RequestParam("flyj")String flyj,
+                         @RequestParam("cpnf")String cpnf){
+        HashMap<String,String> preciseConditions=new HashMap<>();
+        HashMap<String,String> ambiguousConditions=new HashMap<>();
+        String ayUtf8=null;
+        String fymcUtf8=null;
+        String cprqbeginUtf8=null;
+        String cprqendUtf8=null;
+        String dsrUtf8=null;
+
+        try {
+            if(ah.trim().length()!=0){
+                String ahUtf8=URLDecoder.decode(ah,"utf-8");
+                ambiguousConditions.put("wsah",ahUtf8.trim());
+            }
+            if(ajmc.trim().length()!=0){
+                String ajmcUtf8=URLDecoder.decode(ajmc,"utf-8");
+                ambiguousConditions.put("wsmc",ajmcUtf8.trim());
+            }
+            if(fycj.trim().length()>0){
+                String fycjUtf8=URLDecoder.decode(fycj,"utf-8").trim();
+                preciseConditions.put("fycj",fycjUtf8.trim());
+            }
+            if(ajlx.trim().length()!=0){
+                String ajlxUtf8=URLDecoder.decode(ajlx,"utf-8");
+                preciseConditions.put("ajlb",ajlxUtf8.trim());
+            }
+            if(spcx.trim().length()!=0){
+                String spcxUtf8=URLDecoder.decode(spcx,"utf-8");
+                preciseConditions.put("spcx",spcxUtf8.trim());
+            }
+            if(wslx.trim().length()!=0){
+                String wslxUtf8=URLDecoder.decode(wslx,"utf-8");
+                preciseConditions.put("wslx",wslxUtf8.trim());
+            }
+            if(cpry.trim().length()!=0){
+                String cpryUtf8=URLDecoder.decode(cpry,"utf-8");
+                ambiguousConditions.put("spry",cpryUtf8.trim());
+            }
+            if(lvsuo.trim().length()!=0){
+                String lvsuoUtf8=URLDecoder.decode(lvsuo,"utf-8");
+                ambiguousConditions.put("lsmc",lvsuoUtf8.trim());
+            }
+            if(lvshi.trim().length()!=0){
+                String lvshiUtf8=URLDecoder.decode(lvshi,"utf-8");
+                ambiguousConditions.put("lsxm",lvshiUtf8.trim());
+            }
+            if(flyj.trim().length()!=0){
+                String flyjUtf8=URLDecoder.decode(flyj,"utf-8");
+                ambiguousConditions.put("flyj",flyjUtf8.trim());
+            }
+            if(cpnf.trim().length()!=0){
+                String cpnfUtf8=URLDecoder.decode(cpnf,"utf-8");
+                preciseConditions.put("cpnf",cpnfUtf8.trim());
+            }
+            ayUtf8=URLDecoder.decode(ay,"utf-8").trim();
+            fymcUtf8=URLDecoder.decode(fymc,"utf-8").trim();
+            dsrUtf8=URLDecoder.decode(dsr,"utf-8").trim();
+            cprqbeginUtf8=URLDecoder.decode(cprqbegin,"utf-8").trim();
+            cprqendUtf8=URLDecoder.decode(cprqend,"utf-8").trim();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        int count= 0;
+        try {
+            count = complexSearchService.getWssxListNum(preciseConditions, ambiguousConditions, ayUtf8.trim(), fymcUtf8.trim(), dsrUtf8.trim(),
+                    cprqbeginUtf8.trim(), cprqendUtf8.trim());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        int maxPageNum=0;
+        if(count%5==0){
+            maxPageNum=count/5;
+        }else{
+            maxPageNum=(count/5)+1;
+        }
+
+        String str=String.valueOf(count)+";"+String.valueOf(maxPageNum);
+        return str;
+    }
+
 //    @ResponseBody
 //    @RequestMapping(value = "/goPage",produces = "text/html;charset=cp936")
 //    public ModelAndView goPage(@RequestParam("ay")String ay,
@@ -773,6 +872,21 @@ public class SearchController {
         }
         System.out.println("get viewName:"+viewName);
         return viewName;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/groupStatistics",produces = "application/json;charset=cp936")
+    public String getGroupStatistics(@RequestParam("groupName")String groupName,
+                                     @RequestParam("viewName")String viewName){
+        HashMap<String, Integer> hashMap=null;
+        try {
+            hashMap=complexSearchService.getGroupStatistics(groupName, viewName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String str=JSON.toJSONString(hashMap);
+        System.out.println(str);
+        return str;
     }
 
 
