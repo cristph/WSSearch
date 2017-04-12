@@ -49,8 +49,8 @@ public class ComplexSearchServiceImpl implements ComplexSearchService {
     }
 
     @Override
-    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName) throws SQLException {
-        return complexSearchDao.getGroupStatistics(groupName, viewName);
+    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName, String whereName, String whereValue) throws SQLException {
+        return complexSearchDao.getGroupStatistics(groupName, viewName, whereName, whereValue);
     }
 
     @Override

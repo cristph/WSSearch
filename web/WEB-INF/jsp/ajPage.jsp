@@ -14,7 +14,7 @@
                 ${item.spcx} ${item.wsmc}
         </div>
         <div class="row AJCiBiaoTi" onclick="showAj('${item.wsah}')">
-                ${item.gymc}${item.zymc}${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
+                ${item.gymc}&nbsp;&nbsp;${item.zymc}&nbsp;&nbsp;${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
         </div>
         <div style="padding: 0 0 20px 0;">
             <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.wsmc}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>

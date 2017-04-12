@@ -29,7 +29,7 @@ public interface ComplexSearchService {
                              String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException;
 
 
-    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName) throws SQLException;
+    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName, String whereName, String whereValue) throws SQLException;
 
     public String dropView(String viewName) throws SQLException;
 

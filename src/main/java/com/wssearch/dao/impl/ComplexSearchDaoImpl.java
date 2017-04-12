@@ -176,12 +176,9 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
      */
     @Override
     public List<Wssxb> getWssxList(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, HashMap<String,String> sorts, int beginIdex, int listNum) throws SQLException {
-//        Session session=sessionFactory.openSession();
         Connection connection=null;
         try {
-//            System.out.println("/begin get");
             connection=JDBCUtil.getConnection();
-//            System.out.println("/after get");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -193,19 +190,13 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         int preciseConditionsSize=preciseConditions.size();
         for(String key: preciseConditions.keySet()){
             if(key.equals("fycj")){
-                if(!preciseConditions.get(key).equals("0")){
-                    sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
-                    if(i<preciseConditionsSize-1){
-                        sql+=" and ";
-                    }
-                }
-                i++;
+                sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
             }else {
                 sql+=(key.toUpperCase()+" = '"+ preciseConditions.get(key)+"'");
-                if(i<preciseConditionsSize-1){
-                    sql+=" and ";
-                    i++;
-                }
+            }
+            if(i<preciseConditionsSize-1){
+                sql+=" and ";
+                i++;
             }
         }
 
@@ -263,17 +254,7 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
 
         System.out.println("sql execute:"+sql);
 
-
-//        sql+="limit "+beginIdex+","+listNum;
-//        Query query=session.createSQLQuery(sql);
-//        query.list();
         Statement stmt=connection.createStatement();
-//        sql="select TOP 12 WS_ID, rownum=identity(3) " +
-//                "into #temp " +
-//                "from WSXXB " +
-//                "where FYCJ=3 " +
-//                "order by CPRQ";
-//        System.out.println("sql1:"+sql);
         stmt.execute(sql);
         sql="select * from #temp t, WSXXB w where t.rownum>="+beginIdex+" and t.WS_ID=w.WS_ID";
         ResultSet rs = stmt.executeQuery(sql);
@@ -322,48 +303,6 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
 
         stmt.close();
         connection.close();
-
-//        List list=query.list();
-//        session.close();
-
-//        for(int j=0;j<list.size();j++){
-//            Object[] objects=(Object[]) list.get(i);
-//            Wssxb wssxb=new Wssxb();
-//            wssxb.setWsid((int)objects[0]);
-//            wssxb.setWsah((String)objects[1]);
-//            wssxb.setWsmc((String)objects[2]);
-//            wssxb.setWslx((String)objects[3]);
-//            wssxb.setXmlName((String)objects[4]);
-//            wssxb.setXmlPath((String)objects[5]);
-//            wssxb.setDocName((String)objects[6]);
-//            wssxb.setDocPath((String)objects[7]);
-//            wssxb.setAjlb((String)objects[8]);
-//            wssxb.setAycj((int)objects[9]);
-//            wssxb.setYjaymc((String)objects[10]);
-//            wssxb.setYjaydm((String)objects[11]);
-//            wssxb.setEjaymc((String)objects[12]);
-//            wssxb.setEjaydm((String)objects[13]);
-//            wssxb.setSjaymc((String)objects[14]);
-//            wssxb.setSjaydm((String)objects[15]);
-//            wssxb.setSijaymc((String)objects[16]);
-//            wssxb.setSijaydm((String)objects[17]);
-//            wssxb.setFycj((int)objects[18]);
-//            wssxb.setGymc((String)objects[19]);
-//            wssxb.setZymc((String)objects[20]);
-//            wssxb.setJcymc((String)objects[21]);
-//            wssxb.setCprq((Date)objects[22]);
-//            wssxb.setCpnf((String)objects[23]);
-//            wssxb.setSpcx((String)objects[24]);
-//            wssxb.setSpry((String)objects[25]);
-//            wssxb.setYghzgsr((String)objects[26]);
-//            wssxb.setBg((String)objects[27]);
-//            wssxb.setYgsfct((String)objects[28]);
-//            wssxb.setBgsfct((String)objects[29]);
-//            wssxb.setLsmc((String)objects[30]);
-//            wssxb.setLsxm((String)objects[31]);
-//            wssxb.setFlyj((String)objects[32]);
-//            res.add(wssxb);
-//        }
         return res;
     }
 
@@ -380,19 +319,13 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         int preciseConditionsSize=preciseConditions.size();
         for(String key: preciseConditions.keySet()){
             if(key.equals("fycj")){
-                if(!preciseConditions.get(key).equals("0")){
-                    sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
-                    if(i<preciseConditionsSize-1){
-                        sql+=" and ";
-                    }
-                }
-                i++;
+                sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
             }else {
                 sql+=(key.toUpperCase()+" = '"+ preciseConditions.get(key)+"'");
-                if(i<preciseConditionsSize-1){
-                    sql+=" and ";
-                    i++;
-                }
+            }
+            if(i<preciseConditionsSize-1){
+                sql+=" and ";
+                i++;
             }
         }
 
@@ -457,19 +390,13 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         int preciseConditionsSize=preciseConditions.size();
         for(String key: preciseConditions.keySet()){
             if(key.equals("fycj")){
-                if(!preciseConditions.get(key).equals("0")){
-                    sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
-                    if(i<preciseConditionsSize-1){
-                        sql+=" and ";
-                    }
-                }
-                i++;
+                sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
             }else {
                 sql+=(key.toUpperCase()+" = '"+ preciseConditions.get(key)+"'");
-                if(i<preciseConditionsSize-1){
-                    sql+=" and ";
-                    i++;
-                }
+            }
+            if(i<preciseConditionsSize-1){
+                sql+=" and ";
+                i++;
             }
         }
 
@@ -516,17 +443,33 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
     }
 
     @Override
-    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName) throws SQLException {
+    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName, String whereName, String whereValue) throws SQLException {
         Connection connection=null;
         try {
             connection=JDBCUtil.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String sql="select "+groupName+",count(*) " +
-                "from "+viewName +
-                " group by "+groupName;
+        String sql="";
+        if(whereName!=null && whereName.length()>0){
+            if(whereName.equals("FYCJ")){
+                sql="select "+groupName+",count(*) " +
+                        "from "+viewName +
+                        " where "+whereName+"="+whereValue+
+                        " group by "+groupName;
+            }else{
+                sql="select "+groupName+",count(*) " +
+                        "from "+viewName +
+                        " where "+whereName+"='"+whereValue+"'"+
+                        " group by "+groupName;
+            }
+        }else{
+            sql="select "+groupName+",count(*) " +
+                    "from "+viewName +
+                    " group by "+groupName;
+        }
         Statement stmt=connection.createStatement();
+        System.out.println(sql);
         ResultSet rs=stmt.executeQuery(sql);
         HashMap<String, Integer> hashMap=new HashMap<>();
         if(groupName.equals("FYCJ")||groupName.equals("AYCJ")){
@@ -535,10 +478,10 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
             }
         }else{
             while(rs.next()){
-                hashMap.put(rs.getString(1),rs.getInt(2));
+                hashMap.put(rs.getString(1)==null ? "未知":rs.getString(1) , rs.getInt(2));
             }
         }
-        System.out.println("GRUOP BY "+groupName);
+        System.out.println("GRUOP BY "+groupName+" where "+whereName+"='"+whereValue+"'");
         for(String key: hashMap.keySet()){
             System.out.println(key+"||"+hashMap.get(key));
         }

@@ -889,11 +889,15 @@ public class SearchController {
     @ResponseBody
     @RequestMapping(value = "/groupStatistics",produces = "application/json;charset=cp936")
     public String getGroupStatistics(@RequestParam("groupName")String groupName,
-                                     @RequestParam("viewName")String viewName){
+                                     @RequestParam("viewName")String viewName,
+                                     @RequestParam("whereName")String whereName,
+                                     @RequestParam("whereValue")String whereValue){
         HashMap<String, Integer> hashMap=null;
         try {
-            hashMap=complexSearchService.getGroupStatistics(groupName, viewName);
+            hashMap=complexSearchService.getGroupStatistics(groupName, viewName, whereName, URLDecoder.decode(whereValue,"utf-8").trim());
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         String str=JSON.toJSONString(hashMap);

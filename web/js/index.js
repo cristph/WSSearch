@@ -30,10 +30,10 @@ $('#complexSearch').click(function(){
     var ah=$('#ah').val();
     var ajmc=$('#ajmc').val();
     var fymc=$('#fymc').val();
-    var fycj=$('#fycj option:selected').val();
-    var ajlx=$('#ajlx option:selected').val();
-    var spcx=$('#spcx option:selected').val();
-    var wslx=$('#wslx option:selected').val();
+    var fycj=$('#fycj option:selected').val()=='all' ? '' : $('#fycj option:selected').val();
+    var ajlx=$('#ajlx option:selected').val()=='all' ? '': $('#ajlx option:selected').val();
+    var spcx=$('#spcx option:selected').val()=='all' ? '': $('#spcx option:selected').val();
+    var wslx=$('#wslx option:selected').val()=='all' ? '': $('#wslx option:selected').val();
     var cprqbegin=$('#cprqbegin').val();
     var cprqend=$('#cprqend').val();
     var cpry=$('#cpry').val();
@@ -47,7 +47,7 @@ $('#complexSearch').click(function(){
         +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";lvsuo:"+lvsuo
         +";lvshi:"+lvshi+";flyj:"+flyj+";cpnf:"+cpnf);
 
-    var url="/complexSearch";
+    var url="/WSSearch/complexSearch";
     url=addURLParam(url,"ay",ay);
     url=addURLParam(url,"ah",ah);
     url=addURLParam(url,"ajmc",ajmc);

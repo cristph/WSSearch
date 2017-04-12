@@ -89,12 +89,11 @@
                             <div class="col-sm-6">
                                 <span>法院层级：</span>
                                 <select id="fycj" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
-                                    <option value="0">全部</option>
+                                    <option value="all">全部</option>
                                     <option value="1">最高法院</option>
                                     <option value="2">高级法院</option>
                                     <option value="3">中级法院</option>
-                                    <option value="4">低级法院</option>
-                                    <option value="5">基层法院</option>
+                                    <option value="4">基层法院</option>
                                 </select>
                             </div>
                         </div>
@@ -102,6 +101,7 @@
                             <div class="col-sm-6">
                                 <span>案件类型：</span>
                                 <select id="ajlx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                                    <option value="all">全部</option>
                                     <option value="刑事案件">刑事案件</option>
                                     <option value="民事案件">民事案件</option>
                                     <option value="行政案件">行政案件</option>
@@ -112,9 +112,11 @@
                             <div class="col-sm-6">
                                 <span>审判程序：</span>
                                 <select id="spcx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                                    <option value="all">全部</option>
                                     <option value="一审案件">一审案件</option>
                                     <option value="二审案件">二审案件</option>
                                     <option value="再审案件">再审案件</option>
+                                    <option value="特别程序案件">特别程序案件</option>
                                     <option value="再审复查与审判监督案">再审复查与审判监督案</option>
                                 </select>
                             </div>
@@ -123,6 +125,7 @@
                             <div class="col-sm-6">
                                 <span>文书类型：</span>
                                 <select id="wslx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                                    <option value="all">全部</option>
                                     <option value="判决书">判决书</option>
                                     <option value="裁判文书">裁判文书 </option>
                                     <option value="调解书">调解书</option>
@@ -293,7 +296,7 @@
                                     ${item.spcx} ${item.wsmc}
                             </div>
                             <div class="row AJCiBiaoTi" onclick="showAj('${item.wsah}')">
-                                    ${item.gymc}${item.zymc}${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
+                                    ${item.gymc}&nbsp;&nbsp;${item.zymc}&nbsp;&nbsp;${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
                             </div>
                             <div style="padding: 0 0 20px 0;">
                                 <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.wsmc}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
@@ -427,7 +430,8 @@
 
     var setting = {
         view: {
-            showIcon: showIconForTree
+            showIcon: showIconForTree,
+            addDiyDom: addDiyDom
         },
         data: {
             simpleData: {
@@ -435,51 +439,164 @@
             }
         },
         callback:{
-            onClick:zTreeOnClick
+            onClick:zTreeOnClick,
+            beforeExpand: beforeExpand
         }
     };
+
+    var nodes =[
+        { id:1, pId:0, name:"按关键字筛选",  isParent:true, open:true},
+        { id:2, pId:0, name:"按案由筛选", isParent:true, open:true},
+        { id:3, pId:0, name:"按法院层级筛选", isParent:true, open:true},
+        { id:4, pId:0, name:"按裁判年份筛选", isParent:true, open:true},
+        { id:5, pId:0, name:"按审判程序筛选", isParent:true, open:true},
+        { id:6, pId:0, name:"按文书类型筛选", isParent:true, open:true}
+    ];
 
     function showIconForTree(treeId, treeNode) {
         return !treeNode.isParent;
     };
 
-    function zTreeOnClick(event, treeId, treeNode){
-//        alert(treeId+"|"+treeNode.tId+"|"+treeNode.name);
-        var parent=treeNode.getParentNode();
-//        alert(parent.tId+"|"+parent.name);
-        if(parent.name=='按裁判年份筛选'){
-            var cpnf=treeNode.name.split('年')[0];
-            addLabel('裁判年份', cpnf, 'cpnf');
-            addSearchCondition('cpnf',cpnf);
-        }else if(parent.name=='按关键字筛选'){
 
-        }else if(parent.name=='按法院层级筛选'){
-            var fy=treeNode.name.split('(')[0];
-            var fycj=0;
-            if(fy=='最高法院'){
-                fycj=1;
-            }else if(fy=='高级法院'){
-                fycj=2;
-            }else if(fy=='中级级法院'){
-                fycj=3;
-            }else if(fy=='低级法院'){
-                fycj=4;
-            }else if(fy=='基层法院'){
-                fycj=5;
-            }
-            addLabel('法院层级', fycj, 'fycj');
-            addSearchCondition('fycj',fycj);
-        }else if(parent.name=='按审判程序筛选'){
-            var spcx=treeNode.name.split('(')[0];
-            addLabel('审判程序', spcx, 'spcx');
-            addSearchCondition('spcx',spcx);
-        }else if(parent.name=='按文书类型筛选'){
-            var wslx=treeNode.name.split('(')[0];
-            addLabel('文书类型', wslx, 'wslx');
-            addSearchCondition('wslx',wslx);
-        }else if(parent.name=='按案由筛选'){
+    function addDiyDom(treeId, treeNode) {
+        var spaceWidth = 5;
+        var switchObj = $("#" + treeNode.tId + "_switch"),
+                icoObj = $("#" + treeNode.tId + "_ico");
+        switchObj.remove();
+        icoObj.before(switchObj);
 
+        if (treeNode.level > 1) {
+            var spaceStr = "<span style='display: inline-block;width:" + (spaceWidth * treeNode.level)+ "px'></span>";
+            switchObj.before(spaceStr);
         }
+        var spantxt=$("#" + treeNode.tId + "_span").html();
+        if(spantxt.length>12){
+            spantxt=spantxt.substring(0,13)+"...";
+            $("#" + treeNode.tId + "_span").html(spantxt);
+        }
+    }
+
+
+    function zTreeOnClick(event, treeId, treeNode){
+        var parent=treeNode.getParentNode();
+        if(parent!=null){
+            if(parent.name=='按裁判年份筛选'){
+                var cpnf=treeNode.name.split('年')[0];
+                addLabel('裁判年份', cpnf, 'cpnf');
+                addSearchCondition('cpnf',cpnf);
+            }else if(parent.name=='按关键字筛选'){
+
+            }else if(parent.name=='按法院层级筛选'){
+                var fy=treeNode.name.split('(')[0];
+                var fycj=0;
+                if(fy=='最高法院'){
+                    fycj=1;
+                }else if(fy=='高级法院'){
+                    fycj=2;
+                }else if(fy=='中级法院'){
+                    fycj=3;
+                }else if(fy=='基层法院'){
+                    fycj=4;
+                }
+                addLabel('法院层级', fy, 'fycj');
+                addSearchCondition('fycj',fycj);
+            }else if(parent.name=='按审判程序筛选'){
+                var spcx=treeNode.name.split('(')[0];
+                addLabel('审判程序', spcx, 'spcx');
+                addSearchCondition('spcx',spcx);
+            }else if(parent.name=='按文书类型筛选'){
+                var wslx=treeNode.name.split('(')[0];
+                addLabel('文书类型', wslx, 'wslx');
+                addSearchCondition('wslx',wslx);
+            }else if(parent.name=='按案由筛选'){
+
+            }
+        }
+    }
+
+    function beforeExpand(treeId, treeNode) {
+        console.log("[  beforeExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
+        parent=treeNode.getParentNode();
+        if(parent!=null){
+            var whereValue=treeNode.name.split('(')[0];
+            var parentId=parent.id;
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+//        var currentnodes = zTree.getSelectedNodes();
+            if(parent.name=='按案由筛选'){
+                console.log('do with ay');
+                var t=$.post(
+                        "/groupStatistics",
+                        {
+                            "groupName": "EJAYMC",
+                            "viewName": $('#viewName').val(),
+                            "whereName": "YJAYMC",
+                            "whereValue": encodeURIComponent(whereValue)
+                        },
+                        function(map){
+                            var i=1;
+                            for(var key in map){
+                                var value=map[key];
+                                var entry={id:parentId*100+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
+                                zTree.addNodes(treeNode,entry);
+                                console.log(parentId*100+i);
+                                console.log(treeNode.id);
+                                console.log(key+"("+value+")");
+                                i++;
+                            }
+                        }
+                );
+                t.done(function(){
+                    zTree.updateNode(treeNode);
+                    console.log("up")
+                });
+            }else if(parent.name=='按法院层级筛选'){
+                console.log('do with fycj');
+                var current=treeNode.name.split('(')[0];
+                var cj=0;
+                var groupName='';
+                if(current=='法院不明'){
+                    cj=0;
+                }else if(current=='最高法院'){
+                    cj=1;
+                    groupName="GYMC";
+                }else if(current=='高级法院'){
+                    cj=2;
+                    groupName="GYMC";
+                }else if(current=='中级法院'){
+                    cj=3;
+                    groupName="ZYMC";
+                }else if(current=='基层法院'){
+                    cj=4;
+                    groupName="JCYMC";
+                }
+                var s=$.post(
+                        "/groupStatistics",
+                        {
+                            "groupName": groupName,
+                            "viewName": $('#viewName').val(),
+                            "whereName": "FYCJ",
+                            "whereValue": cj
+                        },
+                        function(map){
+                            var i=1;
+                            for(var key in map){
+                                var value=map[key];
+                                var entry={id:parentId*100+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
+                                zTree.addNodes(treeNode,entry);
+                                console.log(parentId*100+i);
+                                console.log(treeNode.id);
+                                console.log(key+"("+value+")");
+                                i++;
+                            }
+                        }
+                );
+                s.done(function(){
+                    zTree.updateNode(treeNode);
+                    console.log("up")
+                });
+            }
+        }
+        return (treeNode.expand !== false);
     }
 
     function addLabel(conditionName, conditionValue, conditionEngName){
@@ -503,19 +620,18 @@
         orders.push($('#spcxOrder').val());
         showPage(sorts,orders,1);
         resetNum();
+//        updateView();
     }
 
-    $(function(){
-        var nodes =[
-            { id:1, pId:0, name:"按关键字筛选",  isParent:true,open:true},
-            { id:2, pId:0, name:"按案由筛选", isParent:true},
-            { id:3, pId:0, name:"按法院层级筛选", isParent:true},
-            { id:4, pId:0, name:"按裁判年份筛选", isParent:true},
-            { id:5, pId:0, name:"按审判程序筛选", isParent:true},
-            { id:6, pId:0, name:"按文书类型筛选", isParent:true}
-        ];
-        $.fn.zTree.init($("#treeDemo"), setting, nodes);
-
+    function updateView(){
+//        var nodes =[
+//            { id:1, pId:0, name:"按关键字筛选",  isParent:true, open:true},
+//            { id:2, pId:0, name:"按案由筛选", isParent:true, open:true},
+//            { id:3, pId:0, name:"按法院层级筛选", isParent:true, open:true},
+//            { id:4, pId:0, name:"按裁判年份筛选", isParent:true, open:true},
+//            { id:5, pId:0, name:"按审判程序筛选", isParent:true, open:true},
+//            { id:6, pId:0, name:"按文书类型筛选", isParent:true, open:true}
+//        ];
         var createViewPost=$.post(
                 "/createView",
                 {
@@ -541,20 +657,21 @@
                 }
         );
 
-
         createViewPost.done(function(){
             var p1=new Promise(function (resolve){
                 $.post(
                         "/groupStatistics",
                         {
-                            "groupName": "AYCJ",
-                            "viewName": $('#viewName').val()
+                            "groupName": "YJAYMC",
+                            "viewName": $('#viewName').val(),
+                            "whereName": "",
+                            "whereValue": ""
                         },
                         function(map){
                             var i=1;
                             for(var key in map){
                                 var value=map[key];
-                                var entry={id:2*10+i, pId:2, name:"案由层级"+key+"("+value+")"};
+                                var entry={id:2*10+i, pId:2, name:key+"("+value+")", isParent:true};
                                 nodes.push(entry);
                                 i++;
                             }
@@ -568,14 +685,16 @@
                         "/groupStatistics",
                         {
                             "groupName": "FYCJ",
-                            "viewName": $('#viewName').val()
+                            "viewName": $('#viewName').val(),
+                            "whereName": "",
+                            "whereValue": ""
                         },
                         function(map){
                             var i=1;
-                            var fycjArray=["全部","最高法院","高级法院","中级法院","低级法院","基层法院"];
+                            var fycjArray=["法院不明","最高法院","高级法院","中级法院","基层法院"];
                             for(var key in map){
                                 var value=map[key];
-                                var entry={id:3*10+i, pId:3, name:fycjArray[key]+"("+value+")"};
+                                var entry={id:3*10+i, pId:3, name:fycjArray[key]+"("+value+")", isParent:true};
                                 nodes.push(entry);
                                 i++;
                             }
@@ -589,7 +708,9 @@
                         "/groupStatistics",
                         {
                             "groupName": "CPNF",
-                            "viewName": $('#viewName').val()
+                            "viewName": $('#viewName').val(),
+                            "whereName": "",
+                            "whereValue": ""
                         },
                         function(map){
                             var i=1;
@@ -609,7 +730,9 @@
                         "/groupStatistics",
                         {
                             "groupName": "SPCX",
-                            "viewName": $('#viewName').val()
+                            "viewName": $('#viewName').val(),
+                            "whereName": "",
+                            "whereValue": ""
                         },
                         function(map){
                             var i=1;
@@ -629,7 +752,9 @@
                         "/groupStatistics",
                         {
                             "groupName": "WSLX",
-                            "viewName": $('#viewName').val()
+                            "viewName": $('#viewName').val(),
+                            "whereName": "",
+                            "whereValue": ""
                         },
                         function(map){
                             var i=1;
@@ -649,6 +774,19 @@
                 $.fn.zTree.init($("#treeDemo"), setting, nodes);
             });
         });
+    }
+
+    $(function(){
+//        var nodes =[
+//            { id:1, pId:0, name:"按关键字筛选",  isParent:true,open:true},
+//            { id:2, pId:0, name:"按案由筛选", isParent:true},
+//            { id:3, pId:0, name:"按法院层级筛选", isParent:true},
+//            { id:4, pId:0, name:"按裁判年份筛选", isParent:true},
+//            { id:5, pId:0, name:"按审判程序筛选", isParent:true},
+//            { id:6, pId:0, name:"按文书类型筛选", isParent:true}
+//        ];
+        $.fn.zTree.init($("#treeDemo"), setting, nodes);
+        updateView();
     });
 
 </script>
