@@ -33,5 +33,8 @@ public interface ComplexSearchDao {
 
     public String dropView(String viewName) throws SQLException;
 
+    public String generateIndexFile(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions,
+                                    String ay, String fymc, String dsr, String beginDate, String endDate, String fileName) throws SQLException;
+
     public List<Wssxb> getAll();
 }

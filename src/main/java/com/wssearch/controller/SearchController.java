@@ -373,25 +373,29 @@ public class SearchController {
 //        Wssxb wssxb1=new Wssxb();
 //        wssxb1.setWsah("天津市20016号");
 //        wssxb1.setSpcx("一审案件");
-//        wssxb1.setWsmc("一审判决书1");
-//        wssxb1.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10030.xml");
-//        wssxb1.setDocPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\附件7 案由代码.doc");
+//        wssxb1.setWsmc("浙江省高级人民法院 民事判决书 （2012）浙海终字第63号");
+//        wssxb1.setXmlPath("C:\\Users\\cristph\\Desktop\\民事二审案件\\民事二审案件");
+//        wssxb1.setXmlName("10001.xml");
+//        wssxb1.setDocPath("C:\\Users\\cristph\\Desktop\\民事二审案件\\民事二审案件");
 //        wssxb1.setGymc("天津市高级人民法院");
+//        list.add(wssxb1);
 //
 //        Wssxb wssxb2=new Wssxb();
 //        wssxb2.setWsah("天津市"+Math.random()+"号");
 //        wssxb2.setSpcx("一审案件");
 //        wssxb2.setWsmc("一审判决书4");
-//        wssxb2.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10031.xml");
-//        wssxb2.setDocPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\文书可视化-吴骁恺-3月2日.docx");
+//        wssxb2.setXmlPath("C:\\Users\\cristph\\Desktop\\民事二审案件\\民事二审案件");
+//        wssxb2.setXmlName("10002.xml");
+//        wssxb2.setDocPath("C:\\Users\\cristph\\Desktop\\民事二审案件\\民事二审案件");
 //        wssxb2.setGymc("天津市高级人民法院");
 //
 //        Wssxb wssxb3=new Wssxb();
 //        wssxb3.setWsah("天津市"+Math.random()+"号");
 //        wssxb3.setSpcx("一审案件");
 //        wssxb3.setWsmc("一审判决书5");
-//        wssxb3.setXmlPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\10032.xml");
-//        wssxb3.setDocPath("C:\\Users\\cristph\\IdeaProjects\\WSSearch\\out\\artifacts\\WSSearch_war_exploded\\upload\\文书可视化与搜索进度_吴骁恺_0319.docx");
+//        wssxb3.setXmlPath("C:\\Users\\cristph\\Desktop\\民事二审案件\\民事二审案件");
+//        wssxb3.setXmlName("10003.xml");
+//        wssxb3.setDocPath("C:\\Users\\cristph\\Desktop\\民事二审案件\\民事二审案件");
 //        wssxb3.setGymc("天津市高级人民法院");
 //
 //        list.add(wssxb1);

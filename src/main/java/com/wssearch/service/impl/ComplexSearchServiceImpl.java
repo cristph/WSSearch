@@ -54,6 +54,11 @@ public class ComplexSearchServiceImpl implements ComplexSearchService {
     }
 
     @Override
+    public String generateIndexFile(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, String fileName) throws SQLException {
+        return complexSearchDao.generateIndexFile(preciseConditions,ambiguousConditions,ay,fymc,dsr,beginDate,endDate,fileName);
+    }
+
+    @Override
     public String dropView(String viewName) throws SQLException {
         return complexSearchDao.dropView(viewName);
     }

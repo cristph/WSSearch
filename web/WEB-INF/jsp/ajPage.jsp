@@ -17,11 +17,11 @@
                 ${item.gymc}&nbsp;&nbsp;${item.zymc}&nbsp;&nbsp;${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
         </div>
         <div style="padding: 0 0 20px 0;">
-            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.wsmc}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
-            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item.wsmc}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
+            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.xmlName}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
+            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item.docName}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
         </div>
         <input type="hidden" value="${item.wsah}">
-        <input type="hidden" value="${item.xmlPath}" id="xml${item.wsmc}">
-        <input type="hidden" value="${item.docPath}" id="doc${item.wsmc}">
+        <input type="hidden" value="${item.xmlPath}" id="xml${item.xmlName}">
+        <input type="hidden" value="${item.docPath}" id="doc${item.docName}">
     </div>
 </c:forEach>

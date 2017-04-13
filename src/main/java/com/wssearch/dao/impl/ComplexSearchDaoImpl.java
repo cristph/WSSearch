@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -504,6 +505,119 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         Statement stmt=connection.createStatement();
         stmt.execute(sql);
         return "done";
+    }
+
+    @Override
+    public String generateIndexFile(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, String fileName) throws SQLException {
+        Connection connection=null;
+        try {
+            connection=JDBCUtil.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("begin create file:"+fileName);
+        String sql="SELECT WS_XML_PATH,WS_XML_NAME from WSXXB where ";
+        int i=0;
+        int preciseConditionsSize=preciseConditions.size();
+        for(String key: preciseConditions.keySet()){
+            if(key.equals("fycj")){
+                sql+=(key.toUpperCase()+" = "+ preciseConditions.get(key));
+            }else {
+                sql+=(key.toUpperCase()+" = '"+ preciseConditions.get(key)+"'");
+            }
+            if(i<preciseConditionsSize-1){
+                sql+=" and ";
+                i++;
+            }
+        }
+
+        i=0;
+        int ambiguousConditionsSize=ambiguousConditions.size();
+        if(preciseConditionsSize>0&&ambiguousConditionsSize>0){
+            sql+=" and ";
+        }
+        for(String key: ambiguousConditions.keySet()){
+            sql+=(key.toUpperCase()+" like '%"+ ambiguousConditions.get(key)+"%'");
+            if(i<ambiguousConditionsSize-1){
+                sql+=" and ";
+                i++;
+            }
+        }
+        if(preciseConditionsSize>0||ambiguousConditionsSize>0){
+            sql+=" and ";
+        }
+        if(ay.length()>0){
+            sql+=("(YJAYMC like '%"+ay+"%' or EJAYMC like '%"+ay+"%' or SJAYMC like '%"+ay+"%' or SiJAYMC like '%"+ay+"%') and ");
+        }
+        if(fymc.length()>0){
+            sql+=("(GYMC like '%"+fymc+"%' or ZYMC like '%"+fymc+"%' or JCYMC like '%"+fymc+"%') and ");
+        }
+        if(dsr.length()>0){
+            sql+=("(YGHZGSR like '%"+dsr+"%' or BG like '%"+dsr+"%') and ");
+        }
+        if(beginDate.length()>0){
+            sql+=" CPRQ >='"+beginDate+"' and ";
+        }
+        if(endDate.length()>0){
+            sql+=" CPRQ <='"+endDate+"' ";
+        }
+        sql=sql.trim();
+        if(sql.lastIndexOf("and")==(sql.length()-3)){
+            sql=sql.substring(0,sql.length()-3);
+        }
+        System.out.println("sql execute:"+sql);
+        Statement stmt=connection.createStatement();
+        stmt.setFetchSize(500);
+        ResultSet rs=stmt.executeQuery(sql);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        OutputStreamWriter osw = new OutputStreamWriter(fos);
+        BufferedWriter bw=new BufferedWriter(osw);
+
+        StringBuilder sb=new StringBuilder();
+        int count=0;
+        while(rs.next()){
+            if(rs.getString(1)==null||rs.getString(2)==null||
+                    rs.getString(1).length()==0||rs.getString(2).length()==0){
+                continue;
+            }
+            sb.append(rs.getString(1));
+            sb.append("/");
+            sb.append(rs.getString(2));
+            sb.append("\n");
+            count++;
+            if(count%500==0){
+                try {
+                    bw.write(sb.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                sb.setLength(0);
+                count=0;
+            }
+        }
+        rs.close();
+        stmt.close();
+        connection.close();
+        if(count>0){
+            try {
+                bw.write(sb.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileName;
     }
 
     public List<Wssxb> getAll(){

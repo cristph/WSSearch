@@ -47,7 +47,7 @@ $('#complexSearch').click(function(){
         +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";lvsuo:"+lvsuo
         +";lvshi:"+lvshi+";flyj:"+flyj+";cpnf:"+cpnf);
 
-    var url="/WSSearch/complexSearch";
+    var url="/complexSearch";
     url=addURLParam(url,"ay",ay);
     url=addURLParam(url,"ah",ah);
     url=addURLParam(url,"ajmc",ajmc);

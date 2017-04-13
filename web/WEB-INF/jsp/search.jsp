@@ -282,16 +282,20 @@
                     <span class="sortBtn" onclick="changeSortOrder('fycj')">法院层级 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="fycjArrow"></span></span>
                     <span class="sortBtn" onclick="changeSortOrder('cprq')">裁判日期 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="cprqArrow"></span></span>
                     <span class="sortBtn" onclick="changeSortOrder('spcx')">审判程序 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="spcxArrow"></span></span>
-                    <span style="font-weight: bolder;color: white">共得到<span id="AJC">${AjCount}</span>条记录</span><span style="width: 100px;height: 2px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span style="font-weight: bolder;color: white">共得到<span id="AJC">${AjCount}</span>条记录</span><span style="width: 100px;height: 2px"> </span>
                     <input type="checkbox" style="margin:5px 0 0;border:1px solid #006600;" id="downloadAll">
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadXml()">批量下载xml</span>
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadDoc()">批量下载doc</span>
+                </div>
+                <div class="row" style="margin: 2% 0 2% 0">
+                    <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%;float: right;margin-right: 82px" onclick="downloadAll('doc')">下载所有doc</span>
+                    <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%;float: right;margin-right: 4px" onclick="downloadAll('xml')">下载所有xml</span>
                 </div>
                 <div>
                     <div id="AjDiv">
                         <c:forEach items="${list}" var="item">
                         <div class="AJ">
-                            <input type="checkbox" value="${item.xmlPath}" style="margin:5px 0 0;border:1px solid #006600;">
+                            <input type="checkbox" value="${item.xmlPath}/${item.xmlName}" style="margin:5px 0 0;border:1px solid #006600;">
                             <div class="row AJBiaoTi" onclick="showAj('${item.wsah}')">
                                     ${item.spcx} ${item.wsmc}
                             </div>
@@ -299,12 +303,12 @@
                                     ${item.gymc}&nbsp;&nbsp;${item.zymc}&nbsp;&nbsp;${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
                             </div>
                             <div style="padding: 0 0 20px 0;">
-                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.wsmc}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
-                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item.wsmc}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
+                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.xmlName}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
+                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item.docName}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
                             </div>
                             <input type="hidden" value="${item.wsah}">
-                            <input type="hidden" value="${item.xmlPath}" id="xml${item.wsmc}">
-                            <input type="hidden" value="${item.docPath}" id="doc${item.wsmc}">
+                            <input type="hidden" value="${item.xmlPath}" id="xml${item.xmlName}">
+                            <input type="hidden" value="${item.docPath}" id="doc${item.docName}">
                         </div>
                         </c:forEach>
                     </div>
@@ -479,7 +483,7 @@
 
     function zTreeOnClick(event, treeId, treeNode){
         var parent=treeNode.getParentNode();
-        if(parent!=null){
+        if(treeNode.level==1){
             if(parent.name=='按裁判年份筛选'){
                 var cpnf=treeNode.name.split('年')[0];
                 addLabel('裁判年份', cpnf, 'cpnf');
@@ -509,91 +513,280 @@
                 addLabel('文书类型', wslx, 'wslx');
                 addSearchCondition('wslx',wslx);
             }else if(parent.name=='按案由筛选'){
-
+                var ay=treeNode.name.split('(')[0];
+                addLabel('案由',ay,'ay');
+                addSearchCondition('ay',ay);
+            }
+        }else if(treeNode.level>=2){
+            if(treeNode.getParentNode().getParentNode().name=='按法院层级筛选'){
+                addLabel('法院名称', treeNode.name.split('(')[0], 'fymc');
+                addSearchCondition('fymc',treeNode.name.split('(')[0]);
+            }else if(treeNode.getParentNode().getParentNode().name=='按案由筛选'){
+                var ay=treeNode.name.split('(')[0];
+                addLabel('案由',ay,'ay');
+                addSearchCondition('ay',ay);
             }
         }
     }
 
     function beforeExpand(treeId, treeNode) {
-        console.log("[  beforeExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
+//        console.log('enode:'+treeNode.children);
+//        console.log("[  beforeExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
         parent=treeNode.getParentNode();
-        if(parent!=null){
+//        if(parent!=null){
+        if(treeNode.level==1){
             var whereValue=treeNode.name.split('(')[0];
             var parentId=parent.id;
             var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-//        var currentnodes = zTree.getSelectedNodes();
             if(parent.name=='按案由筛选'){
-                console.log('do with ay');
-                var t=$.post(
-                        "/groupStatistics",
-                        {
-                            "groupName": "EJAYMC",
-                            "viewName": $('#viewName').val(),
-                            "whereName": "YJAYMC",
-                            "whereValue": encodeURIComponent(whereValue)
-                        },
-                        function(map){
-                            var i=1;
-                            for(var key in map){
-                                var value=map[key];
-                                var entry={id:parentId*100+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
-                                zTree.addNodes(treeNode,entry);
-                                console.log(parentId*100+i);
-                                console.log(treeNode.id);
-                                console.log(key+"("+value+")");
-                                i++;
+//                console.log('do with ay');
+//                console.log('node:'+treeNode.children);
+                if(treeNode.children==null||treeNode.children.length==0){
+                    var t=$.post(
+                            "/groupStatistics",
+                            {
+                                "groupName": "EJAYMC",
+                                "viewName": $('#viewName').val(),
+                                "whereName": "YJAYMC",
+                                "whereValue": encodeURIComponent(whereValue)
+                            },
+                            function(map){
+                                var i=1;
+                                for(var key in map){
+                                    var value=map[key];
+                                    var entry={id:parentId*100+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
+                                    zTree.addNodes(treeNode,entry);
+//                                    console.log(parentId*100+i);
+//                                    console.log(treeNode.id);
+//                                    console.log(key+"("+value+")");
+                                    i++;
+                                }
                             }
-                        }
-                );
-                t.done(function(){
-                    zTree.updateNode(treeNode);
-                    console.log("up")
-                });
-            }else if(parent.name=='按法院层级筛选'){
-                console.log('do with fycj');
-                var current=treeNode.name.split('(')[0];
-                var cj=0;
-                var groupName='';
-                if(current=='法院不明'){
-                    cj=0;
-                }else if(current=='最高法院'){
-                    cj=1;
-                    groupName="GYMC";
-                }else if(current=='高级法院'){
-                    cj=2;
-                    groupName="GYMC";
-                }else if(current=='中级法院'){
-                    cj=3;
-                    groupName="ZYMC";
-                }else if(current=='基层法院'){
-                    cj=4;
-                    groupName="JCYMC";
+                    );
+                    t.done(function(){
+                        zTree.updateNode(treeNode);
+//                        console.log("up")
+                    });
                 }
-                var s=$.post(
-                        "/groupStatistics",
-                        {
-                            "groupName": groupName,
-                            "viewName": $('#viewName').val(),
-                            "whereName": "FYCJ",
-                            "whereValue": cj
-                        },
-                        function(map){
-                            var i=1;
-                            for(var key in map){
-                                var value=map[key];
-                                var entry={id:parentId*100+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
-                                zTree.addNodes(treeNode,entry);
-                                console.log(parentId*100+i);
-                                console.log(treeNode.id);
-                                console.log(key+"("+value+")");
-                                i++;
+
+            }else if(parent.name=='按法院层级筛选'){
+//                console.log('do with fycj');
+//                console.log('node:'+treeNode.children);
+                if(treeNode.children==null||treeNode.children.length==0){
+                    var current=treeNode.name.split('(')[0];
+                    var cj=0;
+                    var groupName='';
+                    if(current=='法院不明'){
+                        cj=0;
+                    }else if(current=='最高法院'){
+                        cj=1;
+                        groupName="GYMC";
+                    }else if(current=='高级法院'){
+                        cj=2;
+                        groupName="GYMC";
+                    }else if(current=='中级法院'){
+                        cj=3;
+                        groupName="ZYMC";
+                    }else if(current=='基层法院'){
+                        cj=4;
+                        groupName="JCYMC";
+                    }
+                    var s=$.post(
+                            "/groupStatistics",
+                            {
+                                "groupName": groupName,
+                                "viewName": $('#viewName').val(),
+                                "whereName": "FYCJ",
+                                "whereValue": cj
+                            },
+                            function(map){
+                                var i=1;
+                                for(var key in map){
+                                    var value=map[key];
+                                    var entry={id:parentId*100+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
+                                    zTree.addNodes(treeNode,entry);
+//                                    console.log(parentId*100+i);
+//                                    console.log(treeNode.id);
+//                                    console.log(key+"("+value+")");
+                                    i++;
+                                }
                             }
-                        }
-                );
-                s.done(function(){
-                    zTree.updateNode(treeNode);
-                    console.log("up")
-                });
+                    );
+                    s.done(function(){
+                        zTree.updateNode(treeNode);
+//                        console.log("up")
+                    });
+                }
+            }
+        }else if(treeNode.level==2){
+//            alert("level2");
+            var whereValue=treeNode.name.split('(')[0];
+            var parentId=parent.id;
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            if(treeNode.name.indexOf('法院')<0){
+//                console.log('do with ay');
+//                console.log('node:'+treeNode.children);
+                if(treeNode.children==null||treeNode.children.length==0){
+                    var t=$.post(
+                            "/groupStatistics",
+                            {
+                                "groupName": "SJAYMC",
+                                "viewName": $('#viewName').val(),
+                                "whereName": "EJAYMC",
+                                "whereValue": encodeURIComponent(whereValue)
+                            },
+                            function(map){
+                                var i=1;
+                                for(var key in map){
+                                    var value=map[key];
+                                    var entry={id:parentId*1000+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
+                                    zTree.addNodes(treeNode,entry);
+//                                    console.log(parentId*1000+i);
+//                                    console.log(treeNode.id);
+//                                    console.log(key+"("+value+")");
+                                    i++;
+                                }
+                            }
+                    );
+                    t.done(function(){
+                        zTree.updateNode(treeNode);
+//                        console.log("up")
+                    });
+                }
+
+            }else {
+//                console.log('do with fycj');
+//                console.log('node:'+treeNode.children);
+                if(treeNode.children==null||treeNode.children.length==0){
+                    var current=parent.name.split('(')[0];
+                    var groupName='';
+                    var whereName="";
+                    if(current=='法院不明'){
+
+                    }else if(current=='最高法院'){
+                        groupName="ZYMC";
+                        whereName="GYMC";
+                    }else if(current=='高级法院'){
+                        groupName="ZYMC";
+                        whereName="GYMC";
+                    }else if(current=='中级法院'){
+                        groupName="JCYMC";
+                        whereName="ZYMC";
+                    }else if(current=='基层法院'){
+                        groupName="";
+                        whereName="";
+                    }
+                    var s=$.post(
+                            "/groupStatistics",
+                            {
+                                "groupName": groupName,
+                                "viewName": $('#viewName').val(),
+                                "whereName": whereName,
+                                "whereValue": encodeURIComponent(treeNode.name.split('(')[0])
+                            },
+                            function(map){
+                                var i=1;
+                                for(var key in map){
+                                    var value=map[key];
+                                    var entry={id:parentId*1000+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
+                                    zTree.addNodes(treeNode,entry);
+//                                    console.log(parentId*1000+i);
+//                                    console.log(treeNode.id);
+//                                    console.log(key+"("+value+")");
+                                    i++;
+                                }
+                            }
+                    );
+                    s.done(function(){
+                        zTree.updateNode(treeNode);
+//                        console.log("up")
+                    });
+                }
+            }
+        }else if(treeNode.level==3){
+//            alert("level3");
+            var whereValue=treeNode.name.split('(')[0];
+            var parentId=parent.id;
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            if(treeNode.name.indexOf('法院')<0){
+//                console.log('do with ay');
+//                console.log('node:'+treeNode.children);
+                if(treeNode.children==null||treeNode.children.length==0){
+                    var t=$.post(
+                            "/groupStatistics",
+                            {
+                                "groupName": "SiJAYMC",
+                                "viewName": $('#viewName').val(),
+                                "whereName": "SJAYMC",
+                                "whereValue": encodeURIComponent(whereValue)
+                            },
+                            function(map){
+                                var i=1;
+                                for(var key in map){
+                                    var value=map[key];
+                                    var entry={id:parentId*10000+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
+                                    zTree.addNodes(treeNode,entry);
+//                                    console.log(parentId*10000+i);
+//                                    console.log(treeNode.id);
+//                                    console.log(key+"("+value+")");
+                                    i++;
+                                }
+                            }
+                    );
+                    t.done(function(){
+                        zTree.updateNode(treeNode);
+//                        console.log("up")
+                    });
+                }
+
+            }else {
+//                console.log('do with fycj');
+//                console.log('node:'+treeNode.children);
+                if(treeNode.children==null||treeNode.children.length==0){
+                    var current=parent.getParentNode().name.split('(')[0];
+                    var groupName='';
+                    var whereName="";
+                    if(current=='法院不明'){
+
+                    }else if(current=='最高法院'){
+                        groupName="JCYMC";
+                        whereName="ZYMC";
+                    }else if(current=='高级法院'){
+                        groupName="JCYMC";
+                        whereName="ZYMC";
+                    }else if(current=='中级法院'){
+                        groupName="";
+                        whereName="";
+                    }else if(current=='基层法院'){
+                        groupName="";
+                        whereName="";
+                    }
+                    var s=$.post(
+                            "/groupStatistics",
+                            {
+                                "groupName": groupName,
+                                "viewName": $('#viewName').val(),
+                                "whereName": whereName,
+                                "whereValue": encodeURIComponent(treeNode.name.split('(')[0])
+                            },
+                            function(map){
+                                var i=1;
+                                for(var key in map){
+                                    var value=map[key];
+                                    var entry={id:parentId*10000+i, pId:treeNode.id, name:key+"("+value+")", isParent:true};
+                                    zTree.addNodes(treeNode,entry);
+//                                    console.log(parentId*10000+i);
+//                                    console.log(treeNode.id);
+//                                    console.log(key+"("+value+")");
+                                    i++;
+                                }
+                            }
+                    );
+                    s.done(function(){
+                        zTree.updateNode(treeNode);
+//                        console.log("up")
+                    });
+                }
             }
         }
         return (treeNode.expand !== false);
@@ -770,7 +963,7 @@
             });
 
             Promise.all([p1,p2,p3,p4,p5]).then(function(result){
-                console.log(result);
+//                console.log(result);
                 $.fn.zTree.init($("#treeDemo"), setting, nodes);
             });
         });

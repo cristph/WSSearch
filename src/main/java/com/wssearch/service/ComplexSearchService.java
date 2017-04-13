@@ -31,6 +31,9 @@ public interface ComplexSearchService {
 
     public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName, String whereName, String whereValue) throws SQLException;
 
+    public String generateIndexFile(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions,
+                                    String ay, String fymc, String dsr, String beginDate, String endDate, String fileName) throws SQLException;
+
     public String dropView(String viewName) throws SQLException;
 
     public List<Wssxb> getAll();

@@ -1,5 +1,6 @@
 package com.wssearch.controller;
 
+import com.wssearch.service.ComplexSearchService;
 import com.wssearch.util.DownloadHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -7,16 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -26,6 +26,133 @@ import java.util.zip.ZipOutputStream;
 
 @Controller
 public class DownloadController {
+
+    @Resource
+    ComplexSearchService complexSearchService;
+
+    @RequestMapping(value = "downloadAll")
+    public String downloadAll(@RequestParam("ay")String ay,
+                              @RequestParam("ah")String ah,
+                              @RequestParam("ajmc")String ajmc,
+                              @RequestParam("fymc")String fymc,
+                              @RequestParam("fycj")String fycj,
+                              @RequestParam("ajlx")String ajlx,
+                              @RequestParam("spcx")String spcx,
+                              @RequestParam("wslx")String wslx,
+                              @RequestParam("cprqbegin")String cprqbegin,
+                              @RequestParam("cprqend")String cprqend,
+                              @RequestParam("cpry")String cpry,
+                              @RequestParam("dsr")String dsr,
+                              @RequestParam("lvsuo")String lvsuo,
+                              @RequestParam("lvshi")String lvshi,
+                              @RequestParam("flyj")String flyj,
+                              @RequestParam("cpnf")String cpnf,
+                              @RequestParam("type")String type,
+                              HttpServletRequest request,
+                              HttpServletResponse response) throws ServletException, IOException {
+
+        HashMap<String,String> preciseConditions=new HashMap<>();
+        HashMap<String,String> ambiguousConditions=new HashMap<>();
+        String ayUtf8=null;
+        String fymcUtf8=null;
+        String cprqbeginUtf8=null;
+        String cprqendUtf8=null;
+        String dsrUtf8=null;
+
+        try {
+            if(ah.trim().length()!=0){
+                String ahUtf8=URLDecoder.decode(ah,"utf-8");
+                ambiguousConditions.put("wsah",ahUtf8.trim());
+            }
+            if(ajmc.trim().length()!=0){
+                String ajmcUtf8=URLDecoder.decode(ajmc,"utf-8");
+                ambiguousConditions.put("wsmc",ajmcUtf8.trim());
+            }
+            if(fycj.trim().length()>0){
+                String fycjUtf8=URLDecoder.decode(fycj,"utf-8").trim();
+                preciseConditions.put("fycj",fycjUtf8.trim());
+            }
+            if(ajlx.trim().length()!=0){
+                String ajlxUtf8=URLDecoder.decode(ajlx,"utf-8");
+                preciseConditions.put("ajlb",ajlxUtf8.trim());
+            }
+            if(spcx.trim().length()!=0){
+                String spcxUtf8=URLDecoder.decode(spcx,"utf-8");
+                preciseConditions.put("spcx",spcxUtf8.trim());
+            }
+            if(wslx.trim().length()!=0){
+                String wslxUtf8=URLDecoder.decode(wslx,"utf-8");
+                preciseConditions.put("wslx",wslxUtf8.trim());
+            }
+            if(cpry.trim().length()!=0){
+                String cpryUtf8=URLDecoder.decode(cpry,"utf-8");
+                ambiguousConditions.put("spry",cpryUtf8.trim());
+            }
+            if(lvsuo.trim().length()!=0){
+                String lvsuoUtf8=URLDecoder.decode(lvsuo,"utf-8");
+                ambiguousConditions.put("lsmc",lvsuoUtf8.trim());
+            }
+            if(lvshi.trim().length()!=0){
+                String lvshiUtf8=URLDecoder.decode(lvshi,"utf-8");
+                ambiguousConditions.put("lsxm",lvshiUtf8.trim());
+            }
+            if(flyj.trim().length()!=0){
+                String flyjUtf8=URLDecoder.decode(flyj,"utf-8");
+                ambiguousConditions.put("flyj",flyjUtf8.trim());
+            }
+            if(cpnf.trim().length()!=0){
+                String cpnfUtf8=URLDecoder.decode(cpnf,"utf-8");
+                preciseConditions.put("cpnf",cpnfUtf8.trim());
+            }
+            ayUtf8=URLDecoder.decode(ay,"utf-8").trim();
+            fymcUtf8=URLDecoder.decode(fymc,"utf-8").trim();
+            dsrUtf8=URLDecoder.decode(dsr,"utf-8").trim();
+            cprqbeginUtf8=URLDecoder.decode(cprqbegin,"utf-8").trim();
+            cprqendUtf8=URLDecoder.decode(cprqend,"utf-8").trim();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String fileName=request.getSession().getServletContext().getRealPath("/")
+                + "upload/file"+System.currentTimeMillis()+".txt";
+        try {
+            complexSearchService.generateIndexFile(preciseConditions, ambiguousConditions, ayUtf8.trim(), fymcUtf8.trim(), dsrUtf8.trim(),
+                    cprqbeginUtf8.trim(), cprqendUtf8.trim(), fileName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("get index file: "+fileName);
+        List<File> files = new ArrayList<File>();
+        try {
+            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
+            String line="";
+            while ((line=bufferedReader.readLine())!=null){
+                File temp=new File(line);
+                if(!temp.exists()){
+                    System.out.println("Not exists! --- "+line);
+                }
+                files.add(temp);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        String zipName = sdf.format(new Date())+".zip";
+        // 在服务器端创建打包下载的临时文件
+        String outFilePath = request.getSession().getServletContext().getRealPath("/") + "upload/";
+
+        File fileZip = new File(outFilePath + zipName);
+        // 文件输出流
+        FileOutputStream outStream = new FileOutputStream(fileZip);
+        // 压缩流
+        ZipOutputStream toClient = new ZipOutputStream(outStream);
+        //  toClient.setEncoding("gbk");
+        zipFile(files, toClient);
+        toClient.close();
+        outStream.close();
+        this.downloadFile(fileZip, response, true);
+        return "Download Success";
+    }
 
     @RequestMapping(value="/singleDownload")
     public String singleDownload(@RequestParam("path")String path,
@@ -37,10 +164,18 @@ public class DownloadController {
         String fileNameUtf8=URLDecoder.decode(fileName,"utf-8");
         response.setHeader("Content-Disposition", "attachment;fileName="+ new String(fileNameUtf8.getBytes("UTF-8"),"ISO-8859-1"));
         String realPath = request.getSession().getServletContext().getRealPath("/");
-        System.out.println("realPath:"+realPath);
+//        System.out.println("--------------------------");
+//        System.out.println("realPath:"+realPath);
+//        System.out.println("--------------------------");
+//        System.out.println("path:"+path+File.separator + fileName);
+//        System.out.println("--------------------------");
+//        System.out.println("fileName:"+fileName);
+//        System.out.println("--------------------------");
+
 //        String path = realPath+"upload/";
 //        File file = new File(path+ File.separator + fileName);
-        File file = new File(path);
+        File file = new File(path+File.separator + fileName);
+        System.out.println("file:"+file.exists());
         downloadFile(file, response, false);
         return null;
     }
@@ -148,6 +283,7 @@ public class DownloadController {
         try {
             // 以流的形式下载文件。
             BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file.getPath()));
+            System.out.println("temp file path:"+file.getPath());
             byte[] buffer = new byte[fis.available()];
             fis.read(buffer);
             fis.close();

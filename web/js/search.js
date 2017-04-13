@@ -264,19 +264,41 @@ function downloadDoc(){
 }
 
 function downloadSingleXML(fileName){
-    var path=$('#xml'+fileName).val();
+    var path=document.getElementById("xml"+fileName).value;
     var url=addURLParam("/singleDownload","path",path);
-    url=addURLParam(url,"fileName",fileName+".xml");
+    url=addURLParam(url,"fileName",fileName);
     console.log("download url:"+url);
     location.href=url;
 }
 
 
 function downloadSingleDOC(fileName){
-    var path=$('#doc'+fileName).val();
+    var path=document.getElementById("doc"+fileName).value;
     var url=addURLParam("/singleDownload","path",path);
-    url=addURLParam(url,"fileName",fileName+".doc");
+    url=addURLParam(url,"fileName",fileName);
     console.log("download url:"+url);
+    location.href=url;
+}
+
+function downloadAll(type){
+    var url="/downloadAll";
+    url=addURLParam(url,"ay",$('#cond_ay').val());
+    url=addURLParam(url,"ah",$('#cond_ah').val());
+    url=addURLParam(url,"ajmc",$('#cond_ajmc').val());
+    url=addURLParam(url,"fymc",$('#cond_fymc').val());
+    url=addURLParam(url,"fycj",$('#cond_fycj').val());
+    url=addURLParam(url,"ajlx",$('#cond_ajlx').val());
+    url=addURLParam(url,"spcx",$('#cond_spcx').val());
+    url=addURLParam(url,"wslx",$('#cond_wslx').val());
+    url=addURLParam(url,"cprqbegin",$('#cond_cprqbegin').val());
+    url=addURLParam(url,"cprqend",$('#cond_cprqend').val());
+    url=addURLParam(url,"cpry",$('#cond_cpry').val());
+    url=addURLParam(url,"dsr",$('#cond_dsr').val());
+    url=addURLParam(url,"lvsuo",$('#cond_lvsuo').val());
+    url=addURLParam(url,"lvshi",$('#cond_lvshi').val());
+    url=addURLParam(url,"flyj",$('#cond_flyj').val());
+    url=addURLParam(url,"cpnf",$('#cond_cpnf').val());
+    url=addURLParam(url,"type",type);
     location.href=url;
 }
 
