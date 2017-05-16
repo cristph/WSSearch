@@ -33,41 +33,39 @@
       <div class="col-sm-3">
         <p style="font-size: large;font-weight: bold;color: white">WSSearch</p>
       </div>
-      <div class="col-sm-9 home-links">
-        <a href="${pageContext.request.contextPath}/login" id="login">Login</a>
-        <a href="${pageContext.request.contextPath}/register" class="home-register" id="register">Sign up</a>
-      </div>
+      <%--<div class="col-sm-9 home-links">--%>
+        <%--<a href="${pageContext.request.contextPath}/login" id="login">Login</a>--%>
+        <%--<a href="${pageContext.request.contextPath}/register" class="home-register" id="register">Sign up</a>--%>
+      <%--</div>--%>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
-        <h1>文书搜索</h1>
-        <h2>文书搜索</h2>
+        <h1>文书可视化与查询工具</h1>
+        <p style="height: 50px"></p>
 
         <div class="input-group">
           <span class="input-group-addon btn-lg join-btn dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: large;font-weight: bolder">高级检索</span>
           <div class="dropdown-menu" style="min-width: 700px;border-radius: 0px;padding:2%;">
             <div class="row" style="margin-bottom: 2%">
-              <div class="col-sm-6">
+              <div class="col-sm-11">
                 <span >全文检索:</span>
-                <input type="text" style="width: 45%" id="qwjsInput">
-                <select id="qwjs" class="input-md form-control" style="display: inline;float:right;margin-right:10%;width: 60px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
-                  <option value="全文">全文</option>
-                  <option value="首部">首部</option>
-                  <option value="事实">事实</option>
-                  <option value="理由">理由</option>
-                  <option value="判决结果">判决结果</option>
-                  <option value="尾部">尾部</option>
+                <input type="text" style="width: 70%" id="qwjsInput">
+                <select id="qwjs" class="input-md form-control" style="display: inline;float:right;margin-right:5%;width: 60px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                  <option value="qw">全文</option>
+                  <option value="ws">首部</option>
+                  <option value="ajjbqk">事实</option>
+                  <option value="cpfxgc">理由</option>
+                  <option value="pjjg">判决结果</option>
+                  <option value="ww">尾部</option>
                 </select>
               </div>
+            </div>
+            <div class="row" style="margin-bottom: 2%">
               <div class="col-sm-6">
                 <span>案由：</span><input type="text" id="ay">
-                <%--<div class="input-group">--%>
-                  <%--&lt;%&ndash;<input type="text" class="form-control">&ndash;%&gt;--%>
-                  <%--<span class="input-group-addon btn-lg join-btn dropdown-toggle"  data-toggle="dropdown2" aria-haspopup="true" aria-expanded="false" style="font-size: large;font-weight: bolder">^</span>--%>
-                  <%--<div class="dropdown2-menu" style="min-width: 300px;border-radius: 0px;padding:2%;">--%>
-                    <%--<div id="treeDemo" class="ztree"></div>--%>
-                  <%--</div>--%>
-                <%--</div>--%>
+              </div>
+              <div class="col-sm-6">
+                <span>裁判年份：</span><input type="text" id="cpnf">
               </div>
             </div>
             <div class="row" style="margin-bottom: 2%">
@@ -96,7 +94,7 @@
             <div class="row" style="margin-bottom: 2%">
               <div class="col-sm-6">
                 <span>案件类型：</span>
-                <select id="ajlx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                <select id="ajlx" class="input-md form-control" style="display: inline;float: right;margin-right:25%;width: 160px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                   <option value="all">全部</option>
                   <option value="刑事案件">刑事案件</option>
                   <option value="民事案件">民事案件</option>
@@ -112,15 +110,16 @@
                   <option value="一审案件">一审案件</option>
                   <option value="二审案件">二审案件</option>
                   <option value="再审案件">再审案件</option>
+                  <option value="再审案件">复核案件</option>
                   <option value="特别程序案件">特别程序案件</option>
                   <option value="再审复查与审判监督案">再审复查与审判监督案</option>
                 </select>
               </div>
             </div>
             <div class="row" style="margin-bottom: 2%">
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <span>文书类型：</span>
-                <select id="wslx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                <select id="wslx" class="input-md form-control" style="display: inline;float: right;margin-right:10%;width: 160px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                   <option value="all">全部</option>
                   <option value="判决书">判决书</option>
                   <option value="裁判文书">裁判文书 </option>
@@ -134,7 +133,7 @@
                   <%--<option value="其他">其他</option>--%>
                 </select>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-7">
                 <div class="row">
                   <div class="col-sm-3" style="padding: 0">
                     <span>裁判日期：</span>
@@ -154,19 +153,6 @@
               </div>
               <div class="col-sm-6">
                 <span>当事人：</span><input type="text" id="dsr">
-              </div>
-            </div>
-            <div class="row" style="margin-bottom: 2%">
-              <div class="col-sm-6">
-                <span>律所：</span><input type="text" id="lvsuo">
-              </div>
-              <div class="col-sm-6">
-                <span>律师：</span><input type="text" id="lvshi">
-              </div>
-            </div>
-            <div class="row" style="margin-bottom: 2%">
-              <div class="col-sm-11">
-                <span>裁判年份：</span><input type="text" style="width: 70%;" id="cpnf">
               </div>
             </div>
             <div class="row" style="margin-bottom: 2%">
@@ -209,6 +195,7 @@
 <script src="js/index.js"></script>
 <script src="js/jquery.ztree.all.min.js"></script>
 <script>
+
   function close(){
     event.stopPropagation();
   }
@@ -299,6 +286,187 @@
 
   $(document).ready(function(){
     $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+  });
+
+
+  $('#searchBtn').click(function(){
+    var qwjsInput="";var qwjs="";var ay="";var ah="";
+    var ajmc="";var fymc="";var fycj="";var ajlx="";
+    var spcx="";var wslx="";var cprqbegin="";var cprqend="";
+    var cpry="";var dsr="";var flyj="";var cpnf="";
+
+    var input=$('#searchInput').val();
+    input= $.trim(input);
+    var c=input.charAt(input.length-1);
+    if(c==','||c=='，'||c==';'||c=='；'){
+      input=input.substr(0,input.length-1);
+    }
+    var array=input.split(/[;,；，]/);
+    for(var i=0;i<array.length;i++){
+      console.log(array[i]+"====");
+      if(array[i].length>0){
+        var tupe=array[i].split(/[:：]/);
+        if(tupe[0]=="全文"){
+          qwjs="qw";
+          qwjsInput=tupe[1];
+        }else if(tupe[0]=="文首"){
+          qwjs="ws";
+          qwjsInput=tupe[1];
+        }else if(tupe[0]=="事实"){
+          qwjs="ajjbqk";
+          qwjsInput=tupe[1];
+        }else if(tupe[0]=="理由"){
+          qwjs="cpfxgc";
+          qwjsInput=tupe[1];
+        }else if(tupe[0]=="判决结果"){
+          qwjs="pjjg";
+          qwjsInput=tupe[1];
+        }else if(tupe[0]=="文尾"){
+          qwjs="ww";
+          qwjsInput=tupe[1];
+        }
+        else if(tupe[0]=="案由"){
+          ay=tupe[1];
+        }else if(tupe[0]=="案件名称"){
+          ajmc=tupe[1];
+        }else if(tupe[0]=="案号"){
+          ah=tupe[1];
+        }else if(tupe[0]=="法院名称"){
+          fymc=tupe[1];
+        }else if(tupe[0]=="法院层级"){
+          fycj=tupe[1];
+        }else if(tupe[0]=="案件类型"){
+          ajlx=tupe[1];
+        }else if(tupe[0]=="审判程序"){
+          spcx=tupe[1];
+        }else if(tupe[0]=="文书类型"){
+          wslx=tupe[1];
+        }else if(tupe[0]=="裁判人员"){
+          cpry=tupe[1];
+        }else if(tupe[0]=="当事人"){
+          dsr=tupe[1];
+        }else if(tupe[0]=="裁判年份"){
+          cpnf=tupe[1];
+        }else if(tupe[0]=="法律依据"){
+          flyj=tupe[1];
+        }
+      }else{
+        alert("检测到输入错误！请重新输入");
+        return;
+      }
+    }
+
+    console.log("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
+            +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";flyj:"+flyj+";cpnf:"+cpnf);
+    var url="/complexSearch";
+    url=addURLParam(url,"qwjs",qwjs);
+    url=addURLParam(url,"qwjsInput",qwjsInput);
+    url=addURLParam(url,"ay",ay);
+    url=addURLParam(url,"ah",ah);
+    url=addURLParam(url,"ajmc",ajmc);
+    url=addURLParam(url,"fymc",fymc);
+    url=addURLParam(url,"fycj",fycj);
+    url=addURLParam(url,"ajlx",ajlx);
+    url=addURLParam(url,"spcx",spcx);
+    url=addURLParam(url,"wslx",wslx);
+    url=addURLParam(url,"cprqbegin",cprqbegin);
+    url=addURLParam(url,"cprqend",cprqend);
+    url=addURLParam(url,"cpry",cpry);
+    url=addURLParam(url,"dsr",dsr);
+    url=addURLParam(url,"flyj",flyj);
+    url=addURLParam(url,"cpnf",cpnf);
+    location.href=url;
+  });
+
+  $(document).keyup(function(event){
+    if(event.keyCode==13){
+      var qwjsInput="";var qwjs="";var ay="";var ah="";
+      var ajmc="";var fymc="";var fycj="";var ajlx="";
+      var spcx="";var wslx="";var cprqbegin="";var cprqend="";
+      var cpry="";var dsr="";var flyj="";var cpnf="";
+
+      var input=$('#searchInput').val();
+      input= $.trim(input);
+      var c=input.charAt(input.length-1);
+      if(c==','||c=='，'||c==';'||c=='；'){
+        input=input.substr(0,input.length-1);
+      }
+      var array=input.split(/[;,；，]/);
+      for(var i=0;i<array.length;i++){
+        console.log(array[i]+"====");
+        if(array[i].length>0){
+          var tupe=array[i].split(/[:：]/);
+          if(tupe[0]=="全文"){
+            qwjs="qw";
+            qwjsInput=tupe[1];
+          }else if(tupe[0]=="文首"){
+            qwjs="ws";
+            qwjsInput=tupe[1];
+          }else if(tupe[0]=="事实"){
+            qwjs="ajjbqk";
+            qwjsInput=tupe[1];
+          }else if(tupe[0]=="理由"){
+            qwjs="cpfxgc";
+            qwjsInput=tupe[1];
+          }else if(tupe[0]=="判决结果"){
+            qwjs="pjjg";
+            qwjsInput=tupe[1];
+          }else if(tupe[0]=="文尾"){
+            qwjs="ww";
+            qwjsInput=tupe[1];
+          }
+          else if(tupe[0]=="案由"){
+            ay=tupe[1];
+          }else if(tupe[0]=="案件名称"){
+            ajmc=tupe[1];
+          }else if(tupe[0]=="案号"){
+            ah=tupe[1];
+          }else if(tupe[0]=="法院名称"){
+            fymc=tupe[1];
+          }else if(tupe[0]=="法院层级"){
+            fycj=tupe[1];
+          }else if(tupe[0]=="案件类型"){
+            ajlx=tupe[1];
+          }else if(tupe[0]=="审判程序"){
+            spcx=tupe[1];
+          }else if(tupe[0]=="文书类型"){
+            wslx=tupe[1];
+          }else if(tupe[0]=="裁判人员"){
+            cpry=tupe[1];
+          }else if(tupe[0]=="当事人"){
+            dsr=tupe[1];
+          }else if(tupe[0]=="裁判年份"){
+            cpnf=tupe[1];
+          }else if(tupe[0]=="法律依据"){
+            flyj=tupe[1];
+          }
+        }else{
+          alert("检测到输入错误！请重新输入");
+          return;
+        }
+      }
+
+      console.log("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
+              +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";flyj:"+flyj+";cpnf:"+cpnf);
+      var url="/complexSearch";
+      url=addURLParam(url,"qwjs",qwjs);
+      url=addURLParam(url,"qwjsInput",qwjsInput);
+      url=addURLParam(url,"ay",ay);
+      url=addURLParam(url,"ah",ah);
+      url=addURLParam(url,"ajmc",ajmc);
+      url=addURLParam(url,"fymc",fymc);
+      url=addURLParam(url,"fycj",fycj);
+      url=addURLParam(url,"ajlx",ajlx);
+      url=addURLParam(url,"spcx",spcx);
+      url=addURLParam(url,"wslx",wslx);
+      url=addURLParam(url,"cprqbegin",cprqbegin);
+      url=addURLParam(url,"cprqend",cprqend);
+      url=addURLParam(url,"cpry",cpry);
+      url=addURLParam(url,"dsr",dsr);
+      url=addURLParam(url,"flyj",flyj);
+      url=addURLParam(url,"cpnf",cpnf);
+      location.href=url;
+    }
   });
 </script>
 </body>

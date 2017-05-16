@@ -33,18 +33,18 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <p style="font-size: large;font-weight: bold;color: white">Dessert</p>
+                <p style="font-size: large;font-weight: bold;color: white">WSSearch</p>
             </div>
-            <div class="col-sm-9 home-links">
-                <a href="${pageContext.request.contextPath}/login" id="login">Login</a>
-                <a href="${pageContext.request.contextPath}/register" class="home-register" id="register">Sign up</a>
-            </div>
+            <%--<div class="col-sm-9 home-links">--%>
+                <%--<a href="${pageContext.request.contextPath}/login" id="login">Login</a>--%>
+                <%--<a href="${pageContext.request.contextPath}/register" class="home-register" id="register">Sign up</a>--%>
+            <%--</div>--%>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="text-center">
-                    <h1>${item.ajxz}</h1>
-                    <h2>${item.spcx}</h2>
+                    <h1>${item.ah}</h1>
+                    <h2>${item.ajxz}&nbsp;&nbsp;${item.spcx}&nbsp;&nbsp;${item.wszl}</h2>
                 </div>
                 <div class="panel panel-success">
                     <div class="panel-heading" data-toggle="collapse" href="#Panel" style="cursor: pointer">

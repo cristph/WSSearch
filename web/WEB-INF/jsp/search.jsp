@@ -37,41 +37,39 @@
             <div class="col-sm-3">
                 <p style="font-size: large;font-weight: bold;color: white">WSSearch</p>
             </div>
-            <div class="col-sm-9 home-links">
-                <a href="${pageContext.request.contextPath}/login" id="login">Login</a>
-                <a href="${pageContext.request.contextPath}/register" class="home-register" id="register">Sign up</a>
-            </div>
+            <%--<div class="col-sm-9 home-links">--%>
+                <%--<a href="${pageContext.request.contextPath}/login" id="login">Login</a>--%>
+                <%--<a href="${pageContext.request.contextPath}/register" class="home-register" id="register">Sign up</a>--%>
+            <%--</div>--%>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
-                <h1>文书搜索</h1>
-                <h2>文书搜索</h2>
+                <h1>文书可视化与查询工具</h1>
+                <p style="height: 50px"></p>
 
                 <div class="input-group">
                     <span class="input-group-addon btn-lg join-btn dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: large;font-weight: bolder">高级检索</span>
                     <div class="dropdown-menu" style="min-width: 700px;border-radius: 0px;padding:2%;">
                         <div class="row" style="margin-bottom: 2%">
-                            <div class="col-sm-6">
+                            <div class="col-sm-11">
                                 <span >全文检索:</span>
-                                <input type="text" style="width: 45%" id="qwjsInput">
-                                <select id="qwjs" class="input-md form-control" style="display: inline;float:right;margin-right:10%;width: 60px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
-                                    <option value="全文">全文</option>
-                                    <option value="首部">首部</option>
-                                    <option value="事实">事实</option>
-                                    <option value="理由">理由</option>
-                                    <option value="判决结果">判决结果</option>
-                                    <option value="尾部">尾部</option>
+                                <input type="text" style="width: 70%" id="qwjsInput">
+                                <select id="qwjs" class="input-md form-control" style="display: inline;float:right;margin-right:5%;width: 60px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                                    <option value="qw">全文</option>
+                                    <option value="ws">首部</option>
+                                    <option value="ajjbqk">事实</option>
+                                    <option value="cpfxgc">理由</option>
+                                    <option value="pjjg">判决结果</option>
+                                    <option value="ww">尾部</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 2%">
                             <div class="col-sm-6">
                                 <span>案由：</span><input type="text" id="ay">
-                                <%--<div class="input-group">--%>
-                                <%--&lt;%&ndash;<input type="text" class="form-control">&ndash;%&gt;--%>
-                                <%--<span class="input-group-addon btn-lg join-btn dropdown-toggle"  data-toggle="dropdown2" aria-haspopup="true" aria-expanded="false" style="font-size: large;font-weight: bolder">^</span>--%>
-                                <%--<div class="dropdown2-menu" style="min-width: 300px;border-radius: 0px;padding:2%;">--%>
-                                <%--<div id="treeDemo" class="ztree"></div>--%>
-                                <%--</div>--%>
-                                <%--</div>--%>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>裁判年份：</span><input type="text" id="cpnf">
                             </div>
                         </div>
                         <div class="row" style="margin-bottom: 2%">
@@ -100,7 +98,7 @@
                         <div class="row" style="margin-bottom: 2%">
                             <div class="col-sm-6">
                                 <span>案件类型：</span>
-                                <select id="ajlx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                                <select id="ajlx" class="input-md form-control" style="display: inline;float: right;margin-right:25%;width: 160px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                                     <option value="all">全部</option>
                                     <option value="刑事案件">刑事案件</option>
                                     <option value="民事案件">民事案件</option>
@@ -116,15 +114,16 @@
                                     <option value="一审案件">一审案件</option>
                                     <option value="二审案件">二审案件</option>
                                     <option value="再审案件">再审案件</option>
+                                    <option value="再审案件">复核案件</option>
                                     <option value="特别程序案件">特别程序案件</option>
                                     <option value="再审复查与审判监督案">再审复查与审判监督案</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row" style="margin-bottom: 2%">
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <span>文书类型：</span>
-                                <select id="wslx" class="input-md form-control" style="display: inline;float: right;margin-right:20%;width: 180px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
+                                <select id="wslx" class="input-md form-control" style="display: inline;float: right;margin-right:10%;width: 160px;height:27px;font-size: 12px;padding: 0;border-radius: 0">
                                     <option value="all">全部</option>
                                     <option value="判决书">判决书</option>
                                     <option value="裁判文书">裁判文书 </option>
@@ -138,7 +137,7 @@
                                     <%--<option value="其他">其他</option>--%>
                                 </select>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-7">
                                 <div class="row">
                                     <div class="col-sm-3" style="padding: 0">
                                         <span>裁判日期：</span>
@@ -161,19 +160,6 @@
                             </div>
                         </div>
                         <div class="row" style="margin-bottom: 2%">
-                            <div class="col-sm-6">
-                                <span>律所：</span><input type="text" id="lvsuo">
-                            </div>
-                            <div class="col-sm-6">
-                                <span>律师：</span><input type="text" id="lvshi">
-                            </div>
-                        </div>
-                        <div class="row" style="margin-bottom: 2%">
-                            <div class="col-sm-11">
-                                <span>裁判年份：</span><input type="text" style="width: 70%;" id="cpnf">
-                            </div>
-                        </div>
-                        <div class="row" style="margin-bottom: 2%">
                             <div class="col-sm-11">
                                 <span>法律依据：</span><input type="text" style="width: 70%;" id="flyj">
                             </div>
@@ -186,7 +172,7 @@
                     <input type="text" class="form-control input-lg" placeholder="输入案由、关键词、法院、当事人、律师" id="searchInput">
                     <span class="input-group-addon btn-lg join-btn" style="font-size: large;font-weight: bolder" id="searchBtn">搜索</span>
                 </div>
-                <p style="height: 100px"></p>
+                <p style="height: 60px"></p>
             </div>
         </div>
         <div class="row">
@@ -195,6 +181,16 @@
             </div>
             <div class="col-sm-9">
                 <div class="title-box" id="condBox">检索条件：
+                    <c:if test="${qwjsInput!=''}">
+                        <span class="label label-primary">
+                            <c:if test="${qwjs eq 'qw'}">全文:</c:if>
+                            <c:if test="${qwjs eq 'ws'}">文首:</c:if>
+                            <c:if test="${qwjs eq 'ajjbqk'}">事实:</c:if>
+                            <c:if test="${qwjs eq 'cpfxgc'}">理由:</c:if>
+                            <c:if test="${qwjs eq 'pjjg'}">判决结果:</c:if>
+                            <c:if test="${qwjs eq 'ww'}">文尾:</c:if>
+                        ${qwjsInput} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('qwjsInput')"></span></span>
+                    </c:if>
                     <c:if test="${ay!=''}">
                         <span class="label label-primary">案由:${ay} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('ay')"></span></span>
                     </c:if>
@@ -240,12 +236,15 @@
                     <c:if test="${cpry!=''}">
                         <span class="label label-primary">裁判人员:${cpry} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('cpry')"></span></span>
                     </c:if>
-                    <c:if test="${lvsuo!=''}">
-                        <span class="label label-primary">律所:${lvsuo} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('lvsuo')"></span></span>
+                    <c:if test="${dsr!=''}">
+                        <span class="label label-primary">当事人:${dsr} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('dsr')"></span></span>
                     </c:if>
-                    <c:if test="${lvshi!=''}">
-                        <span class="label label-primary">律师:${lvshi} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('lvshi')"></span></span>
-                    </c:if>
+                    <%--<c:if test="${lvsuo!=''}">--%>
+                        <%--<span class="label label-primary">律所:${lvsuo} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('lvsuo')"></span></span>--%>
+                    <%--</c:if>--%>
+                    <%--<c:if test="${lvshi!=''}">--%>
+                        <%--<span class="label label-primary">律师:${lvshi} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('lvshi')"></span></span>--%>
+                    <%--</c:if>--%>
                     <c:if test="${flyj!=''}">
                         <span class="label label-primary">法律依据:${flyj} <span class="glyphicon glyphicon-remove scondition" aria-hidden="true" onclick="removeLabel('flyj')"></span></span>
                     </c:if>
@@ -255,6 +254,8 @@
                 </div>
                 <div id="searchConditions">
                     <input type="hidden" id="viewName" value="">
+                    <input type="hidden" id="cond_qwjs" value="${qwjs}">
+                    <input type="hidden" id="cond_qwjsInput" value="${qwjsInput}">
                     <input type="hidden" id="cond_ay" value="${ay}">
                     <input type="hidden" id="cond_ah" value="${ah}">
                     <input type="hidden" id="cond_ajmc" value="${ajmc}">
@@ -267,8 +268,8 @@
                     <input type="hidden" id="cond_cprqend" value="${cprqend}">
                     <input type="hidden" id="cond_cpry" value="${cpry}">
                     <input type="hidden" id="cond_dsr" value="${dsr}">
-                    <input type="hidden" id="cond_lvsuo" value="${lvsuo}">
-                    <input type="hidden" id="cond_lvshi" value="${lvshi}">
+                    <%--<input type="hidden" id="cond_lvsuo" value="${lvsuo}">--%>
+                    <%--<input type="hidden" id="cond_lvshi" value="${lvshi}">--%>
                     <input type="hidden" id="cond_flyj" value="${flyj}">
                     <input type="hidden" id="cond_cpnf" value="${cpnf}">
 
@@ -276,41 +277,43 @@
                     <input type="hidden" id="SortType" value="${SortType}">
                 </div>
                 <div class="row" style="margin: 2% 0 2% 0">
-                    <input type="hidden" id="fycjOrder" value="desc">
+                    <input type="hidden" id="isAssociation" value="true">
                     <input type="hidden" id="cprqOrder" value="desc">
-                    <input type="hidden" id="spcxOrder" value="desc">
-                    <span class="sortBtn" onclick="changeSortOrder('fycj')">法院层级 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="fycjArrow"></span></span>
-                    <span class="sortBtn" onclick="changeSortOrder('cprq')">裁判日期 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="cprqArrow"></span></span>
-                    <span class="sortBtn" onclick="changeSortOrder('spcx')">审判程序 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="spcxArrow"></span></span>
+                    <span class="sortBtn" onclick="changeSortOrder('association')" id="associationColor">关联度 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="associationArrow"></span></span>
+                    <span class="sortBtn" onclick="changeSortOrder('cprq')" id="cprqColor" style="background-color: grey">裁判日期 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" id="cprqArrow"></span></span>
                     <span style="font-weight: bolder;color: white">共得到<span id="AJC">${AjCount}</span>条记录</span><span style="width: 100px;height: 2px"> </span>
                     <input type="checkbox" style="margin:5px 0 0;border:1px solid #006600;" id="downloadAll">
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadXml()">批量下载xml</span>
                     <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadDoc()">批量下载doc</span>
                 </div>
-                <div class="row" style="margin: 2% 0 2% 0">
-                    <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%;float: right;margin-right: 82px" onclick="downloadAll('doc')">下载所有doc</span>
-                    <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%;float: right;margin-right: 4px" onclick="downloadAll('xml')">下载所有xml</span>
-                </div>
                 <div>
                     <div id="AjDiv">
                         <c:forEach items="${list}" var="item">
                         <div class="AJ">
-                            <input type="checkbox" value="${item.xmlPath}/${item.xmlName}" style="margin:5px 0 0;border:1px solid #006600;">
-                            <div class="row AJBiaoTi" onclick="showAj('${item.wsah}')">
+                            <input type="checkbox" value="${item.xmlPath}" style="margin:5px 0 0;border:1px solid #006600;">
+                            <div class="row AJBiaoTi" onclick="showAj('${item.ah}')">
                                     ${item.spcx} ${item.wsmc}
                             </div>
-                            <div class="row AJCiBiaoTi" onclick="showAj('${item.wsah}')">
-                                    ${item.gymc}&nbsp;&nbsp;${item.zymc}&nbsp;&nbsp;${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
+                            <div class="row AJCiBiaoTi" onclick="showAj('${item.ah}')">
+                                    ${item.fymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.ah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
+                            </div>
+                            <div style="margin: 3% 0 3% 2%">
+                                ${item.matchText}
                             </div>
                             <div style="padding: 0 0 20px 0;">
-                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.xmlName}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
-                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item.docName}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
+                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item._id}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
+                                <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item._id}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
                             </div>
-                            <input type="hidden" value="${item.wsah}">
-                            <input type="hidden" value="${item.xmlPath}" id="xml${item.xmlName}">
-                            <input type="hidden" value="${item.docPath}" id="doc${item.docName}">
+                            <input type="hidden" value="${item.ah}">
+                            <input type="hidden" value="${item.xmlPath}" id="xml${item._id}">
+                            <%--<input type="hidden" value="${item.docPath}" id="doc${item.docName}">--%>
                         </div>
                         </c:forEach>
+                    </div>
+                    <div class="row" style="margin: 2% 0">
+                        <span style="color: white;font-size: larger;font-weight: bolder;margin-bottom: 20px">共<span id="PN">${maxPageNum}</span>页</span>
+                        <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadAll('doc')">下载所有doc</span>
+                        <span style="border:1px solid #006600;border-radius: 2px;background-color: whitesmoke;color: black;cursor: pointer;padding: 0.5%" onclick="downloadAll('xml')">下载所有xml</span>
                     </div>
                     <nav aria-label="Page navigation">
                         <input type="hidden" id="maxPageNum" value="${maxPageNum}">
@@ -323,17 +326,6 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-
-                            <%--<c:forEach var="i" begin="${beginPageIndex}" end="${endPageIndex}" step="1">--%>
-                                <%--<c:choose>--%>
-                                    <%--<c:when test="${i==1}">--%>
-                                        <%--<li class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>--%>
-                                    <%--</c:when>--%>
-                                    <%--<c:otherwise>--%>
-                                        <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}','${i}')">${i}</a></li>--%>
-                                    <%--</c:otherwise>--%>
-                                <%--</c:choose>--%>
-                            <%--</c:forEach>--%>
                             <c:choose>
                                 <c:when test="${maxPageNum>5}">
                                     <c:forEach var="i" begin="1" end="5" step="1">
@@ -360,19 +352,12 @@
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
-
-                            <%--<li class="active"><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',1)">1</a></li>--%>
-                            <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',2)">2</a></li>--%>
-                            <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',3)">3</a></li>--%>
-                            <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',4)">4</a></li>--%>
-                            <%--<li class=""><a href="javascript:void(0)" onclick="goPage('${SortClass}','${SortType}',5)">5</a></li>--%>
                             <li>
                                 <a href="javascript:void(0)" aria-label="Next" onclick="goNext()">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
-                        <span style="color: white;font-size: larger;font-weight: bolder;margin-bottom: 20px">共<span id="PN">${maxPageNum}</span>页</span>
                     </nav>
 
                 </div>
@@ -399,6 +384,7 @@
 
 
 <script src="js/jquery.min.js"></script>
+<script src="js/spin.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/search.js" type="text/javascript" charset="GBK"></script>
 <script src="js/jquery.ztree.all.min.js"></script>
@@ -449,7 +435,7 @@
     };
 
     var nodes =[
-        { id:1, pId:0, name:"按关键字筛选",  isParent:true, open:true},
+//        { id:1, pId:0, name:"按关键字筛选",  isParent:true, open:true},
         { id:2, pId:0, name:"按案由筛选", isParent:true, open:true},
         { id:3, pId:0, name:"按法院层级筛选", isParent:true, open:true},
         { id:4, pId:0, name:"按裁判年份筛选", isParent:true, open:true},
@@ -817,169 +803,389 @@
     }
 
     function updateView(){
-//        var nodes =[
-//            { id:1, pId:0, name:"按关键字筛选",  isParent:true, open:true},
-//            { id:2, pId:0, name:"按案由筛选", isParent:true, open:true},
-//            { id:3, pId:0, name:"按法院层级筛选", isParent:true, open:true},
-//            { id:4, pId:0, name:"按裁判年份筛选", isParent:true, open:true},
-//            { id:5, pId:0, name:"按审判程序筛选", isParent:true, open:true},
-//            { id:6, pId:0, name:"按文书类型筛选", isParent:true, open:true}
-//        ];
-        var createViewPost=$.post(
-                "/createView",
-                {
-                    "ay":encodeURIComponent($('#cond_ay').val()),
-                    "ah":encodeURIComponent($('#cond_ah').val()),
-                    "ajmc":encodeURIComponent($('#cond_ajmc').val()),
-                    "fymc":encodeURIComponent($('#cond_fymc').val()),
-                    "fycj":encodeURIComponent($('#cond_fycj').val()),
-                    "ajlx":encodeURIComponent($('#cond_ajlx').val()),
-                    "spcx":encodeURIComponent($('#cond_spcx').val()),
-                    "wslx":encodeURIComponent($('#cond_wslx').val()),
-                    "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
-                    "cprqend":encodeURIComponent($('#cond_cprqend').val()),
-                    "cpry":encodeURIComponent($('#cond_cpry').val()),
-                    "dsr":encodeURIComponent($('#cond_dsr').val()),
-                    "lvsuo":encodeURIComponent($('#cond_lvsuo').val()),
-                    "lvshi":encodeURIComponent($('#cond_lvshi').val()),
-                    "flyj":encodeURIComponent($('#cond_flyj').val()),
-                    "cpnf":encodeURIComponent($('#cond_cpnf').val())
-                },
-                function(data){
-                    $('#viewName').val(data);
-                }
-        );
-
-        createViewPost.done(function(){
-            var p1=new Promise(function (resolve){
-                $.post(
-                        "/groupStatistics",
-                        {
-                            "groupName": "YJAYMC",
-                            "viewName": $('#viewName').val(),
-                            "whereName": "",
-                            "whereValue": ""
-                        },
-                        function(map){
-                            var i=1;
-                            for(var key in map){
-                                var value=map[key];
-                                var entry={id:2*10+i, pId:2, name:key+"("+value+")", isParent:true};
+        var p1=new Promise(function (resolve){
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "qwjs":encodeURIComponent($('#cond_qwjs').val()),
+                        "qwjsInput":encodeURIComponent($('#cond_qwjsInput').val()),
+                        "ay":encodeURIComponent($('#cond_ay').val()),
+                        "ah":encodeURIComponent($('#cond_ah').val()),
+                        "ajmc":encodeURIComponent($('#cond_ajmc').val()),
+                        "fymc":encodeURIComponent($('#cond_fymc').val()),
+                        "fycj":encodeURIComponent($('#cond_fycj').val()),
+                        "ajlx":encodeURIComponent($('#cond_ajlx').val()),
+                        "spcx":encodeURIComponent($('#cond_spcx').val()),
+                        "wslx":encodeURIComponent($('#cond_wslx').val()),
+                        "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
+                        "cprqend":encodeURIComponent($('#cond_cprqend').val()),
+                        "cpry":encodeURIComponent($('#cond_cpry').val()),
+                        "dsr":encodeURIComponent($('#cond_dsr').val()),
+                        "flyj":encodeURIComponent($('#cond_flyj').val()),
+                        "cpnf":encodeURIComponent($('#cond_cpnf').val()),
+                        "groupName": "AY",
+                        "whereName": "",
+                        "whereValue": ""
+                    },
+                    function(map){
+                        var i=1;
+                        for(var key in map){
+                            var value=map[key];
+//                            var entry={id:2*10+i, pId:2, name:key+"("+value+")", isParent:true};
+                            if(key==''){
+                                var entry={id:2*10+i, pId:2, name:"案由不明("+value+")"};
                                 nodes.push(entry);
-                                i++;
-                            }
-                            resolve('p1 done');
-                        }
-                );
-            });
-
-            var p2=new Promise(function (resolve){
-                $.post(
-                        "/groupStatistics",
-                        {
-                            "groupName": "FYCJ",
-                            "viewName": $('#viewName').val(),
-                            "whereName": "",
-                            "whereValue": ""
-                        },
-                        function(map){
-                            var i=1;
-                            var fycjArray=["法院不明","最高法院","高级法院","中级法院","基层法院"];
-                            for(var key in map){
-                                var value=map[key];
-                                var entry={id:3*10+i, pId:3, name:fycjArray[key]+"("+value+")", isParent:true};
+                            }else{
+                                var entry={id:2*10+i, pId:2, name:key+"("+value+")"};
                                 nodes.push(entry);
-                                i++;
                             }
-                            resolve("p2 done");
+//                            var entry={id:2*10+i, pId:2, name:key+"("+value+")"};
+//                            nodes.push(entry);
+                            i++;
                         }
-                );
-            });
+                        resolve('p1 done');
+                    }
+            );
+        });
 
-            var p3=new Promise(function (resolve){
-                $.post(
-                        "/groupStatistics",
-                        {
-                            "groupName": "CPNF",
-                            "viewName": $('#viewName').val(),
-                            "whereName": "",
-                            "whereValue": ""
-                        },
-                        function(map){
-                            var i=1;
-                            for(var key in map){
-                                var value=map[key];
-                                var entry={id:4*10+i, pId:4, name:key+"年("+value+")"};
-                                nodes.push(entry);
-                                i++;
-                            }
-                            resolve('p3 done');
+        var p2=new Promise(function (resolve){
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "qwjs":encodeURIComponent($('#cond_qwjs').val()),
+                        "qwjsInput":encodeURIComponent($('#cond_qwjsInput').val()),
+                        "ay":encodeURIComponent($('#cond_ay').val()),
+                        "ah":encodeURIComponent($('#cond_ah').val()),
+                        "ajmc":encodeURIComponent($('#cond_ajmc').val()),
+                        "fymc":encodeURIComponent($('#cond_fymc').val()),
+                        "fycj":encodeURIComponent($('#cond_fycj').val()),
+                        "ajlx":encodeURIComponent($('#cond_ajlx').val()),
+                        "spcx":encodeURIComponent($('#cond_spcx').val()),
+                        "wslx":encodeURIComponent($('#cond_wslx').val()),
+                        "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
+                        "cprqend":encodeURIComponent($('#cond_cprqend').val()),
+                        "cpry":encodeURIComponent($('#cond_cpry').val()),
+                        "dsr":encodeURIComponent($('#cond_dsr').val()),
+                        "flyj":encodeURIComponent($('#cond_flyj').val()),
+                        "cpnf":encodeURIComponent($('#cond_cpnf').val()),
+                        "groupName": "FYCJ",
+                        "whereName": "",
+                        "whereValue": ""
+                    },
+                    function(map){
+                        var i=1;
+                        var fycjArray=["法院不明","最高法院","高级法院","中级法院","基层法院"];
+                        for(var key in map){
+                            var value=map[key];
+//                            var entry={id:3*10+i, pId:3, name:fycjArray[key]+"("+value+")", isParent:true};
+                            var entry={id:3*10+i, pId:3, name:fycjArray[key]+"("+value+")"};
+                            nodes.push(entry);
+                            i++;
                         }
-                );
-            });
+                        resolve("p2 done");
+                    }
+            );
+        });
 
-            var p4=new Promise(function (resolve){
-                $.post(
-                        "/groupStatistics",
-                        {
-                            "groupName": "SPCX",
-                            "viewName": $('#viewName').val(),
-                            "whereName": "",
-                            "whereValue": ""
-                        },
-                        function(map){
-                            var i=1;
-                            for(var key in map){
-                                var value=map[key];
-                                var entry={id:5*10+i, pId:5, name:key+"("+value+")"};
-                                nodes.push(entry);
-                                i++;
-                            }
-                            resolve('p4 done');
+        var p3=new Promise(function (resolve){
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "qwjs":encodeURIComponent($('#cond_qwjs').val()),
+                        "qwjsInput":encodeURIComponent($('#cond_qwjsInput').val()),
+                        "ay":encodeURIComponent($('#cond_ay').val()),
+                        "ah":encodeURIComponent($('#cond_ah').val()),
+                        "ajmc":encodeURIComponent($('#cond_ajmc').val()),
+                        "fymc":encodeURIComponent($('#cond_fymc').val()),
+                        "fycj":encodeURIComponent($('#cond_fycj').val()),
+                        "ajlx":encodeURIComponent($('#cond_ajlx').val()),
+                        "spcx":encodeURIComponent($('#cond_spcx').val()),
+                        "wslx":encodeURIComponent($('#cond_wslx').val()),
+                        "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
+                        "cprqend":encodeURIComponent($('#cond_cprqend').val()),
+                        "cpry":encodeURIComponent($('#cond_cpry').val()),
+                        "dsr":encodeURIComponent($('#cond_dsr').val()),
+                        "flyj":encodeURIComponent($('#cond_flyj').val()),
+                        "cpnf":encodeURIComponent($('#cond_cpnf').val()),
+                        "groupName": "CPNF",
+                        "whereName": "",
+                        "whereValue": ""
+                    },
+                    function(map){
+                        var i=1;
+                        for(var key in map){
+                            var value=map[key];
+                            var entry={id:4*10+i, pId:4, name:key+"年("+value+")"};
+                            nodes.push(entry);
+                            i++;
                         }
-                );
-            });
+                        resolve('p3 done');
+                    }
+            );
+        });
 
-            var p5=new Promise(function (resolve){
-                $.post(
-                        "/groupStatistics",
-                        {
-                            "groupName": "WSLX",
-                            "viewName": $('#viewName').val(),
-                            "whereName": "",
-                            "whereValue": ""
-                        },
-                        function(map){
-                            var i=1;
-                            for(var key in map){
-                                var value=map[key];
-                                var entry={id:6*10+i, pId:6, name:key+"("+value+")"};
-                                nodes.push(entry);
-                                i++;
-                            }
-                            resolve('p5 done');
+        var p4=new Promise(function (resolve){
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "qwjs":encodeURIComponent($('#cond_qwjs').val()),
+                        "qwjsInput":encodeURIComponent($('#cond_qwjsInput').val()),
+                        "ay":encodeURIComponent($('#cond_ay').val()),
+                        "ah":encodeURIComponent($('#cond_ah').val()),
+                        "ajmc":encodeURIComponent($('#cond_ajmc').val()),
+                        "fymc":encodeURIComponent($('#cond_fymc').val()),
+                        "fycj":encodeURIComponent($('#cond_fycj').val()),
+                        "ajlx":encodeURIComponent($('#cond_ajlx').val()),
+                        "spcx":encodeURIComponent($('#cond_spcx').val()),
+                        "wslx":encodeURIComponent($('#cond_wslx').val()),
+                        "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
+                        "cprqend":encodeURIComponent($('#cond_cprqend').val()),
+                        "cpry":encodeURIComponent($('#cond_cpry').val()),
+                        "dsr":encodeURIComponent($('#cond_dsr').val()),
+                        "flyj":encodeURIComponent($('#cond_flyj').val()),
+                        "cpnf":encodeURIComponent($('#cond_cpnf').val()),
+                        "groupName": "SPCX",
+                        "whereName": "",
+                        "whereValue": ""
+                    },
+                    function(map){
+                        var i=1;
+                        for(var key in map){
+                            var value=map[key];
+                            var entry={id:5*10+i, pId:5, name:key+"("+value+")"};
+                            nodes.push(entry);
+                            i++;
                         }
-                );
-            });
+                        resolve('p4 done');
+                    }
+            );
+        });
 
-            Promise.all([p1,p2,p3,p4,p5]).then(function(result){
-//                console.log(result);
-                $.fn.zTree.init($("#treeDemo"), setting, nodes);
-            });
+        var p5=new Promise(function (resolve){
+            $.post(
+                    "/groupStatistics",
+                    {
+                        "qwjs":encodeURIComponent($('#cond_qwjs').val()),
+                        "qwjsInput":encodeURIComponent($('#cond_qwjsInput').val()),
+                        "ay":encodeURIComponent($('#cond_ay').val()),
+                        "ah":encodeURIComponent($('#cond_ah').val()),
+                        "ajmc":encodeURIComponent($('#cond_ajmc').val()),
+                        "fymc":encodeURIComponent($('#cond_fymc').val()),
+                        "fycj":encodeURIComponent($('#cond_fycj').val()),
+                        "ajlx":encodeURIComponent($('#cond_ajlx').val()),
+                        "spcx":encodeURIComponent($('#cond_spcx').val()),
+                        "wslx":encodeURIComponent($('#cond_wslx').val()),
+                        "cprqbegin":encodeURIComponent($('#cond_cprqbegin').val()),
+                        "cprqend":encodeURIComponent($('#cond_cprqend').val()),
+                        "cpry":encodeURIComponent($('#cond_cpry').val()),
+                        "dsr":encodeURIComponent($('#cond_dsr').val()),
+                        "flyj":encodeURIComponent($('#cond_flyj').val()),
+                        "cpnf":encodeURIComponent($('#cond_cpnf').val()),
+                        "groupName": "WSLX",
+                        "whereName": "",
+                        "whereValue": ""
+                    },
+                    function(map){
+                        var i=1;
+                        for(var key in map){
+                            var value=map[key];
+                            var entry={id:6*10+i, pId:6, name:key+"("+value+")"};
+                            nodes.push(entry);
+                            i++;
+                        }
+                        resolve('p5 done');
+                    }
+            );
+        });
+
+        Promise.all([p1,p2,p3,p4,p5]).then(function(result){
+            $.fn.zTree.init($("#treeDemo"), setting, nodes);
         });
     }
 
     $(function(){
-//        var nodes =[
-//            { id:1, pId:0, name:"按关键字筛选",  isParent:true,open:true},
-//            { id:2, pId:0, name:"按案由筛选", isParent:true},
-//            { id:3, pId:0, name:"按法院层级筛选", isParent:true},
-//            { id:4, pId:0, name:"按裁判年份筛选", isParent:true},
-//            { id:5, pId:0, name:"按审判程序筛选", isParent:true},
-//            { id:6, pId:0, name:"按文书类型筛选", isParent:true}
-//        ];
         $.fn.zTree.init($("#treeDemo"), setting, nodes);
         updateView();
+    });
+
+    $('#searchBtn').click(function(){
+        var qwjsInput="";var qwjs="";var ay="";var ah="";
+        var ajmc="";var fymc="";var fycj="";var ajlx="";
+        var spcx="";var wslx="";var cprqbegin="";var cprqend="";
+        var cpry="";var dsr="";var flyj="";var cpnf="";
+
+        var input=$('#searchInput').val();
+        input= $.trim(input);
+        var c=input.charAt(input.length-1);
+        if(c==','||c=='，'||c==';'||c=='；'){
+            input=input.substr(0,input.length-1);
+        }
+        var array=input.split(/[;,；，]/);
+        for(var i=0;i<array.length;i++){
+            console.log(array[i]+"====");
+            if(array[i].length>0){
+                var tupe=array[i].split(/[:：]/);
+                if(tupe[0]=="全文"){
+                    qwjs="qw";
+                    qwjsInput=tupe[1];
+                }else if(tupe[0]=="文首"){
+                    qwjs="ws";
+                    qwjsInput=tupe[1];
+                }else if(tupe[0]=="事实"){
+                    qwjs="ajjbqk";
+                    qwjsInput=tupe[1];
+                }else if(tupe[0]=="理由"){
+                    qwjs="cpfxgc";
+                    qwjsInput=tupe[1];
+                }else if(tupe[0]=="判决结果"){
+                    qwjs="pjjg";
+                    qwjsInput=tupe[1];
+                }else if(tupe[0]=="文尾"){
+                    qwjs="ww";
+                    qwjsInput=tupe[1];
+                }
+                else if(tupe[0]=="案由"){
+                    ay=tupe[1];
+                }else if(tupe[0]=="案件名称"){
+                    ajmc=tupe[1];
+                }else if(tupe[0]=="案号"){
+                    ah=tupe[1];
+                }else if(tupe[0]=="法院名称"){
+                    fymc=tupe[1];
+                }else if(tupe[0]=="法院层级"){
+                    fycj=tupe[1];
+                }else if(tupe[0]=="案件类型"){
+                    ajlx=tupe[1];
+                }else if(tupe[0]=="审判程序"){
+                    spcx=tupe[1];
+                }else if(tupe[0]=="文书类型"){
+                    wslx=tupe[1];
+                }else if(tupe[0]=="裁判人员"){
+                    cpry=tupe[1];
+                }else if(tupe[0]=="当事人"){
+                    dsr=tupe[1];
+                }else if(tupe[0]=="裁判年份"){
+                    cpnf=tupe[1];
+                }else if(tupe[0]=="法律依据"){
+                    flyj=tupe[1];
+                }
+            }else{
+                alert("检测到输入错误！请重新输入");
+                return;
+            }
+        }
+
+        console.log("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
+                +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";flyj:"+flyj+";cpnf:"+cpnf);
+        var url="/complexSearch";
+        url=addURLParam(url,"qwjs",qwjs);
+        url=addURLParam(url,"qwjsInput",qwjsInput);
+        url=addURLParam(url,"ay",ay);
+        url=addURLParam(url,"ah",ah);
+        url=addURLParam(url,"ajmc",ajmc);
+        url=addURLParam(url,"fymc",fymc);
+        url=addURLParam(url,"fycj",fycj);
+        url=addURLParam(url,"ajlx",ajlx);
+        url=addURLParam(url,"spcx",spcx);
+        url=addURLParam(url,"wslx",wslx);
+        url=addURLParam(url,"cprqbegin",cprqbegin);
+        url=addURLParam(url,"cprqend",cprqend);
+        url=addURLParam(url,"cpry",cpry);
+        url=addURLParam(url,"dsr",dsr);
+        url=addURLParam(url,"flyj",flyj);
+        url=addURLParam(url,"cpnf",cpnf);
+        location.href=url;
+    });
+
+    $(document).keyup(function(event){
+        if(event.keyCode==13){
+            var qwjsInput="";var qwjs="";var ay="";var ah="";
+            var ajmc="";var fymc="";var fycj="";var ajlx="";
+            var spcx="";var wslx="";var cprqbegin="";var cprqend="";
+            var cpry="";var dsr="";var flyj="";var cpnf="";
+
+            var input=$('#searchInput').val();
+            input= $.trim(input);
+            var c=input.charAt(input.length-1);
+            if(c==','||c=='，'||c==';'||c=='；'){
+                input=input.substr(0,input.length-1);
+            }
+            var array=input.split(/[;,；，]/);
+            for(var i=0;i<array.length;i++){
+                console.log(array[i]+"====");
+                if(array[i].length>0){
+                    var tupe=array[i].split(/[:：]/);
+                    if(tupe[0]=="全文"){
+                        qwjs="qw";
+                        qwjsInput=tupe[1];
+                    }else if(tupe[0]=="文首"){
+                        qwjs="ws";
+                        qwjsInput=tupe[1];
+                    }else if(tupe[0]=="事实"){
+                        qwjs="ajjbqk";
+                        qwjsInput=tupe[1];
+                    }else if(tupe[0]=="理由"){
+                        qwjs="cpfxgc";
+                        qwjsInput=tupe[1];
+                    }else if(tupe[0]=="判决结果"){
+                        qwjs="pjjg";
+                        qwjsInput=tupe[1];
+                    }else if(tupe[0]=="文尾"){
+                        qwjs="ww";
+                        qwjsInput=tupe[1];
+                    }
+                    else if(tupe[0]=="案由"){
+                        ay=tupe[1];
+                    }else if(tupe[0]=="案件名称"){
+                        ajmc=tupe[1];
+                    }else if(tupe[0]=="案号"){
+                        ah=tupe[1];
+                    }else if(tupe[0]=="法院名称"){
+                        fymc=tupe[1];
+                    }else if(tupe[0]=="法院层级"){
+                        fycj=tupe[1];
+                    }else if(tupe[0]=="案件类型"){
+                        ajlx=tupe[1];
+                    }else if(tupe[0]=="审判程序"){
+                        spcx=tupe[1];
+                    }else if(tupe[0]=="文书类型"){
+                        wslx=tupe[1];
+                    }else if(tupe[0]=="裁判人员"){
+                        cpry=tupe[1];
+                    }else if(tupe[0]=="当事人"){
+                        dsr=tupe[1];
+                    }else if(tupe[0]=="裁判年份"){
+                        cpnf=tupe[1];
+                    }else if(tupe[0]=="法律依据"){
+                        flyj=tupe[1];
+                    }
+                }else{
+                    alert("检测到输入错误！请重新输入");
+                    return;
+                }
+            }
+
+            console.log("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
+                    +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";flyj:"+flyj+";cpnf:"+cpnf);
+            var url="/complexSearch";
+            url=addURLParam(url,"qwjs",qwjs);
+            url=addURLParam(url,"qwjsInput",qwjsInput);
+            url=addURLParam(url,"ay",ay);
+            url=addURLParam(url,"ah",ah);
+            url=addURLParam(url,"ajmc",ajmc);
+            url=addURLParam(url,"fymc",fymc);
+            url=addURLParam(url,"fycj",fycj);
+            url=addURLParam(url,"ajlx",ajlx);
+            url=addURLParam(url,"spcx",spcx);
+            url=addURLParam(url,"wslx",wslx);
+            url=addURLParam(url,"cprqbegin",cprqbegin);
+            url=addURLParam(url,"cprqend",cprqend);
+            url=addURLParam(url,"cpry",cpry);
+            url=addURLParam(url,"dsr",dsr);
+            url=addURLParam(url,"flyj",flyj);
+            url=addURLParam(url,"cpnf",cpnf);
+            location.href=url;
+        }
     });
 
 </script>

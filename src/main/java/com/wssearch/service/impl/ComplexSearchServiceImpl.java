@@ -33,35 +33,35 @@ public class ComplexSearchServiceImpl implements ComplexSearchService {
 //        return complexSearchDao.getWssxbListNum(conditions,ay,fycj,fymc,dsr,beginDate,endDate);
 //    }
 
-    @Override
-    public List<Wssxb> getWssxList(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, HashMap<String, String> sorts, int beginIdex, int listNum) throws SQLException {
-        return complexSearchDao.getWssxList(preciseConditions, ambiguousConditions, ay, fymc, dsr, beginDate, endDate, sorts, beginIdex, listNum);
-    }
-
-    @Override
-    public int getWssxListNum(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException {
-        return complexSearchDao.getWssxListNum(preciseConditions,ambiguousConditions,ay,fymc,dsr,beginDate,endDate);
-    }
-
-    @Override
-    public String createView(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException {
-        return complexSearchDao.createView(preciseConditions,ambiguousConditions,ay,fymc,dsr,beginDate,endDate);
-    }
-
-    @Override
-    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName, String whereName, String whereValue) throws SQLException {
-        return complexSearchDao.getGroupStatistics(groupName, viewName, whereName, whereValue);
-    }
-
-    @Override
-    public String generateIndexFile(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, String fileName) throws SQLException {
-        return complexSearchDao.generateIndexFile(preciseConditions,ambiguousConditions,ay,fymc,dsr,beginDate,endDate,fileName);
-    }
-
-    @Override
-    public String dropView(String viewName) throws SQLException {
-        return complexSearchDao.dropView(viewName);
-    }
+//    @Override
+//    public List<Wssxb> getWssxList(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, HashMap<String, String> sorts, int beginIdex, int listNum) throws SQLException {
+//        return complexSearchDao.getWssxList(preciseConditions, ambiguousConditions, ay, fymc, dsr, beginDate, endDate, sorts, beginIdex, listNum);
+//    }
+//
+//    @Override
+//    public int getWssxListNum(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException {
+//        return complexSearchDao.getWssxListNum(preciseConditions,ambiguousConditions,ay,fymc,dsr,beginDate,endDate);
+//    }
+//
+//    @Override
+//    public String createView(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate) throws SQLException {
+//        return complexSearchDao.createView(preciseConditions,ambiguousConditions,ay,fymc,dsr,beginDate,endDate);
+//    }
+//
+//    @Override
+//    public HashMap<String, Integer> getGroupStatistics(String groupName, String viewName, String whereName, String whereValue) throws SQLException {
+//        return complexSearchDao.getGroupStatistics(groupName, viewName, whereName, whereValue);
+//    }
+//
+//    @Override
+//    public String generateIndexFile(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String ay, String fymc, String dsr, String beginDate, String endDate, String fileName) throws SQLException {
+//        return complexSearchDao.generateIndexFile(preciseConditions,ambiguousConditions,ay,fymc,dsr,beginDate,endDate,fileName);
+//    }
+//
+//    @Override
+//    public String dropView(String viewName) throws SQLException {
+//        return complexSearchDao.dropView(viewName);
+//    }
 
     @Override
     public List<Wssxb> getAll() {

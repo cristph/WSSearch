@@ -4,7 +4,6 @@
 
 $(function(){
     var Ajxh=$("#Ajxh").val();
-    //alert('send'+Ajxh);
     var dsrPost=$.post(
         "/getDsrList",
         {
@@ -17,7 +16,6 @@ $(function(){
     );
 
     dsrPost.done(function(){
-        //alert("Time");
         $.post(
             "/getSSJL",
             {

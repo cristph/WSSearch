@@ -1,6 +1,8 @@
 package com.wssearch.controller;
 
 import com.wssearch.service.ComplexSearchService;
+import com.wssearch.service.ESService;
+import com.wssearch.service.impl.ESServiceImpl;
 import com.wssearch.util.DownloadHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -27,11 +29,16 @@ import java.util.zip.ZipOutputStream;
 @Controller
 public class DownloadController {
 
+//    @Resource
+//    ComplexSearchService complexSearchService;
+
     @Resource
-    ComplexSearchService complexSearchService;
+    ESService esService;
 
     @RequestMapping(value = "downloadAll")
-    public String downloadAll(@RequestParam("ay")String ay,
+    public String downloadAll(@RequestParam("qwjs")String qwjs,
+                              @RequestParam("qwjsInput")String qwjsInput,
+                              @RequestParam("ay")String ay,
                               @RequestParam("ah")String ah,
                               @RequestParam("ajmc")String ajmc,
                               @RequestParam("fymc")String fymc,
@@ -43,8 +50,6 @@ public class DownloadController {
                               @RequestParam("cprqend")String cprqend,
                               @RequestParam("cpry")String cpry,
                               @RequestParam("dsr")String dsr,
-                              @RequestParam("lvsuo")String lvsuo,
-                              @RequestParam("lvshi")String lvshi,
                               @RequestParam("flyj")String flyj,
                               @RequestParam("cpnf")String cpnf,
                               @RequestParam("type")String type,
@@ -53,16 +58,18 @@ public class DownloadController {
 
         HashMap<String,String> preciseConditions=new HashMap<>();
         HashMap<String,String> ambiguousConditions=new HashMap<>();
-        String ayUtf8=null;
-        String fymcUtf8=null;
+
         String cprqbeginUtf8=null;
         String cprqendUtf8=null;
-        String dsrUtf8=null;
 
         try {
+            if(qwjsInput.trim().length()!=0){
+                String qwjsInputUtf8=URLDecoder.decode(qwjsInput,"utf-8");
+                ambiguousConditions.put(qwjs,qwjsInputUtf8.trim());
+            }
             if(ah.trim().length()!=0){
                 String ahUtf8=URLDecoder.decode(ah,"utf-8");
-                ambiguousConditions.put("wsah",ahUtf8.trim());
+                ambiguousConditions.put("ah",ahUtf8.trim());
             }
             if(ajmc.trim().length()!=0){
                 String ajmcUtf8=URLDecoder.decode(ajmc,"utf-8");
@@ -74,7 +81,7 @@ public class DownloadController {
             }
             if(ajlx.trim().length()!=0){
                 String ajlxUtf8=URLDecoder.decode(ajlx,"utf-8");
-                preciseConditions.put("ajlb",ajlxUtf8.trim());
+                preciseConditions.put("ajlx",ajlxUtf8.trim());
             }
             if(spcx.trim().length()!=0){
                 String spcxUtf8=URLDecoder.decode(spcx,"utf-8");
@@ -88,14 +95,6 @@ public class DownloadController {
                 String cpryUtf8=URLDecoder.decode(cpry,"utf-8");
                 ambiguousConditions.put("spry",cpryUtf8.trim());
             }
-            if(lvsuo.trim().length()!=0){
-                String lvsuoUtf8=URLDecoder.decode(lvsuo,"utf-8");
-                ambiguousConditions.put("lsmc",lvsuoUtf8.trim());
-            }
-            if(lvshi.trim().length()!=0){
-                String lvshiUtf8=URLDecoder.decode(lvshi,"utf-8");
-                ambiguousConditions.put("lsxm",lvshiUtf8.trim());
-            }
             if(flyj.trim().length()!=0){
                 String flyjUtf8=URLDecoder.decode(flyj,"utf-8");
                 ambiguousConditions.put("flyj",flyjUtf8.trim());
@@ -104,9 +103,18 @@ public class DownloadController {
                 String cpnfUtf8=URLDecoder.decode(cpnf,"utf-8");
                 preciseConditions.put("cpnf",cpnfUtf8.trim());
             }
-            ayUtf8=URLDecoder.decode(ay,"utf-8").trim();
-            fymcUtf8=URLDecoder.decode(fymc,"utf-8").trim();
-            dsrUtf8=URLDecoder.decode(dsr,"utf-8").trim();
+            if(ay.trim().length()!=0){
+                String ayUtf8=URLDecoder.decode(ay,"utf-8").trim();
+                preciseConditions.put("ay", ayUtf8);
+            }
+            if(dsr.trim().length()!=0){
+                String dsrUtf8=URLDecoder.decode(dsr,"utf-8").trim();
+                ambiguousConditions.put("dsr",dsrUtf8);
+            }
+            if(fymc.trim().length()!=0){
+                String fymcUtf8=URLDecoder.decode(fymc,"utf-8").trim();
+                ambiguousConditions.put("fymc",fymcUtf8);
+            }
             cprqbeginUtf8=URLDecoder.decode(cprqbegin,"utf-8").trim();
             cprqendUtf8=URLDecoder.decode(cprqend,"utf-8").trim();
         } catch (UnsupportedEncodingException e) {
@@ -114,12 +122,15 @@ public class DownloadController {
         }
         String fileName=request.getSession().getServletContext().getRealPath("/")
                 + "upload/file"+System.currentTimeMillis()+".txt";
-        try {
-            complexSearchService.generateIndexFile(preciseConditions, ambiguousConditions, ayUtf8.trim(), fymcUtf8.trim(), dsrUtf8.trim(),
-                    cprqbeginUtf8.trim(), cprqendUtf8.trim(), fileName);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            complexSearchService.generateIndexFile(preciseConditions, ambiguousConditions, ayUtf8.trim(), fymcUtf8.trim(), dsrUtf8.trim(),
+//                    cprqbeginUtf8.trim(), cprqendUtf8.trim(), fileName);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
+//        ESService esService=new ESServiceImpl();
+        esService.generateIndexFile(preciseConditions, ambiguousConditions, cprqbeginUtf8.trim(), cprqendUtf8.trim(), fileName);
         System.out.println("get index file: "+fileName);
         List<File> files = new ArrayList<File>();
         try {
@@ -174,7 +185,7 @@ public class DownloadController {
 
 //        String path = realPath+"upload/";
 //        File file = new File(path+ File.separator + fileName);
-        File file = new File(path+File.separator + fileName);
+        File file = new File(path);
         System.out.println("file:"+file.exists());
         downloadFile(file, response, false);
         return null;
@@ -192,7 +203,8 @@ public class DownloadController {
             System.out.println("filePath:"+str);
             File temp=new File(str);
             if(!temp.exists()){
-               System.out.println("Not exists! --- "+str);
+                System.out.println("Not exists! --- "+str);
+                continue;
             }
             files.add(temp);
         }
@@ -229,6 +241,7 @@ public class DownloadController {
             for (int i = 0; i < size; i++) {
                 File file = files.get(i);
                 zipFile(file, outputStream);
+                System.out.println("have put file "+i+" into zip");
             }
         } catch (IOException e) {
             throw e;
@@ -240,7 +253,11 @@ public class DownloadController {
                 if (inputFile.isFile()) {
                     FileInputStream inStream = new FileInputStream(inputFile);
                     BufferedInputStream bInStream = new BufferedInputStream(inStream);
-                    ZipEntry entry = new ZipEntry(inputFile.getName());
+                    String tempPath=inputFile.getPath();
+                    tempPath=tempPath.replace(':','_');
+                    tempPath=tempPath.replace('\\','_');
+                    tempPath=tempPath.replace('/','_');
+                    ZipEntry entry = new ZipEntry(tempPath);
                     outputstream.putNextEntry(entry);
 
                     final int MAX_BYTE = 10 * 1024 * 1024; // 最大的流为10M

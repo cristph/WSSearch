@@ -684,6 +684,73 @@ public class ComplexSearchDaoImpl implements ComplexSearchDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        sql="select WS_XML_PATH,WS_XML_NAME from WSXXB where WS_XML_NAME='1.xml'";
+
+        stmt= null;
+        try {
+            stmt = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ResultSet rs=stmt.executeQuery(sql);
+            while (rs.next()){
+                System.out.println("----------------"+rs.getString(1)+"|"+rs.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        sql="select * from WSXXB where WS_XML_NAME='1.xml'";
+        stmt= null;
+        try {
+            stmt = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Wssxb wssxb = new Wssxb();
+                wssxb.setWsid(rs.getInt(1));
+                wssxb.setWsah(rs.getString(2));
+                wssxb.setWsmc(rs.getString(3));
+                wssxb.setWslx(rs.getString(4));
+                wssxb.setXmlName(rs.getString(5));
+                wssxb.setXmlPath(rs.getString(6));
+                wssxb.setDocName(rs.getString(7));
+                wssxb.setDocPath(rs.getString(8));
+                wssxb.setAjlb(rs.getString(9));
+                wssxb.setAycj(rs.getInt(10));
+                wssxb.setYjaymc(rs.getString(11));
+                wssxb.setYjaydm(rs.getString(12));
+                wssxb.setEjaymc(rs.getString(13));
+                wssxb.setEjaydm(rs.getString(14));
+                wssxb.setSjaymc(rs.getString(15));
+                wssxb.setSjaydm(rs.getString(16));
+                wssxb.setSijaymc(rs.getString(17));
+                wssxb.setSijaydm(rs.getString(18));
+                wssxb.setFycj(rs.getInt(19));
+                wssxb.setGymc(rs.getString(20));
+                wssxb.setZymc(rs.getString(21));
+                wssxb.setJcymc(rs.getString(22));
+                wssxb.setCprq(rs.getDate(23));
+                wssxb.setCpnf(rs.getString(24));
+                wssxb.setSpcx(rs.getString(25));
+                wssxb.setSpry(rs.getString(26));
+                wssxb.setYghzgsr(rs.getString(27));
+                wssxb.setBg(rs.getString(28));
+                wssxb.setYgsfct(rs.getString(29));
+                wssxb.setBgsfct(rs.getString(30));
+                wssxb.setLsmc(rs.getString(31));
+                wssxb.setLsxm(rs.getString(32));
+                wssxb.setFlyj(rs.getString(33));
+                System.out.println(wssxb.toString());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

@@ -8,21 +8,6 @@ function addURLParam(url, name, value){
     return url;
 }
 
-$('#searchBtn').click(function(){
-    var AH=$('#searchInput').val();
-    var url=addURLParam("/search","AH",AH);
-    location.href=url;
-});
-
-$(document).keyup(function(event){
-    if(event.keyCode==13){
-        var AH=$('#searchInput').val();
-        var url=addURLParam("/search","AH",AH);
-        location.href=url;
-    }
-});
-
-
 $('#complexSearch').click(function(){
     var qwjsInput=$('#qwjsInput').val();
     var qwjs=$('#qwjs option:selected').val();
@@ -38,16 +23,17 @@ $('#complexSearch').click(function(){
     var cprqend=$('#cprqend').val();
     var cpry=$('#cpry').val();
     var dsr=$('#dsr').val();
-    var lvsuo=$('#lvsuo').val();
-    var lvshi=$('#lvshi').val();
+    //var lvsuo=$('#lvsuo').val();
+    //var lvshi=$('#lvshi').val();
     var flyj=$('#flyj').val();
     var cpnf=$('#cpnf').val();
 
     console.log("qwjsInput:"+qwjsInput+";qwjs:"+qwjs+";ay:"+ay+";ah:"+ah+";ajmc:"+ajmc+";fymc:"+fymc+";fycj:"+fycj+";ajlx:"+ajlx
-        +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";lvsuo:"+lvsuo
-        +";lvshi:"+lvshi+";flyj:"+flyj+";cpnf:"+cpnf);
+        +";spcx:"+spcx+";wslx:"+wslx+";cprqbegin:"+cprqbegin+";cprqend:"+cprqend+";cpry:"+cpry+";dsr:"+dsr+";flyj:"+flyj+";cpnf:"+cpnf);
 
     var url="/complexSearch";
+    url=addURLParam(url,"qwjs",qwjs);
+    url=addURLParam(url,"qwjsInput",qwjsInput);
     url=addURLParam(url,"ay",ay);
     url=addURLParam(url,"ah",ah);
     url=addURLParam(url,"ajmc",ajmc);
@@ -60,8 +46,8 @@ $('#complexSearch').click(function(){
     url=addURLParam(url,"cprqend",cprqend);
     url=addURLParam(url,"cpry",cpry);
     url=addURLParam(url,"dsr",dsr);
-    url=addURLParam(url,"lvsuo",lvsuo);
-    url=addURLParam(url,"lvshi",lvshi);
+    //url=addURLParam(url,"lvsuo",lvsuo);
+    //url=addURLParam(url,"lvshi",lvshi);
     url=addURLParam(url,"flyj",flyj);
     url=addURLParam(url,"cpnf",cpnf);
 

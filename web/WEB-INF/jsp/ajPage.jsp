@@ -10,18 +10,21 @@
 <c:forEach items="${list}" var="item">
     <div class="AJ">
         <input type="checkbox" value="${item.xmlPath}" style="margin:5px 0 0;border:1px solid #006600;">
-        <div class="row AJBiaoTi" onclick="showAj('${item.wsah}')">
+        <div class="row AJBiaoTi" onclick="showAj('${item.ah}')">
                 ${item.spcx} ${item.wsmc}
         </div>
-        <div class="row AJCiBiaoTi" onclick="showAj('${item.wsah}')">
-                ${item.gymc}&nbsp;&nbsp;${item.zymc}&nbsp;&nbsp;${item.jcymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.wsah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
+        <div class="row AJCiBiaoTi" onclick="showAj('${item.ah}')">
+                ${item.fymc} &nbsp;&nbsp;&nbsp;&nbsp; ${item.ah} &nbsp;&nbsp;&nbsp;&nbsp; ${item.cprq}
+        </div>
+        <div style="margin: 3% 0 3% 2%">
+            ${item.matchText}
         </div>
         <div style="padding: 0 0 20px 0;">
-            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item.xmlName}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
-            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item.docName}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
+            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleXML('${item._id}')" style="float: right;margin-right: 80px;color: #b806f9">XML</span>
+            <span class="glyphicon glyphicon-save scondition" aria-hidden="true" onclick="downloadSingleDOC('${item._id}')" style="float: right;margin-right: 80px;color: #1143fe">DOC</span>
         </div>
-        <input type="hidden" value="${item.wsah}">
-        <input type="hidden" value="${item.xmlPath}" id="xml${item.xmlName}">
-        <input type="hidden" value="${item.docPath}" id="doc${item.docName}">
+        <input type="hidden" value="${item.ah}">
+        <input type="hidden" value="${item.xmlPath}" id="xml${item._id}">
+            <%--<input type="hidden" value="${item.docPath}" id="doc${item.docName}">--%>
     </div>
 </c:forEach>
