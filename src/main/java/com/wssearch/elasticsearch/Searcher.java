@@ -342,7 +342,7 @@ public class Searcher {
             boolQueryBuilder.must(QueryBuilders.rangeQuery("CPRQ").gte(beginDate).lte(endDate));
         }
 
-        AggregationBuilder aggregationBuilder= AggregationBuilders.terms("groupBy").field(groupName.toUpperCase());
+        AggregationBuilder aggregationBuilder= AggregationBuilders.terms("groupBy").field(groupName.toUpperCase()).size(100);
 //        System.out.println(groupName);
 //        System.out.println(aggregationBuilder.toString());
 //        System.out.println(boolQueryBuilder.toString());

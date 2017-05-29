@@ -334,6 +334,14 @@ $('#downloadAll').click(function(){
 
 function removeLabel(key){
     $('#cond_'+key).val('');
+    //console.log(event.toElement.parentNode.parentNode);
+    //console.log(event.toElement.parentNode.parentNode.childNodes[0]+event.toElement.parentNode.parentNode.childNodes[1]+event.toElement.parentNode.parentNode.childNodes[2]);
+    if(event.toElement.parentNode.parentNode.childNodes.length==3){
+        //alert("in");
+        location.href="/index";
+        return;
+    }
+    //alert("out");
     $(event.toElement.parentNode).remove();
 
     var qwjsInput=$('#qwjsInput').val();

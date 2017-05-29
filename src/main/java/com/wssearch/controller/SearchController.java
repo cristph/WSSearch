@@ -110,6 +110,11 @@ public class SearchController {
 //        return modelAndView;
 //    }
 
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
+
 
     @RequestMapping("/wsInfo")
     public String wsInfo(@RequestParam("Wsah")String Wsah,

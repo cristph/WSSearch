@@ -35,7 +35,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <p style="font-size: large;font-weight: bold;color: white">WSSearch</p>
+                <p style="font-size: large;font-weight: bold;color: white" onclick="location.href='/index'">WSSearch</p>
             </div>
             <%--<div class="col-sm-9 home-links">--%>
                 <%--<a href="${pageContext.request.contextPath}/login" id="login">Login</a>--%>
@@ -789,16 +789,52 @@
 
     function addSearchCondition(conditionName, conditionValue){
         $('#cond_'+conditionName).val(conditionValue);
-        var sorts=[];
-        var orders=[];
-        sorts.push('fycj');
-        orders.push($('#fycjOrder').val());
-        sorts.push('cprq');
-        orders.push($('#cprqOrder').val());
-        sorts.push('spcx');
-        orders.push($('#spcxOrder').val());
-        showPage(sorts,orders,1);
-        resetNum();
+//        var sorts=[];
+//        var orders=[];
+//        sorts.push('fycj');
+//        orders.push($('#fycjOrder').val());
+//        sorts.push('cprq');
+//        orders.push($('#cprqOrder').val());
+//        sorts.push('spcx');
+//        orders.push($('#spcxOrder').val());
+//        showPage(sorts,orders,1);
+//        resetNum();
+
+        var qwjs=$('#cond_qwjs').val();
+        var qwjsInput=$('#cond_qwjsInput').val();
+        var ay=$('#cond_ay').val();
+        var ah=$('#cond_ah').val();
+        var ajmc=$('#cond_ajmc').val();
+        var fymc=$('#cond_fymc').val();
+        var fycj=$('#cond_fycj').val();
+        var ajlx=$('#cond_ajlx').val();
+        var spcx=$('#cond_spcx').val();
+        var wslx=$('#cond_wslx').val();
+        var cprqbegin=$('#cond_cprqbegin').val();
+        var cprqend=$('#cond_cprqend').val();
+        var cpry=$('#cond_cpry').val();
+        var dsr=$('#cond_dsr').val();
+        var flyj=$('#cond_flyj').val();
+        var cpnf=$('#cond_cpnf').val();
+
+        var url="/complexSearch";
+        url=addURLParam(url,"qwjs",qwjs);
+        url=addURLParam(url,"qwjsInput",qwjsInput);
+        url=addURLParam(url,"ay",ay);
+        url=addURLParam(url,"ah",ah);
+        url=addURLParam(url,"ajmc",ajmc);
+        url=addURLParam(url,"fymc",fymc);
+        url=addURLParam(url,"fycj",fycj);
+        url=addURLParam(url,"ajlx",ajlx);
+        url=addURLParam(url,"spcx",spcx);
+        url=addURLParam(url,"wslx",wslx);
+        url=addURLParam(url,"cprqbegin",cprqbegin);
+        url=addURLParam(url,"cprqend",cprqend);
+        url=addURLParam(url,"cpry",cpry);
+        url=addURLParam(url,"dsr",dsr);
+        url=addURLParam(url,"flyj",flyj);
+        url=addURLParam(url,"cpnf",cpnf);
+        location.href=url;
 //        updateView();
     }
 
