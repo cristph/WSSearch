@@ -26,7 +26,7 @@ public interface ESService {
                                                        String beginDate, String endDate,String groupName,String whereName, String whereValue);
 
 
-    public String generateIndexFile(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions, String beginDate, String endDate, String fileName);
+    public String generateIndexFile(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions, String beginDate, String endDate, String fileName, String type);
 
 
 

@@ -48,7 +48,7 @@ public class ESServiceImpl implements ESService {
     }
 
     @Override
-    public String generateIndexFile(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String beginDate, String endDate, String fileName) {
-        return getSearcher().generateIndexFile(preciseConditions, ambiguousConditions, beginDate, endDate, fileName);
+    public String generateIndexFile(HashMap<String, String> preciseConditions, HashMap<String, String> ambiguousConditions, String beginDate, String endDate, String fileName, String type) {
+        return getSearcher().generateIndexFile(preciseConditions, ambiguousConditions, beginDate, endDate, fileName, type);
     }
 }

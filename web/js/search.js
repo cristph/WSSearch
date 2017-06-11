@@ -243,7 +243,7 @@ function downloadXml(){
         if(ajs[i].firstElementChild.checked){
             var path=$(ajs[i].firstElementChild).val();
             if($.trim(path).length>0){
-                console.log("add:"+path);
+                //console.log("add:"+path);
                 paths+=($.trim(path)+"|");
             }
         }
@@ -264,8 +264,8 @@ function downloadDoc(){
         if(ajs[i].firstElementChild.checked){
             var path=$(ajs[i].lastElementChild).val();
             if($.trim(path).length>0){
-                console.log("add:"+path);
-                paths+=($.trim(path)+"|");
+                //console.log("add:"+getDocPath($.trim(path)));
+                paths+=(getDocPath($.trim(path))+"|");
             }
         }
     }
@@ -284,15 +284,39 @@ function downloadSingleXML(fileName){
     var realFileName=path.substr(path.lastIndexOf("\\")+1);
     //alert(realFileName);
     url=addURLParam(url,"fileName",realFileName);
-    console.log("download url:"+url);
+    //console.log("download url:"+url);
     location.href=url;
+}
+
+function getDocPath(path){
+    var temp=path.split("\\");
+    temp[temp.length-2]="doc";
+    temp[temp.length-1]=temp[temp.length-1].replace("xml","doc");
+    path="";
+    for(var i=0;i< temp.length;i++){
+        //console.log(temp[i]);
+        path+=(temp[i]+"\\");
+    }
+    path=path.substr(0,path.length-1);
+    return path;
 }
 
 
 function downloadSingleDOC(fileName){
-    var path=document.getElementById("doc"+fileName).value;
+    var path=document.getElementById("xml"+fileName).value;
+    //var temp=path.split("\\");
+    //temp[temp.length-2]="doc";
+    //temp[temp.length-1]=temp[temp.length-1].replace("xml","doc");
+    //path="";
+    //for(var i=0;i< temp.length;i++){
+    //    //console.log(temp[i]);
+    //    path+=(temp[i]+"\\");
+    //}
+    path=getDocPath(path);
+    console.log("docpath:"+path);
     var url=addURLParam("/singleDownload","path",path);
-    url=addURLParam(url,"fileName",fileName);
+    var realFileName=path.substr(path.lastIndexOf("\\")+1);
+    url=addURLParam(url,"fileName",realFileName);
     console.log("download url:"+url);
     location.href=url;
 }

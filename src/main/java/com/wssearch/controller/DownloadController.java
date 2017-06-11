@@ -130,7 +130,7 @@ public class DownloadController {
 //        }
 
 //        ESService esService=new ESServiceImpl();
-        esService.generateIndexFile(preciseConditions, ambiguousConditions, cprqbeginUtf8.trim(), cprqendUtf8.trim(), fileName);
+        esService.generateIndexFile(preciseConditions, ambiguousConditions, cprqbeginUtf8.trim(), cprqendUtf8.trim(), fileName, type);
         System.out.println("get index file: "+fileName);
         List<File> files = new ArrayList<File>();
         try {

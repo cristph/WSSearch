@@ -382,7 +382,19 @@ public class Searcher {
         return "";
     }
 
-    public String generateIndexFile(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions, String beginDate, String endDate, String fileName){
+    private String xmlPathToDocPath(String path){
+        String[] temp=path.split("\\\\");
+        temp[temp.length-2]="doc";
+        temp[temp.length-1]=temp[temp.length-1].replace("xml","doc");
+        path="";
+        for(int i=0;i< temp.length;i++){
+            path+=(temp[i]+"\\");
+        }
+        path=path.substring(0,path.length()-1);
+        return path;
+    }
+
+    public String generateIndexFile(HashMap<String,String> preciseConditions, HashMap<String,String> ambiguousConditions, String beginDate, String endDate, String fileName, String type){
         try {
             ini();
         } catch (UnknownHostException e) {
@@ -423,20 +435,37 @@ public class Searcher {
 
         //Scroll until no hits are returned
         StringBuilder sb=new StringBuilder();
-        do {
-            for (SearchHit hit : scrollResp.getHits().getHits()) {
-                //Handle the hit...
-                sb.append(hit.getSource().get("XMLPATH"));
-                sb.append("\n");
-            }
-            try {
-                bw.write(sb.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            sb.setLength(0);//清空字符串构造器
-            scrollResp = transportClient.prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(60000)).execute().actionGet();
-        } while(scrollResp.getHits().getHits().length != 0); // Zero hits mark the end of the scroll and the while loop.
+        if(type.toUpperCase().equals("XML")){
+            do {
+                for (SearchHit hit : scrollResp.getHits().getHits()) {
+                    //Handle the hit...
+                    sb.append(hit.getSource().get("XMLPATH"));
+                    sb.append("\n");
+                }
+                try {
+                    bw.write(sb.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                sb.setLength(0);//清空字符串构造器
+                scrollResp = transportClient.prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(60000)).execute().actionGet();
+            } while(scrollResp.getHits().getHits().length != 0); // Zero hits mark the end of the scroll and the while loop.
+        }else{
+            do {
+                for (SearchHit hit : scrollResp.getHits().getHits()) {
+                    //Handle the hit...
+                    sb.append(xmlPathToDocPath((String)hit.getSource().get("XMLPATH")));
+                    sb.append("\n");
+                }
+                try {
+                    bw.write(sb.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                sb.setLength(0);//清空字符串构造器
+                scrollResp = transportClient.prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(60000)).execute().actionGet();
+            } while(scrollResp.getHits().getHits().length != 0); // Zero hits mark the end of the scroll and the while loop.
+        }
 
         try {
             bw.close();
